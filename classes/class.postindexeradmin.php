@@ -294,19 +294,19 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 					<div class="row-actions">
 						<span class="disable">
 							<a class='postindexersitedisablelink'
-							   href='<?php echo wp_nonce_url( network_admin_url( "sites.php?action=disablesitepostindexer&amp;blog_id=" . $blog_id . "" ), 'disable_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Disable', 'postindexer' ); ?></a>
+							   href='<?php echo wp_nonce_url( network_admin_url( "sites.php?action=disablesitepostindexer&amp;blog_id=" . $blog_id . "" ), 'disable_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Deaktivieren', 'postindexer' ); ?></a>
 						</span> |
 						<span class="edit">
 							<a class='postindexersiteeditlink'
-							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=editsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'edit_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Edit', 'postindexer' ); ?></a>
+							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=editsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'edit_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Bearbeiten', 'postindexer' ); ?></a>
 						</span> |
 						<span class="rebuild">
 							<a class='postindexersiterebuildlink'
-							   href='<?php echo wp_nonce_url( network_admin_url( "sites.php?action=rebuildsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'rebuild_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Rebuild', 'postindexer' ); ?></a>
+							   href='<?php echo wp_nonce_url( network_admin_url( "sites.php?action=rebuildsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'rebuild_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Wiederaufbauen', 'postindexer' ); ?></a>
 						</span> |
 						<span class="summary">
 							<a class='postindexersitesummarylink'
-							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=summarysitepostindexer&amp;blog_id=" . $blog_id . "" ), 'summary_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Statistics', 'postindexer' ); ?></a>
+							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=summarysitepostindexer&amp;blog_id=" . $blog_id . "" ), 'summary_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Statistiken', 'postindexer' ); ?></a>
 						</span>
 					</div>
 					<?php
@@ -316,11 +316,11 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 					<div class="row-actions">
 						<span class="enable">
 							<a class='postindexersiteenablelink'
-							   href='<?php echo wp_nonce_url( network_admin_url( "sites.php?action=enablesitepostindexer&amp;blog_id=" . $blog_id . "" ), 'enable_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Enable', 'postindexer' ); ?></a>
+							   href='<?php echo wp_nonce_url( network_admin_url( "sites.php?action=enablesitepostindexer&amp;blog_id=" . $blog_id . "" ), 'enable_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Aktivieren', 'postindexer' ); ?></a>
 						</span> |
 						<span class="edit">
 							<a class='postindexersiteeditlink'
-							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=editsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'edit_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Edit', 'postindexer' ); ?></a>
+							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=editsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'edit_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Bearbeiten', 'postindexer' ); ?></a>
 						</span>
 					</div>
 					<?php
@@ -355,7 +355,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 
 			_wp_admin_html_begin();
 			?>
-			<title><?php _e( 'Seiten Index Zusammenfassung', 'postindexer' ); ?></title>
+			<title><?php _e( 'Webseiten-Index Zusammenfassung', 'postindexer' ); ?></title>
 			<?php
 
 			do_action( 'admin_print_styles' );
@@ -1104,7 +1104,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 							<tbody>
 							<tr>
 								<td class="first b b-posts"><?php echo $this->model->get_summary_sites_in_queue(); ?></td>
-								<td class="t posts"><?php echo __( 'Websiten in der Warteschlange', 'postindexer' ); ?></td>
+								<td class="t posts"><?php echo __( 'Webseiten in der Warteschlange', 'postindexer' ); ?></td>
 							</tr>
 							<tr>
 								<td class="first b b-posts"><?php echo $this->model->get_summary_sites_in_queue_processing(); ?></td>
