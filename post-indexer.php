@@ -1,11 +1,12 @@
 <?php
 /*
 Plugin Name: Multisite Index
-Plugin URI: https://n3rds.work/wiki/piestingtal-source-wiki/multisite-beitragsindex-plugin/
+Plugin URI: https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/
 Description: Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise anzeigen oder Dein Netzwerk verwalten kannst.
 Author: WMS N@W
-Version: 3.1.0
+Version: 3.1.1
 Author URI: https://n3rds.work
+Requires at least: 4.9
 Network: true
 Text Domain: postindexer
 Domain Path: /languages
@@ -14,7 +15,7 @@ Domain Path: /languages
 */
 
 // +----------------------------------------------------------------------+
-// | Copyright WMS N@W (https://n3rds.work/)                                |
+// | Copyright 2018-2021 WMS N@W (https://n3rds.work/)                                |
 // +----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify |
 // | it under the terms of the GNU General Public License, version 2, as  |
