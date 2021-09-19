@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Multisite Index
+Plugin Name: PS Multisite Beitragsindex
 Plugin URI: https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/
 Description: Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise anzeigen oder Dein Netzwerk verwalten kannst.
 Author: WMS N@W
-Version: 3.1.1
+Version: 3.1.2
 Author URI: https://n3rds.work
 Requires at least: 4.9
 Network: true
@@ -31,7 +31,7 @@ Domain Path: /languages
 // | Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,               |
 // | MA 02110-1301 USA                                                    |
 // +----------------------------------------------------------------------+
-require 'includes/psource-plugin-update/plugin-update-checker.php';
+require 'psource/psource-plugin-update/plugin-update-checker.php';
 $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'https://n3rds.work//wp-update-server/?action=get_metadata&slug=ps-postindexer', 
 	__FILE__, 
