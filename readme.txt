@@ -41,7 +41,7 @@ Greife mit einem Klick auf kürzlich indizierte Beiträge zu. Siehe Seite- und B
 
 Schaue Dir an, welche Webseiten am aktivsten sind und wie Beitrags-Typen in Deinem Netzwerk verwendet werden.
 
-=== [POWERED BY PSOURCE](https://n3rds.work/psource_kategorien/psource-plugins/) ===
+[POWERED BY PSOURCE](https://n3rds.work/psource_kategorien/psource-plugins/)
 
 === Hilfe und Support ===
 
@@ -66,6 +66,8 @@ Wie wärs? Möchtest Du uns mit einer Kaffee-Spende bei der Arbeit an unseren Pl
 === Unterstütze uns ===
 
 Mach eine [Spende per Überweisung oder PayPal](https://n3rds.work/spendenaktionen/unterstuetze-unsere-psource-free-werke/) wir Danken Dir!
+
+[POWERED BY PSOURCE](https://n3rds.work/psource_kategorien/psource-plugins/)
 
 == ChangeLog ==
 
