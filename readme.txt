@@ -4,7 +4,7 @@ Donate link: https://n3rds.work/spendenaktionen/unterstuetze-unsere-psource-free
 Tags: multisite, suche, netzwerksuche
 Requires at least: 4.9
 Tested up to: 5.6
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -71,7 +71,13 @@ Mach eine [Spende per Überweisung oder PayPal](https://n3rds.work/spendenaktion
 
 == ChangeLog ==
 
-= 3.1.0 = DerN3rd =
+= 3.1.3 = DerN3rd =
+
+* Hotfix Pluginpfad
+* Getestet für PhP8.1
+* Textanpassungen
+
+= 3.1.2 = DerN3rd =
 
 * Overhauled von WPMUDEV
 * Release WMS N@W Netzwerksuche

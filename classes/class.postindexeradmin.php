@@ -788,7 +788,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 		function dashboard_news() {
 			global $page, $action;
 
-			$plugin = get_plugin_data( WP_PLUGIN_DIR . '/post-indexer/post-indexer.php' );
+			$plugin = get_plugin_data( WP_PLUGIN_DIR . '/ps-postindexer/post-indexer.php' );
 
 			?>
 			<div id="post-indexer-summary" class="postbox ">
@@ -862,7 +862,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 		function dashboard_meta() {
 			global $page, $action;
 
-			$plugin = get_plugin_data( WP_PLUGIN_DIR . '/post-indexer/post-indexer.php' );
+			$plugin = get_plugin_data( WP_PLUGIN_DIR . '/ps-postindexer/post-indexer.php' );
 
 			?>
 			<div id="post-indexer-plugin-info" class="postbox ">
