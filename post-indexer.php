@@ -31,8 +31,14 @@ Domain Path: /languages
 // | Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,               |
 // | MA 02110-1301 USA                                                    |
 // +----------------------------------------------------------------------+
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Es tut uns leid, aber Du kannst nicht direkt auf diese Datei zugreifen.' );
+}
+
 require 'psource/psource-plugin-update/psource-plugin-updater.php';
-$MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+use Psource\PluginUpdateChecker\v5\PucFactory;
+$MyUpdateChecker = PucFactory::buildUpdateChecker(
 	'https://n3rds.work//wp-update-server/?action=get_metadata&slug=ps-postindexer', 
 	__FILE__, 
 	'ps-postindexer' 

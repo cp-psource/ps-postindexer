@@ -71,6 +71,10 @@ Mach eine [Spende per Überweisung oder PayPal](https://n3rds.work/spendenaktion
 
 == ChangeLog ==
 
+= 3.1.4 = DerN3rd =
+
+* PSource Updater 1.2
+
 = 3.1.3 = DerN3rd =
 
 * Hotfix Pluginpfad
