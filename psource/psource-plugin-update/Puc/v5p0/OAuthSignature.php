@@ -91,7 +91,7 @@ if ( !class_exists(OAuthSignature::class, false) ):
 				}
 			}
 			if ( $rand === null ) {
-				//phpcs:ignore WordPress.WP.AlternativeFunctions.rand_mt_rand
+				//phpcs:ignore ClassicPress.WP.AlternativeFunctions.rand_mt_rand
 				$rand = function_exists('wp_rand') ? wp_rand() : mt_rand();
 			}
 

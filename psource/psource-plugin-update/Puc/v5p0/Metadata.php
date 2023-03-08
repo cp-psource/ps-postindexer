@@ -38,7 +38,7 @@ if ( !class_exists(Metadata::class, false) ):
 			if ( empty($apiResponse) || !is_object($apiResponse) ){
 				$errorMessage = "Failed to parse update metadata. Try validating your .json file with https://jsonlint.com/";
 				do_action('puc_api_error', new WP_Error('puc-invalid-json', $errorMessage));
-				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- For plugin developers.
+				//phpcs:ignore ClassicPress.PHP.DevelopmentFunctions.error_log_trigger_error -- For plugin developers.
 				trigger_error(esc_html($errorMessage), E_USER_NOTICE);
 				return false;
 			}
@@ -46,7 +46,7 @@ if ( !class_exists(Metadata::class, false) ):
 			$valid = $target->validateMetadata($apiResponse);
 			if ( is_wp_error($valid) ){
 				do_action('puc_api_error', $valid);
-				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- For plugin developers.
+				//phpcs:ignore ClassicPress.PHP.DevelopmentFunctions.error_log_trigger_error -- For plugin developers.
 				trigger_error(esc_html($valid->get_error_message()), E_USER_NOTICE);
 				return false;
 			}

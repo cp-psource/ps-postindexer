@@ -93,7 +93,7 @@ if ( !class_exists(Update::class, false) ):
 
 			if ( !empty($this->icons) && is_array($this->icons) ) {
 				//This should be an array with up to 4 keys: 'svg', '1x', '2x' and 'default'.
-				//Docs: https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/#plugin-icons
+				//Docs: https://developer.classicpress.org/plugins/classicpress-org/plugin-assets/#plugin-icons
 				$icons = array_intersect_key(
 					$this->icons,
 					array('svg' => true, '1x' => true, '2x' => true, 'default' => true)

@@ -343,7 +343,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 			//Let plugins/themes modify the update.
 			$update = apply_filters($this->getUniqueName('request_update_result'), $update, $httpResult);
 
-			$this->fixSupportedWordpressVersion($update);
+			$this->fixSupportedClassicpressVersion($update);
 
 			if ( isset($update, $update->translations) ) {
 				//Keep only those translation updates that apply to this site.
@@ -358,11 +358,11 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * while ClassicPress core's list_plugin_updates() expects the $update->tested field to be an exact
 		 * version, e.g. "major.minor.patch", to say it's compatible. In other case it shows
 		 * "Compatibility: Unknown".
-		 * The function mimics how wordpress.org API crafts the "tested" field out of "Tested up to".
+		 * The function mimics how classicpress.org API crafts the "tested" field out of "Tested up to".
 		 *
 		 * @param Metadata|null $update
 		 */
-		protected function fixSupportedWordpressVersion(Metadata $update = null) {
+		protected function fixSupportedClassicpressVersion(Metadata $update = null) {
 			if ( !isset($update->tested) || !preg_match('/^\d++\.\d++$/', $update->tested) ) {
 				return;
 			}
@@ -432,7 +432,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 */
 		public function triggerError($message, $errorType) {
 			if ( $this->isDebugModeEnabled() ) {
-				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error -- Only happens in debug mode.
+				//phpcs:ignore ClassicPress.PHP.DevelopmentFunctions.error_log_trigger_error -- Only happens in debug mode.
 				trigger_error(esc_html($message), $errorType);
 			}
 		}
@@ -576,7 +576,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 
 		/**
 		 * See this post for more information:
-		 * @link https://make.wordpress.org/core/2020/07/30/recommended-usage-of-the-updates-api-to-support-the-auto-updates-ui-for-plugins-and-themes-in-wordpress-5-5/
+		 * @link https://make.classicpress.org/core/2020/07/30/recommended-usage-of-the-updates-api-to-support-the-auto-updates-ui-for-plugins-and-themes-in-classicpress-5-5/
 		 *
 		 * @param \stdClass|null $updates
 		 * @return \stdClass
@@ -802,7 +802,7 @@ if ( !class_exists(UpdateChecker::class, false) ):
 				$updates->translations = array();
 			}
 
-			//In case there's a name collision with a plugin or theme hosted on wordpress.org,
+			//In case there's a name collision with a plugin or theme hosted on classicpress.org,
 			//remove any preexisting updates that match our thing.
 			$updates->translations = array_values(array_filter(
 				$updates->translations,
@@ -884,13 +884,8 @@ if ( !class_exists(UpdateChecker::class, false) ):
 		 * @access protected
 		 *
 		 * @param string $source The directory to copy to /wp-content/plugins or /wp-content/themes. Usually a subdirectory of $remoteSource.
-<<<<<<< HEAD:psource/psource-plugin-update/Puc/v4p10/UpdateChecker.php
 		 * @param string $remoteSource ClassicPress has extracted the update to this directory.
-		 * @param WP_Upgrader $upgrader
-=======
-		 * @param string $remoteSource WordPress has extracted the update to this directory.
 		 * @param \WP_Upgrader $upgrader
->>>>>>> 8bd4b710b1e7b803d9e9726e5b85b425169566ca:psource/psource-plugin-update/Puc/v5p0/UpdateChecker.php
 		 * @return string|WP_Error
 		 */
 		public function fixDirectoryName($source, $remoteSource, $upgrader) {

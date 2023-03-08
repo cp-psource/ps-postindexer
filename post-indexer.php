@@ -32,10 +32,6 @@ Domain Path: /languages
 // | MA 02110-1301 USA                                                    |
 // +----------------------------------------------------------------------+
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die( 'Es tut uns leid, aber Du kannst nicht direkt auf diese Datei zugreifen.' );
-}
-
 require 'psource/psource-plugin-update/psource-plugin-updater.php';
 use Psource\PluginUpdateChecker\v5\PucFactory;
 $MyUpdateChecker = PucFactory::buildUpdateChecker(
@@ -43,6 +39,10 @@ $MyUpdateChecker = PucFactory::buildUpdateChecker(
 	__FILE__, 
 	'ps-postindexer' 
 );
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Es tut uns leid, aber Du kannst nicht direkt auf diese Datei zugreifen.' );
+}
 
 define( 'POST_INDEXER_PLUGIN_DIR', plugin_dir_path( __FILE__) );
 

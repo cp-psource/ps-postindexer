@@ -376,16 +376,7 @@ if ( !class_exists(GitHubApi::class, false) ):
 		/**
 		 * Get the unchanging part of a release asset URL. Used to identify download attempts.
 		 *
-<<<<<<< HEAD:psource/psource-plugin-update/Puc/v4p10/Vcs/GitHubApi.php
-		 * If the latest release contains no usable assets, the update checker
-		 * will fall back to using the automatically generated ZIP archive.
-		 *
-		 * Private repositories will only work with ClassicPress 3.7 or later.
-		 *
-		 * @param string|null $fileNameRegex Optional. Use only those assets where the file name matches this regex.
-=======
 		 * @return string
->>>>>>> 8bd4b710b1e7b803d9e9726e5b85b425169566ca:psource/psource-plugin-update/Puc/v5p0/Vcs/GitHubApi.php
 		 */
 		protected function getAssetApiBaseUrl() {
 			return sprintf(
@@ -409,7 +400,7 @@ if ( !class_exists(GitHubApi::class, false) ):
 		 */
 		public function addHttpRequestFilter($result) {
 			if ( !$this->downloadFilterAdded && $this->isAuthenticationEnabled() ) {
-				//phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_args -- The callback doesn't change the timeout.
+				//phpcs:ignore ClassicPressVIPMinimum.Hooks.RestrictedHooks.http_request_args -- The callback doesn't change the timeout.
 				add_filter('http_request_args', array($this, 'setUpdateDownloadHeaders'), 10, 2);
 				add_action('requests-requests.before_redirect', array($this, 'removeAuthHeaderFromRedirects'), 10, 4);
 				$this->downloadFilterAdded = true;
@@ -431,13 +422,8 @@ if ( !class_exists(GitHubApi::class, false) ):
 		 * @return array
 		 */
 		public function setUpdateDownloadHeaders($requestArgs, $url = '') {
-<<<<<<< HEAD:psource/psource-plugin-update/Puc/v4p10/Vcs/GitHubApi.php
 			//Is ClassicPress trying to download one of our release assets?
-			if ( $this->releaseAssetsEnabled && (strpos($url, $this->assetApiBaseUrl) !== false) ) {
-=======
-			//Is WordPress trying to download one of our release assets?
 			if ( $this->releaseAssetsEnabled && (strpos($url, $this->getAssetApiBaseUrl()) !== false) ) {
->>>>>>> 8bd4b710b1e7b803d9e9726e5b85b425169566ca:psource/psource-plugin-update/Puc/v5p0/Vcs/GitHubApi.php
 				$requestArgs['headers']['Accept'] = 'application/octet-stream';
 			}
 			//Use Basic authentication, but only if the download is from our repository.

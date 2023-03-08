@@ -188,7 +188,7 @@ if ( !class_exists(PluginUpdateChecker::class, false) ):
 		 *
 		 * The icons should be in a subdirectory named "assets". Supported image formats
 		 * and file names are described here:
-		 * @link https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/#plugin-icons
+		 * @link https://developer.classicpress.org/plugins/classicpress-org/plugin-assets/#plugin-icons
 		 *
 		 * @param Plugin\PluginInfo $pluginInfo
 		 */
@@ -217,7 +217,7 @@ if ( !class_exists(PluginUpdateChecker::class, false) ):
 		 *
 		 * The banners should be in a subdirectory named "assets". Supported image formats
 		 * and file names are described here:
-		 * @link https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/#plugin-headers
+		 * @link https://developer.classicpress.org/plugins/classicpress-org/plugin-assets/#plugin-headers
 		 *
 		 * @param Plugin\PluginInfo $pluginInfo
 		 */

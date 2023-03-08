@@ -105,7 +105,7 @@ if ( !class_exists(PucFactory::class, false) ):
 
 			$checkerClass = self::getCompatibleClassVersion($checkerClass);
 			if ( $checkerClass === null ) {
-				//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+				//phpcs:ignore ClassicPress.PHP.DevelopmentFunctions.error_log_trigger_error
 				trigger_error(
 					esc_html(sprintf(
 						'PUC %s does not support updates for %ss %s',
@@ -124,7 +124,7 @@ if ( !class_exists(PucFactory::class, false) ):
 				//VCS checker + an API client.
 				$apiClass = self::getCompatibleClassVersion($apiClass);
 				if ( $apiClass === null ) {
-					//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+					//phpcs:ignore ClassicPress.PHP.DevelopmentFunctions.error_log_trigger_error
 					trigger_error(esc_html(sprintf(
 						'PUC %s does not support %s',
 						self::$latestCompatibleVersion,

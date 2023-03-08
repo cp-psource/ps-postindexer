@@ -206,7 +206,7 @@ if ( !class_exists('Ui', false) ):
 		 * You can change the result message by using the "puc_manual_check_message-$slug" filter.
 		 */
 		public function displayManualCheckResult() {
-			//phpcs:disable WordPress.Security.NonceVerification.Recommended -- Just displaying a message.
+			//phpcs:disable ClassicPress.Security.NonceVerification.Recommended -- Just displaying a message.
 			if ( isset($_GET['puc_update_check_result'], $_GET['puc_slug']) && ($_GET['puc_slug'] == $this->updateChecker->slug) ) {
 				$status = sanitize_key($_GET['puc_update_check_result']);
 				$title = $this->updateChecker->getInstalledPackage()->getPluginTitle();
@@ -240,9 +240,9 @@ if ( !class_exists('Ui', false) ):
 				printf(
 					'<div class="notice %s is-dismissible"><p>%s</p>%s</div>',
 					esc_attr($noticeClass),
-					//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Was escaped above, and plugins can add HTML.
+					//phpcs:ignore ClassicPress.Security.EscapeOutput.OutputNotEscaped -- Was escaped above, and plugins can add HTML.
 					$message,
-					//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Contains HTML. Content should already be escaped.
+					//phpcs:ignore ClassicPress.Security.EscapeOutput.OutputNotEscaped -- Contains HTML. Content should already be escaped.
 					$details
 				);
 			}

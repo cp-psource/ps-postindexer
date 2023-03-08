@@ -56,7 +56,7 @@ if ( !class_exists(ThemeUpdateChecker::class, false) ):
 			}
 
 			//Get headers from the main stylesheet in this branch/tag. Its "Version" header and other metadata
-			//are what the WordPress install will actually see after upgrading, so they take precedence over releases/tags.
+			//are what the ClassicPress install will actually see after upgrading, so they take precedence over releases/tags.
 			$remoteHeader = $this->package->getFileHeader($api->getRemoteFile('style.css', $ref));
 			$update->version = Utils::findNotEmpty(array(
 				$remoteHeader['Version'],

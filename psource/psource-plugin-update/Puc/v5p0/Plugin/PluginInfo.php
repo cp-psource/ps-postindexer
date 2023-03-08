@@ -116,7 +116,7 @@ if ( !class_exists(PluginInfo::class, false) ):
 
 			if ( !empty($this->banners) ) {
 				//WP expects an array with two keys: "high" and "low". Both are optional.
-				//Docs: https://wordpress.org/plugins/about/faq/#banners
+				//Docs: https://classicpress.org/plugins/about/faq/#banners
 				$info->banners = is_object($this->banners) ? get_object_vars($this->banners) : $this->banners;
 				$info->banners = array_intersect_key($info->banners, array('high' => true, 'low' => true));
 			}

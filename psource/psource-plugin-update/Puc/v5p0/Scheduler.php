@@ -60,7 +60,7 @@ if ( !class_exists(Scheduler::class, false) ):
 						$randomOffset = wp_rand(0, $upperLimit);
 					} else {
 						//This constructor may be called before wp_rand() is available.
-						//phpcs:ignore WordPress.WP.AlternativeFunctions.rand_rand
+						//phpcs:ignore ClassicPress.WP.AlternativeFunctions.rand_rand
 						$randomOffset = rand(0, $upperLimit);
 					}
 					$firstCheckTime = time() - $randomOffset;
