@@ -15,7 +15,7 @@ Domain Path: /languages
 */
 
 // +----------------------------------------------------------------------+
-// | Copyright 2018-2022 WMS N@W (https://n3rds.work/)                                |
+// | Copyright 2018-2023 WMS N@W (https://n3rds.work/)                                |
 // +----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify |
 // | it under the terms of the GNU General Public License, version 2, as  |

@@ -94,7 +94,7 @@ if ( !class_exists(Metadata::class, false) ):
 		}
 
 		/**
-		 * Transform the metadata into the format used by WordPress core.
+		 * Transform the metadata into the format used by ClassicPress core.
 		 *
 		 * @return object
 		 */

@@ -74,7 +74,7 @@ if ( !class_exists(Update::class, false) ):
 		}
 
 		/**
-		 * Transform the update into the format used by WordPress native plugin API.
+		 * Transform the update into the format used by ClassicPress native plugin API.
 		 *
 		 * @return object
 		 */
@@ -101,7 +101,7 @@ if ( !class_exists(Update::class, false) ):
 				if ( !empty($icons) ) {
 					$update->icons = $icons;
 
-					//It appears that the 'default' icon isn't used anywhere in WordPress 4.9,
+					//It appears that the 'default' icon isn't used anywhere in ClassicPress 4.9,
 					//but lets set it just in case a future release needs it.
 					if ( !isset($update->icons['default']) ) {
 						$update->icons['default'] = current($update->icons);

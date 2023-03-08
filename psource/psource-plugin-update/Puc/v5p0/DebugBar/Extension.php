@@ -101,7 +101,11 @@ if ( !class_exists(Extension::class, false) ):
 							$httpError = $item['httpResponse'];
 							/** @var \WP_Error $httpError */
 							printf(
+<<<<<<< HEAD:psource/psource-plugin-update/Puc/v4p10/DebugBar/Extension.php
+								'<dt>ClassicPress HTTP API-Fehler:</dt><dd>%s (<code>%s</code>)</dd>',
+=======
 								'<dt>WordPress HTTP API error:</dt><dd>%s (<code>%s</code>)</dd>',
+>>>>>>> 8bd4b710b1e7b803d9e9726e5b85b425169566ca:psource/psource-plugin-update/Puc/v5p0/DebugBar/Extension.php
 								esc_html($httpError->get_error_message()),
 								esc_html($httpError->get_error_code())
 							);
@@ -171,8 +175,13 @@ if ( !class_exists(Extension::class, false) ):
 		private function getLibraryUrl($filePath) {
 			$absolutePath = realpath(dirname(__FILE__) . '/../../../' . ltrim($filePath, '/'));
 
+<<<<<<< HEAD:psource/psource-plugin-update/Puc/v4p10/DebugBar/Extension.php
+			//Where is the library located inside the ClassicPress directory structure?
+			$absolutePath = Puc_v4p10_Factory::normalizePath($absolutePath);
+=======
 			//Where is the library located inside the WordPress directory structure?
 			$absolutePath = PucFactory::normalizePath($absolutePath);
+>>>>>>> 8bd4b710b1e7b803d9e9726e5b85b425169566ca:psource/psource-plugin-update/Puc/v5p0/DebugBar/Extension.php
 
 			$pluginDir = PucFactory::normalizePath(WP_PLUGIN_DIR);
 			$muPluginDir = PucFactory::normalizePath(WPMU_PLUGIN_DIR);

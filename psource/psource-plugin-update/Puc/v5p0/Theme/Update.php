@@ -12,7 +12,7 @@ if ( !class_exists(Update::class, false) ):
 		protected static $extraFields = array('details_url');
 
 		/**
-		 * Transform the metadata into the format used by WordPress core.
+		 * Transform the metadata into the format used by ClassicPress core.
 		 * Note the inconsistency: WP stores plugin updates as objects and theme updates as arrays.
 		 *
 		 * @return array

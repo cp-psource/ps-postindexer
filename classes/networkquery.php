@@ -1,6 +1,6 @@
 <?php
 /*
- * Network Query API based on the WordPress Query API
+ * Network Query API based on the ClassicPress Query API
  */
 
 /*
@@ -69,8 +69,8 @@ function network_set_query_var($var, $value) {
 /**
  * Set up The Loop with query parameters.
  *
- * This will override the current WordPress Loop and shouldn't be used more than
- * once. This must not be used within the WordPress Loop.
+ * This will override the current ClassicPress Loop and shouldn't be used more than
+ * once. This must not be used within the ClassicPress Loop.
  *
  * @since 1.5.0
  * @uses $wp_query
@@ -723,7 +723,7 @@ function network_is_main_query() {
  */
 
 /**
- * Whether current WordPress query has results to loop over.
+ * Whether current ClassicPress query has results to loop over.
  *
  * @see WP_Query::have_posts()
  * @since 1.5.0
@@ -816,7 +816,7 @@ function network_the_comment() {
  */
 
 /**
- * The WordPress Query class.
+ * The ClassicPress Query class.
  *
  * @link http://codex.wordpress.org/Function_Reference/WP_Query Codex page.
  *
@@ -1294,7 +1294,7 @@ class Network_Query {
 	/**
 	 * Resets query flags to false.
 	 *
-	 * The query flags are what page info WordPress was able to figure out.
+	 * The query flags are what page info ClassicPress was able to figure out.
 	 *
 	 * @since 2.0.0
 	 * @access private
@@ -2950,7 +2950,7 @@ class Network_Query {
 	}
 
 	/**
-	 * Sets up the WordPress query by parsing query string.
+	 * Sets up the ClassicPress query by parsing query string.
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -3038,7 +3038,7 @@ class Network_Query {
 	/**
 	 * Constructor.
 	 *
-	 * Sets up the WordPress query, if parameter is not empty.
+	 * Sets up the ClassicPress query, if parameter is not empty.
 	 *
 	 * @since 1.5.0
 	 * @access public

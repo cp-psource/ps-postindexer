@@ -4,7 +4,7 @@ namespace Psource\PluginUpdateChecker\v5p0;
 if ( !class_exists(UpgraderStatus::class, false) ):
 
 	/**
-	 * A utility class that helps figure out which plugin or theme WordPress is upgrading.
+	 * A utility class that helps figure out which plugin or theme ClassicPress is upgrading.
 	 *
 	 * It may seem strange to have a separate class just for that, but the task is surprisingly complicated.
 	 * Core classes like Plugin_Upgrader don't expose the plugin file name during an in-progress update (AFAICT).
@@ -15,7 +15,7 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 		private $currentId = null;   //Plugin basename or theme directory name.
 
 		public function __construct() {
-			//Keep track of which plugin/theme WordPress is currently upgrading.
+			//Keep track of which plugin/theme ClassicPress is currently upgrading.
 			add_filter('upgrader_pre_install', array($this, 'setUpgradedThing'), 10, 2);
 			add_filter('upgrader_package_options', array($this, 'setUpgradedPluginFromOptions'), 10, 1);
 			add_filter('upgrader_post_install', array($this, 'clearUpgradedThing'), 10, 1);
@@ -25,7 +25,7 @@ if ( !class_exists(UpgraderStatus::class, false) ):
 		/**
 		 * Is there and update being installed RIGHT NOW, for a specific plugin?
 		 *
-		 * Caution: This method is unreliable. WordPress doesn't make it easy to figure out what it is upgrading,
+		 * Caution: This method is unreliable. ClassicPress doesn't make it easy to figure out what it is upgrading,
 		 * and upgrader implementations are liable to change without notice.
 		 *
 		 * @param string $pluginFile The plugin to check.

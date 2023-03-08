@@ -2,7 +2,7 @@
 // Common post indexer functions - primarily for use in associated plugins
 
 /**
- * Network functions based on existing WordPress functions but tweaked where required for network use
+ * Network functions based on existing ClassicPress functions but tweaked where required for network use
  */
 
 function network_the_title($before = '', $after = '', $echo = true) {

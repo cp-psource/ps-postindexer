@@ -76,7 +76,7 @@ if ( !class_exists(Scheduler::class, false) ):
 				//the periodic checks while the user is browsing the Dashboard.
 				add_action( 'admin_init', array($this, 'maybeCheckForUpdates') );
 
-				//Like WordPress itself, we check more often on certain pages.
+				//Like ClassicPress itself, we check more often on certain pages.
 				/** @see wp_update_plugins */
 				add_action('load-update-core.php', array($this, 'maybeCheckForUpdates'));
 				//"load-update.php" and "load-plugins.php" or "load-themes.php".
@@ -208,7 +208,7 @@ if ( !class_exists(Scheduler::class, false) ):
 				//Check less frequently if it's already known that an update is available.
 				$period = $this->throttledCheckPeriod * 3600;
 			} else if ( defined('DOING_CRON') && constant('DOING_CRON') ) {
-				//WordPress cron schedules are not exact, so lets do an update check even
+				//ClassicPress cron schedules are not exact, so lets do an update check even
 				//if slightly less than $checkPeriod hours have elapsed since the last check.
 				$cronFuzziness = 20 * 60;
 				$period = $this->checkPeriod * 3600 - $cronFuzziness;

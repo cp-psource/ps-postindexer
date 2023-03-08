@@ -103,7 +103,7 @@ if ( !class_exists(Package::class, false) ):
 				'DomainPath'        => 'Domain Path',
 				'Network'           => 'Network',
 
-				//The newest WordPress version that this plugin requires or has been tested with.
+				//The newest ClassicPress version that this plugin requires or has been tested with.
 				//We support several different formats for compatibility with other libraries.
 				'Tested WP'         => 'Tested WP',
 				'Requires WP'       => 'Requires WP',
