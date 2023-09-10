@@ -1,0 +1,866 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Multisite Beitragsindex\n"
+"POT-Creation-Date: 2023-09-10 12:57+0200\n"
+"PO-Revision-Date: 2023-09-10 12:59+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: post-indexer.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/class.postindexeradmin.php:98 classes/class.postindexeradmin.php:399
+#, fuzzy
+msgid "PS-Multisite Index Einstellungen"
+msgstr "Ρυθμίσεις ευρετηρίου PS Multisite"
+
+#: classes/class.postindexeradmin.php:99
+#, fuzzy
+msgid "PS-Multisite Index Zusammenfassung"
+msgstr "Σύνοψη του δείκτη PS Multisite"
+
+#: classes/class.postindexeradmin.php:107
+#, fuzzy
+msgid "Indizierung für die angeforderte Seite deaktiviert."
+msgstr "Απενεργοποίηση ευρετηρίασης για τη ζητούμενη σελίδα."
+
+#: classes/class.postindexeradmin.php:110
+#, fuzzy
+msgid ""
+"Die Indizierung für die angeforderte Seite konnte nicht deaktiviert werden."
+msgstr "Η ευρετηρίαση για τη ζητούμενη σελίδα δεν μπόρεσε να απενεργοποιηθεί."
+
+#: classes/class.postindexeradmin.php:113
+#, fuzzy
+msgid "Indizierung für die angeforderte Seite aktiviert."
+msgstr "Ενεργοποίηση ευρετηρίασης για τη ζητούμενη σελίδα."
+
+#: classes/class.postindexeradmin.php:116
+#, fuzzy
+msgid ""
+"Die Indizierung für die angeforderte Seite konnte nicht aktiviert werden."
+msgstr "Η ευρετηρίαση για τη ζητούμενη σελίδα δεν μπόρεσε να ενεργοποιηθεί."
+
+#: classes/class.postindexeradmin.php:119
+#, fuzzy
+msgid "Index, der für die Neuerstellung der angeforderten Seite geplant ist."
+msgstr ""
+"Ευρετήριο που έχει προγραμματιστεί για την αναδημιουργία της ζητούμενης "
+"σελίδας."
+
+#: classes/class.postindexeradmin.php:122
+#, fuzzy
+msgid ""
+"Der Index konnte nicht für die Neuerstellung der angeforderten Seite geplant "
+"werden."
+msgstr ""
+"Το ευρετήριο δεν μπόρεσε να προγραμματίσει την αναδημιουργία της ζητούμενης "
+"σελίδας."
+
+#: classes/class.postindexeradmin.php:125
+#, fuzzy
+msgid "Deine Einstellungen wurden für die angeforderte Seite aktualisiert."
+msgstr "Οι ρυθμίσεις σας έχουν ενημερωθεί για τη ζητούμενη σελίδα."
+
+#: classes/class.postindexeradmin.php:139
+#, fuzzy
+msgid ""
+"Deine Seite wurde <strong>DISABLE_WP_CRON</strong> definiert als "
+"<strong>true</strong>. In den meisten Fällen bedeutet dies, dass Post "
+"Indexer Deine Seite(n) möglicherweise nicht richtig indiziert, da er auf dem "
+"ClassicPress-Scheduler (WP_Cron) basiert. Wenn Du einen alternativen Cron "
+"ausführst, kannst Du diese Meldung ignorieren."
+msgstr ""
+"Η σελίδα σας είχε οριστεί <strong>DISABLE_WP_CRON</strong> ως <strong>true</"
+"strong>. Στις περισσότερες περιπτώσεις, αυτό σημαίνει ότι ο Post Indexer "
+"μπορεί να μην ευρετηριάζει σωστά τη σελίδα(-ες) σας, επειδή βασίζεται στον "
+"χρονοπρογραμματιστή ClassicPress (WP_Cron). Εάν εκτελείτε έναν εναλλακτικό "
+"cron, μπορείτε να αγνοήσετε αυτό το μήνυμα."
+
+#: classes/class.postindexeradmin.php:156
+#: classes/class.postindexeradmin.php:177
+#: classes/class.postindexeradmin.php:200
+#: classes/class.postindexeradmin.php:221
+#, fuzzy
+msgid "Du hast keine Berechtigung, auf diese Seite zuzugreifen."
+msgstr "Δεν έχετε άδεια πρόσβασης σε αυτή τη σελίδα."
+
+#: classes/class.postindexeradmin.php:270
+#, fuzzy
+msgid "Indizierung"
+msgstr "Ευρετηρίαση"
+
+#: classes/class.postindexeradmin.php:294
+#, fuzzy
+msgid "Deaktivieren"
+msgstr "Απενεργοποίηση"
+
+#: classes/class.postindexeradmin.php:298
+#: classes/class.postindexeradmin.php:320
+#, fuzzy
+msgid "Bearbeiten"
+msgstr "Επεξεργασία"
+
+#: classes/class.postindexeradmin.php:302
+#, fuzzy
+msgid "Wiederaufbauen"
+msgstr "Ανακατασκευή"
+
+#: classes/class.postindexeradmin.php:306
+#: classes/class.postindexeradmin.php:1335
+#, fuzzy
+msgid "Statistiken"
+msgstr "Στατιστικά στοιχεία"
+
+#: classes/class.postindexeradmin.php:311
+#, fuzzy
+msgid "Not Indexing"
+msgstr "Δεν ευρετηρίαση"
+
+#: classes/class.postindexeradmin.php:316
+#, fuzzy
+msgid "Aktivieren"
+msgstr "Ενεργοποίηση"
+
+#: classes/class.postindexeradmin.php:355
+#, fuzzy
+msgid "Webseiten-Index Zusammenfassung"
+msgstr "Σύνοψη ευρετηρίου ιστότοπου"
+
+#: classes/class.postindexeradmin.php:434
+#, fuzzy
+msgid "Cheatin&#8217; uh?"
+msgstr "Κλέβεις, ε"
+
+#: classes/class.postindexeradmin.php:452
+#, fuzzy
+msgid "PS-Multisite Indizierung"
+msgstr "PS Ευρετηρίαση πολλαπλών τοποθεσιών"
+
+#: classes/class.postindexeradmin.php:453
+#, fuzzy
+msgid ""
+"Du kannst die Post-Indizierung für diese Seite mithilfe der folgenden "
+"Einstellung aktivieren oder deaktivieren."
+msgstr ""
+"Μπορείτε να ενεργοποιήσετε ή να απενεργοποιήσετε τη μετα-ευρετηρίαση για "
+"αυτή τη σελίδα χρησιμοποιώντας την ακόλουθη ρύθμιση."
+
+#: classes/class.postindexeradmin.php:458
+#, fuzzy
+msgid "Indizierung ist"
+msgstr "Η ευρετηρίαση είναι"
+
+#: classes/class.postindexeradmin.php:464
+#: classes/class.postindexeradmin.php:871
+#, fuzzy
+msgid "Aktiviert"
+msgstr "Ενεργοποιεί το"
+
+#: classes/class.postindexeradmin.php:467
+#: classes/class.postindexeradmin.php:877
+#, fuzzy
+msgid "Deaktiviert"
+msgstr "Άτομα με ειδικές ανάγκες"
+
+#: classes/class.postindexeradmin.php:474
+#, fuzzy
+msgid "Beitrags-Typen für den Index"
+msgstr "Τύποι συνεισφοράς για τον δείκτη"
+
+#: classes/class.postindexeradmin.php:475
+#, fuzzy
+msgid ""
+"Wähle die Beitragstypen aus, die für diese Seite indiziert werden sollen."
+msgstr ""
+"Επιλέξτε τους τύπους δημοσιεύσεων που θα ευρετηριαστούν για αυτή τη σελίδα."
+
+#: classes/class.postindexeradmin.php:480
+#, fuzzy
+msgid "Derzeit indiziert"
+msgstr "Επί του παρόντος ευρετηριασμένο"
+
+#: classes/class.postindexeradmin.php:506
+#, fuzzy
+msgid "Alle Änderungen speichern"
+msgstr "Αποθήκευση όλων των αλλαγών"
+
+#: classes/class.postindexeradmin.php:519
+#, fuzzy
+msgid "PS-Multisite Index"
+msgstr "Δείκτης PS Multisite"
+
+#: classes/class.postindexeradmin.php:792
+#, fuzzy
+msgid "Beitrags Index Zusammenfassung"
+msgstr "Σύνοψη του δείκτη συνεισφοράς"
+
+#: classes/class.postindexeradmin.php:796
+#: classes/class.postindexeradmin.php:1077
+#, fuzzy
+msgid "Indizierte Beitragstypen"
+msgstr "Ευρετηριασμένοι τύποι δημοσιεύσεων"
+
+#: classes/class.postindexeradmin.php:824
+#, fuzzy
+msgid "Meist indizierten Webseiten"
+msgstr "Οι πιο ευρετηριασμένοι ιστότοποι"
+
+#: classes/class.postindexeradmin.php:866
+#, fuzzy
+msgid "PS-Multisite Index Prozess Information"
+msgstr "Πληροφορίες διαδικασίας PS-Multisite Index"
+
+#: classes/class.postindexeradmin.php:868
+#, fuzzy
+msgid "<strong>PS-Multisite Index-Version</strong>:"
+msgstr "<strong>Έκδοση ευρετηρίου PS Multisite</strong>:"
+
+#: classes/class.postindexeradmin.php:869
+#, fuzzy
+msgid "<strong>Debug-Protokollierung</strong>: "
+msgstr "<strong>Καταγραφή σφαλμάτων</strong>: "
+
+#: classes/class.postindexeradmin.php:873
+#, fuzzy
+msgid "Einträge"
+msgstr "Ενδείξεις"
+
+#: classes/class.postindexeradmin.php:883
+#, fuzzy
+msgid "<strong>Zeitlimit für WP Cron-Sperre</strong>:"
+msgstr "<strong>Χρονικό όριο για το κλείδωμα WP Cron</strong>:"
+
+#: classes/class.postindexeradmin.php:910
+#, fuzzy
+msgid "Beitragsindex WP Cron Einträge"
+msgstr "Δημοσίευση ευρετηρίου WP Cron καταχωρήσεις"
+
+#: classes/class.postindexeradmin.php:911
+#, fuzzy
+msgid "Aktuelle Uhrzeit:"
+msgstr "Τρέχουσα ώρα:"
+
+#: classes/class.postindexeradmin.php:927
+#, fuzzy
+msgid "Aktion"
+msgstr "Δράση"
+
+#: classes/class.postindexeradmin.php:928
+#, fuzzy
+msgid "Eintrag"
+msgstr "Είσοδος"
+
+#: classes/class.postindexeradmin.php:929
+#, fuzzy
+msgid "Nächster Lauf"
+msgstr "Επόμενη διαδρομή"
+
+#: classes/class.postindexeradmin.php:936
+#, fuzzy
+msgid "1. Durchgang"
+msgstr "1. Πέρασμα"
+
+#: classes/class.postindexeradmin.php:937
+#, fuzzy
+msgid " Seiten / Stapel"
+msgstr " Σελίδες / Στοίβα"
+
+#: classes/class.postindexeradmin.php:940
+#, fuzzy
+msgid "2. Durchgang"
+msgstr "2. Πέρασμα"
+
+#: classes/class.postindexeradmin.php:941
+#, fuzzy
+msgid " Seiten"
+msgstr " Σελίδες"
+
+#: classes/class.postindexeradmin.php:942
+#, fuzzy
+msgid "Beiträge"
+msgstr "Συνεισφορές"
+
+#: classes/class.postindexeradmin.php:942
+#: classes/class.postindexeradmin.php:947
+#, fuzzy
+msgid "/ Stapel"
+msgstr "/ Στοίβα"
+
+#: classes/class.postindexeradmin.php:945
+#, fuzzy
+msgid "Beitrags Tags ordentlich"
+msgstr "Post ετικέτες τακτοποίηση"
+
+#: classes/class.postindexeradmin.php:946
+#, fuzzy
+msgid " Beiträge"
+msgstr " Συνεισφορές"
+
+#: classes/class.postindexeradmin.php:947
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: classes/class.postindexeradmin.php:950
+#, fuzzy
+msgid "Beitrags Meta ordentlich"
+msgstr "Συνεισφορά Meta neat"
+
+#: classes/class.postindexeradmin.php:951
+#: classes/class.postindexeradmin.php:955
+#, fuzzy
+msgid " Löschen / Stapel"
+msgstr " Διαγραφή / Στοίβα"
+
+#: classes/class.postindexeradmin.php:954
+#, fuzzy
+msgid "Gealterte Beiträge ordentlich"
+msgstr "Παλαιωμένες θέσεις τακτοποιημένες"
+
+#: classes/class.postindexeradmin.php:965
+#, fuzzy
+msgid "Cron-Eintrag löschen"
+msgstr "Διαγραφή εγγραφής cron"
+
+#: classes/class.postindexeradmin.php:971
+#, fuzzy
+msgid "löschen"
+msgstr "delete"
+
+#: classes/class.postindexeradmin.php:1018
+#, fuzzy
+msgid "aktiv:"
+msgstr "ενεργός:"
+
+#: classes/class.postindexeradmin.php:1020
+#, fuzzy
+msgid "frühere:"
+msgstr "νωρίτερα:"
+
+#: classes/class.postindexeradmin.php:1040
+#, fuzzy
+msgid "Kein Plan"
+msgstr "Κανένα σχέδιο"
+
+#: classes/class.postindexeradmin.php:1063
+#, fuzzy
+msgid "Die am häufigsten indizierten Webseiten im Netzwerk"
+msgstr "Οι πιο συχνά ευρετηριασμένοι ιστότοποι στο δίκτυο"
+
+#: classes/class.postindexeradmin.php:1091
+#, fuzzy
+msgid "Warteschlangenstatus für Indizierung"
+msgstr "Κατάσταση ουράς για ευρετηρίαση"
+
+#: classes/class.postindexeradmin.php:1095
+#, fuzzy
+msgid "Aktuelle Warteschlangenübersicht"
+msgstr "Επισκόπηση τρέχουσας ουράς"
+
+#: classes/class.postindexeradmin.php:1104
+#, fuzzy
+msgid "Webseiten in der Warteschlange"
+msgstr "Ιστοσελίδες στην ουρά"
+
+#: classes/class.postindexeradmin.php:1108
+#, fuzzy
+msgid "Webseiten, die gerade verarbeitet werden"
+msgstr "Ιστοσελίδες που υποβάλλονται σε επεξεργασία"
+
+#: classes/class.postindexeradmin.php:1112
+#, fuzzy
+msgid "Webseiten, die auf ihre Bearbeitung warten"
+msgstr "Ιστοσελίδες που περιμένουν να επεξεργαστούν"
+
+#: classes/class.postindexeradmin.php:1116
+#, fuzzy
+msgid ""
+"Die Verarbeitung der Webseiten wird beim nächsten Durchgang abgeschlossen"
+msgstr "Η επεξεργασία των ιστοσελίδων θα ολοκληρωθεί στο επόμενο πέρασμα"
+
+#: classes/class.postindexeradmin.php:1134
+#, fuzzy
+msgid "Kürzlich indizierte Beiträge"
+msgstr "Πρόσφατα αναπροσαρμοσμένες εισφορές"
+
+#: classes/class.postindexeradmin.php:1139
+#: classes/class.postindexeradmin.php:1145
+#, fuzzy
+msgid "Beitragstitel"
+msgstr "Τίτλος θέσης"
+
+#: classes/class.postindexeradmin.php:1140
+#: classes/class.postindexeradmin.php:1146
+msgid "Seite"
+msgstr "Σελίδα"
+
+#: classes/class.postindexeradmin.php:1211
+#, fuzzy
+msgid "Netzwerk-Beiträge-Index-Statistiken"
+msgstr "Στατιστικά στοιχεία δείκτη συνεισφορών δικτύου"
+
+#: classes/class.postindexeradmin.php:1218
+#: classes/class.postindexeradmin.php:1270
+#: classes/class.postindexeradmin.php:1373
+#: classes/class.postindexeradmin.php:1419
+#, fuzzy
+msgid "Es befinden sich derzeit Elemente in Deiner Indexierungswarteschlange."
+msgstr "Αυτή τη στιγμή υπάρχουν στοιχεία στην ουρά ευρετηρίασης."
+
+#: classes/class.postindexeradmin.php:1263
+#, fuzzy
+msgid "PS-Multisite Index Cron Log"
+msgstr "PS Multisite Index Cron Log"
+
+#: classes/class.postindexeradmin.php:1287
+#, fuzzy, php-format
+msgid "Anzeigen der neuesten <strong>%s</strong> Cron-Protokolleinträge."
+msgstr "Εμφανίστε την τελευταία <strong>%s</strong> Εγγραφές καταγραφής Cron."
+
+#: classes/class.postindexeradmin.php:1324
+#, fuzzy
+msgid "Der Wiederaufbau des Post-Index ist geplant."
+msgstr "Προγραμματίζεται η ανακατασκευή του Post Index."
+
+#: classes/class.postindexeradmin.php:1325
+#, fuzzy
+msgid "Einstellungen wurden aktualisiert."
+msgstr "Οι ρυθμίσεις έχουν ενημερωθεί."
+
+#: classes/class.postindexeradmin.php:1342
+#, fuzzy
+msgid "Globale Einstellungen"
+msgstr "Παγκόσμιες ρυθμίσεις"
+
+#: classes/class.postindexeradmin.php:1346
+#: classes/class.postindexeradmin.php:1397
+#, fuzzy
+msgid "Index neu erstellen"
+msgstr "Δημιουργία νέου ευρετηρίου"
+
+#: classes/class.postindexeradmin.php:1353
+#, fuzzy
+msgid "Cron Log"
+msgstr "Ημερολόγιο Cron"
+
+#: classes/class.postindexeradmin.php:1366
+#, fuzzy
+msgid "Neurstellen des Netzwerkbeitragsindex"
+msgstr "Επαναφορά του δείκτη συνεισφοράς δικτύου"
+
+#: classes/class.postindexeradmin.php:1392
+#, fuzzy
+msgid ""
+"Du kannst den Post-Index neu erstellen, indem Du unten auf die Schaltfläche "
+"<strong>Index neu erstellen</strong> klickst."
+msgstr ""
+"Μπορείτε να δημιουργήσετε εκ νέου το ευρετήριο αναρτήσεων κάνοντας κλικ στο "
+"κουμπί <strong>Επαναδημιουργία ευρετηρίου</strong> στο κάτω μέρος."
+
+#: classes/class.postindexeradmin.php:1393
+#, fuzzy
+msgid ""
+"Hinweis: Dies kann viel Zeit in Anspruch nehmen und die Leistung Deines "
+"Servers beeinträchtigen."
+msgstr ""
+"Σημείωση: Αυτό μπορεί να πάρει πολύ χρόνο και να επηρεάσει την απόδοση του "
+"διακομιστή σας."
+
+#: classes/class.postindexeradmin.php:1412
+#, fuzzy
+msgid "PS-Multisite Index - Globale Einstellungen"
+msgstr "Ευρετήριο PS Multisite - Παγκόσμιες ρυθμίσεις"
+
+#: classes/class.postindexeradmin.php:1440
+#, fuzzy
+msgid ""
+"Mit den folgenden Einstellungen kannst Du die Standardeinstellungen für alle "
+"Seiten in Deinem Netzwerk und die Verarbeitung festlegen, die für den "
+"gesamten Index stattfinden. "
+msgstr ""
+"Οι ακόλουθες ρυθμίσεις σας επιτρέπουν να ορίσετε τις προεπιλεγμένες "
+"ρυθμίσεις για όλες τις σελίδες στο δίκτυό σας και την επεξεργασία που "
+"πραγματοποιείται για ολόκληρο το ευρετήριο."
+
+#: classes/class.postindexeradmin.php:1441
+#, fuzzy, php-format
+msgid ""
+"Du kannst einige dieser Einstellungen Seite für Seite über die <a "
+"href=%s>Webseiten Admin-Seite</a> überschreiben."
+msgstr ""
+"Μπορείτε να παρακάμψετε ορισμένες από αυτές τις ρυθμίσεις ανά σελίδα μέσω "
+"της &lt;a href=%s&gt;Σελίδα διαχείρισης ιστοτόπου</a>."
+
+#: classes/class.postindexeradmin.php:1448
+#, fuzzy
+msgid "Standardposttypen"
+msgstr "Τυποποιημένοι τύποι αλληλογραφίας"
+
+#: classes/class.postindexeradmin.php:1454
+#, fuzzy
+msgid ""
+"Dies sind die Standardposttypen, die vom Plugin indiziert werden. Platziere "
+"jeden Beitragstyp in einer separaten Zeile."
+msgstr ""
+"Αυτοί είναι οι προεπιλεγμένοι τύποι δημοσιεύσεων που ευρετηριάζονται από το "
+"πρόσθετο. Τοποθετήστε κάθε τύπο ανάρτησης σε ξεχωριστή γραμμή."
+
+#: classes/class.postindexeradmin.php:1460
+#, fuzzy
+msgid "Indizierte Beiträge entfernen, die älter als sind"
+msgstr "Αφαιρέστε τις αναπροσαρμοσμένες δημοσιεύσεις που είναι παλαιότερες από"
+
+#: classes/class.postindexeradmin.php:1481
+#, fuzzy
+msgid "Stunde(n)"
+msgstr "Ώρα(ες)"
+
+#: classes/class.postindexeradmin.php:1483
+#, fuzzy
+msgid "Tag(e)"
+msgstr "Ημέρα(ες)"
+
+#: classes/class.postindexeradmin.php:1485
+#, fuzzy
+msgid "Woche(n)"
+msgstr "Εβδομάδα(ες)"
+
+#: classes/class.postindexeradmin.php:1487
+#, fuzzy
+msgid "Monat(e)"
+msgstr "Μήνας(ες)"
+
+#: classes/class.postindexeradmin.php:1489
+#, fuzzy
+msgid "Jahr(e)"
+msgstr "Έτος(α)"
+
+#: classes/class.postindexeradmin.php:1493
+#, fuzzy
+msgid ""
+"Beiträge, die älter als diese Zeitspanne sind, werden aus dem globalen Index "
+"entfernt."
+msgstr ""
+"Δημοσιεύσεις παλαιότερες από αυτό το χρονικό διάστημα θα αφαιρεθούν από το "
+"παγκόσμιο ευρετήριο."
+
+#: classes/class.postindexeradmin.php:1504
+#, fuzzy
+msgid "Einstellungen aktualisieren"
+msgstr "Ενημέρωση ρυθμίσεων"
+
+#: classes/cron.postindexerrebuild.php:48
+#: classes/cron.postindexerrebuild.php:61
+#: classes/cron.postindexerrebuild.php:70
+#: classes/cron.postindexerrebuild.php:79
+#: classes/cron.postindexerrebuild.php:84
+#: classes/cron.postindexerrebuild.php:93
+#: classes/cron.postindexerrebuild.php:103
+#, fuzzy
+msgid "Beitragsindex Erster Durchlauf"
+msgstr "Δείκτης συνεισφοράς Πρώτη εκτέλεση"
+
+#: classes/cron.postindexerrebuild.php:48
+#: classes/cron.postindexerrebuild.php:114
+#: classes/cron.postindexerrebuild.php:262
+#: classes/cron.postindexerrebuild.php:292
+#: classes/cron.postindexerrebuild.php:317
+#, fuzzy
+msgid "Initialisieren..."
+msgstr "Αρχικοποίηση..."
+
+#: classes/cron.postindexerrebuild.php:61
+#, fuzzy, php-format
+msgid "Verarbeite %s in der Warteschlange befindliche Elemente."
+msgstr "Επεξεργασία %s στοιχείων στην ουρά."
+
+#: classes/cron.postindexerrebuild.php:70
+#, fuzzy, php-format
+msgid "Blog: %d, ist indizierbar."
+msgstr "Blog: %d, είναι ευρετηρίαση."
+
+#: classes/cron.postindexerrebuild.php:79
+#, fuzzy, php-format
+msgid "Blog: %d, Höchste Beitrag-ID ist %d"
+msgstr "Blog: %d, το υψηλότερο ID ανάρτησης είναι %d"
+
+#: classes/cron.postindexerrebuild.php:84
+#, fuzzy, php-format
+msgid ""
+"Blog: %d, Keine Beiträge gefunden, die aus der Warteschlange entfernt wurden."
+msgstr "Blog: %d, Δεν βρέθηκαν αναρτήσεις που έχουν αφαιρεθεί από την ουρά."
+
+#: classes/cron.postindexerrebuild.php:93
+#, fuzzy, php-format
+msgid "Blog: %d, ist NICHT indizierbar - wird aus der Warteschlange entfernt."
+msgstr "Blog: %d, ΔΕΝ μπορεί να ευρετηριαστεί - θα αφαιρεθεί από την ουρά."
+
+#: classes/cron.postindexerrebuild.php:103
+#, fuzzy
+msgid "Durchlauf abgeschlossen"
+msgstr "Η εκτέλεση ολοκληρώθηκε"
+
+#: classes/cron.postindexerrebuild.php:114
+#: classes/cron.postindexerrebuild.php:126
+#: classes/cron.postindexerrebuild.php:133
+#: classes/cron.postindexerrebuild.php:146
+#: classes/cron.postindexerrebuild.php:152
+#: classes/cron.postindexerrebuild.php:163
+#: classes/cron.postindexerrebuild.php:167
+#: classes/cron.postindexerrebuild.php:197
+#: classes/cron.postindexerrebuild.php:203
+#: classes/cron.postindexerrebuild.php:208
+#: classes/cron.postindexerrebuild.php:210
+#: classes/cron.postindexerrebuild.php:221
+#: classes/cron.postindexerrebuild.php:229
+#: classes/cron.postindexerrebuild.php:239
+#: classes/cron.postindexerrebuild.php:250
+#, fuzzy
+msgid "Beitragsindex Zweiter Durchlauf"
+msgstr "Δείκτης συνεισφοράς Δεύτερη εκτέλεση"
+
+#: classes/cron.postindexerrebuild.php:126
+#, fuzzy, php-format
+msgid "Verarbeite %d in der Warteschlange befindliche Elemente."
+msgstr "Επεξεργασία %d στοιχείων στην ουρά."
+
+#: classes/cron.postindexerrebuild.php:133
+#, fuzzy, php-format
+msgid "Blog: %d, ist indexierbar."
+msgstr "Blog: %d, είναι ευρετηρίαση."
+
+#: classes/cron.postindexerrebuild.php:146
+#, fuzzy, php-format
+msgid "Blog: %d, %d Beiträge verarbeiten"
+msgstr "Blog: %d, %d"
+
+#: classes/cron.postindexerrebuild.php:152
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Beginne mit der Verarbeitung"
+msgstr "Blog: %d, Post ID: %d, Έναρξη επεξεργασίας"
+
+#: classes/cron.postindexerrebuild.php:163
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Indiziere Beitrag"
+msgstr "Blog: %d, Post ID: %d, Index Post"
+
+#: classes/cron.postindexerrebuild.php:167
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Beitrag-Metadaten"
+msgstr "Blog: %d, post ID: %d, post metadata"
+
+#: classes/cron.postindexerrebuild.php:197
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d,  Verarbeitung von Taxonomie: %s"
+msgstr "Blog: %d, post ID: %d, taxonomy processing: %s"
+
+#: classes/cron.postindexerrebuild.php:203
+#, fuzzy, php-format
+msgid "BLog: %d, Beitrag ID: %d, Verarbeitung von Taxonomie: %s"
+msgstr "BLog: %d, post ID: %d, taxonomy processing: %s"
+
+#: classes/cron.postindexerrebuild.php:208
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, keine zugehörigen Taxonomien"
+msgstr "Blog: %d, post ID: %d, δεν υπάρχουν σχετικές ταξινομίες"
+
+#: classes/cron.postindexerrebuild.php:210
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Verarbeitung beenden"
+msgstr "Blog: %d, post ID: %d, end processing"
+
+#: classes/cron.postindexerrebuild.php:221
+#: classes/cron.postindexerrebuild.php:229
+#, fuzzy, php-format
+msgid "Blog: %d, Keine Beiträge mehr aus der Warteschlange entfernt."
+msgstr ""
+"Blog: %d, Δεν υπάρχουν άλλες αναρτήσεις που έχουν αφαιρεθεί από την ουρά."
+
+#: classes/cron.postindexerrebuild.php:239
+#, fuzzy, php-format
+msgid ""
+"Blog: %d, ist NICHT indizierbar und wird aus der Warteschlange entfernt."
+msgstr "Blog: %d, ΔΕΝ μπορεί να δεικτοδοτηθεί και θα αφαιρεθεί από την ουρά."
+
+#: classes/cron.postindexerrebuild.php:250
+#: classes/cron.postindexerrebuild.php:280
+#: classes/cron.postindexerrebuild.php:308
+#: classes/cron.postindexerrebuild.php:339
+#, fuzzy
+msgid "Verarbeitung abgeschlossen"
+msgstr "Η επεξεργασία ολοκληρώθηκε"
+
+#: classes/cron.postindexerrebuild.php:262
+#: classes/cron.postindexerrebuild.php:273
+#: classes/cron.postindexerrebuild.php:277
+#: classes/cron.postindexerrebuild.php:280
+#, fuzzy
+msgid "Beitragsindex Tags aufräumen"
+msgstr "Καθαρίστε τις ετικέτες ευρετηρίου δημοσιεύσεων"
+
+#: classes/cron.postindexerrebuild.php:273
+#, fuzzy
+msgid "Verwaiste Taxonomieeinträge entfernen"
+msgstr "Αφαίρεση ορφανών καταχωρήσεων ταξινομίας"
+
+#: classes/cron.postindexerrebuild.php:277
+#, fuzzy
+msgid "Neuberechnung der Taxonomiezähler"
+msgstr "Επανυπολογισμός των μετρητών ταξινομίας"
+
+#: classes/cron.postindexerrebuild.php:292
+#: classes/cron.postindexerrebuild.php:305
+#: classes/cron.postindexerrebuild.php:308
+#, fuzzy
+msgid "Beitragsindex Beitragsmeta aufräumen"
+msgstr "Ευρετήριο συνεισφορών Τακτοποίηση των μετα-συντελεστών συνεισφορών"
+
+#: classes/cron.postindexerrebuild.php:305
+#, fuzzy
+msgid "Verwaiste Beitragsmeta-Einträge entfernen"
+msgstr "Αφαίρεση ορφανών καταχωρήσεων post meta"
+
+#: classes/cron.postindexerrebuild.php:317
+#: classes/cron.postindexerrebuild.php:336
+#: classes/cron.postindexerrebuild.php:339
+#, fuzzy
+msgid "Beitragsindex Alte Beiträge aufräumen"
+msgstr "Ευρετήριο εισφορών Καθαρισμός παλαιών εισφορών"
+
+#: classes/cron.postindexerrebuild.php:336
+#, fuzzy, php-format
+msgid "Beiträge entfernen, die älter sind als: %d %s"
+msgstr "Αφαιρέστε αναρτήσεις παλαιότερες από: %d %s"
+
+#: classes/cron.postindexerrebuild.php:350
+#, fuzzy
+msgid "Alle 10 Minuten"
+msgstr "Κάθε 10 λεπτά"
+
+#: classes/cron.postindexerrebuild.php:351
+#, fuzzy
+msgid "Alle 5 Minuten"
+msgstr "Κάθε 5 λεπτά"
+
+#: classes/networkquery.php:137 classes/networkquery.php:158
+#: classes/networkquery.php:178 classes/networkquery.php:202
+#: classes/networkquery.php:226 classes/networkquery.php:250
+#: classes/networkquery.php:279 classes/networkquery.php:299
+#: classes/networkquery.php:319 classes/networkquery.php:339
+#: classes/networkquery.php:360 classes/networkquery.php:380
+#: classes/networkquery.php:410 classes/networkquery.php:439
+#: classes/networkquery.php:459 classes/networkquery.php:486
+#: classes/networkquery.php:506 classes/networkquery.php:526
+#: classes/networkquery.php:546 classes/networkquery.php:566
+#: classes/networkquery.php:595 classes/networkquery.php:622
+#: classes/networkquery.php:642 classes/networkquery.php:662
+#: classes/networkquery.php:682 classes/networkquery.php:702
+#, fuzzy
+msgid ""
+"Bedingte Abfragetags funktionieren nicht, bevor die Abfrage ausgeführt wird. "
+"Vorher geben sie immer false zurück."
+msgstr ""
+"Οι ετικέτες ερωτήματος υπό όρους δεν λειτουργούν μέχρι να εκτελεστεί το "
+"ερώτημα. Πριν από αυτό, επιστρέφουν πάντα false."
+
+#: classes/networkquery.php:1973
+#, fuzzy
+msgid ""
+"\"caller_get_posts\" is deprecated. Use \"ignore_sticky_posts\" instead."
+msgstr ""
+"η επιλογή \"caller_get_posts\" έχει ξεπεραστεί. Χρησιμοποιήστε αντ' αυτού το "
+"\"ignore_sticky_posts\"."
+
+#: includes/functions.php:371
+#, fuzzy
+msgid "(mehr...)"
+msgstr "(περισσότερα...)"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:56
+#, fuzzy
+msgid "View details"
+msgstr "Προβολή λεπτομερειών"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:79
+#, fuzzy, php-format
+msgid "Weitere Informationen zu %s"
+msgstr "Περισσότερες πληροφορίες για %s"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:130
+#, fuzzy
+msgid "Auf neuere Version prüfen"
+msgstr "Έλεγχος για νεότερη έκδοση"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:217
+#, fuzzy, php-format
+msgctxt "the plugin title"
+msgid "Keine neuere Version von %s im PSOURCE REPO gefunden."
+msgstr "Δεν βρέθηκε νεότερη έκδοση του %s στο PSOURCE REPO."
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:219
+#, fuzzy, php-format
+msgctxt "the plugin title"
+msgid "Im PSOURCE REPO ist eine <b>neuere Version von %s</b> verfügbar!."
+msgstr "Μια <b>νεότερη έκδοση του %s</b> είναι διαθέσιμη στο PSOURCE REPO!"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:221
+#, fuzzy, php-format
+msgctxt "the plugin title"
+msgid ""
+"Entschuldige, es konnte nicht festgestellt werden, ob Updates für %s "
+"verfügbar sind."
+msgstr ""
+"Λυπούμαστε, δεν κατέστη δυνατό να διαπιστωθεί αν υπάρχουν διαθέσιμες "
+"ενημερώσεις για το %s."
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:227
+#, fuzzy, php-format
+msgid "Unbekannter PSOURCE-UPDATTER-Status \"%s\""
+msgstr "Άγνωστη κατάσταση PSOURCE-UPDATTER \"%s\""
+
+#: psource/psource-plugin-update/Puc/v5p0/Vcs/PluginUpdateChecker.php:98
+#, fuzzy
+msgid "There is no changelog available."
+msgstr "Δεν υπάρχει διαθέσιμο changelog."
+
+#. Plugin Name of the plugin/theme
+#, fuzzy
+msgid "Multisite Beitragsindex"
+msgstr "Δείκτης συνεισφοράς πολλαπλών τοποθεσιών"
+
+#. Plugin URI of the plugin/theme
+#, fuzzy
+msgid "https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/"
+msgstr "https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/"
+
+#. Description of the plugin/theme
+#, fuzzy
+msgid ""
+"Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein "
+"sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise "
+"anzeigen oder Dein Netzwerk verwalten kannst."
+msgstr ""
+"Ευρετηριάζει όλες τις δημοσιεύσεις στο δίκτυό σας και τις τοποθετεί σε ένα "
+"μέρος - ένα πολύ ισχυρό εργαλείο που σας επιτρέπει να προβάλλετε τις "
+"δημοσιεύσεις με διαφορετικούς τρόπους ή να διαχειρίζεστε το δίκτυό σας."
+
+#. Author of the plugin/theme
+#, fuzzy
+msgid "WMS N@W"
+msgstr "WMS N@W"
+
+#. Author URI of the plugin/theme
+#, fuzzy
+msgid "https://n3rds.work"
+msgstr "https://n3rds.work"

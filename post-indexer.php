@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: PS Multisite Beitragsindex
+Plugin Name: Multisite Beitragsindex
 Plugin URI: https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/
 Description: Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise anzeigen oder Dein Netzwerk verwalten kannst.
 Author: WMS N@W
-Version: 3.1.3
+Version: 3.1.4
 Author URI: https://n3rds.work
 Requires at least: 4.9
 Network: true

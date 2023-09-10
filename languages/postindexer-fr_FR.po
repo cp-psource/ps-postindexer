@@ -1,0 +1,849 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Multisite Beitragsindex\n"
+"POT-Creation-Date: 2023-09-10 12:52+0200\n"
+"PO-Revision-Date: 2023-09-10 12:53+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: post-indexer.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/class.postindexeradmin.php:98 classes/class.postindexeradmin.php:399
+#, fuzzy
+msgid "PS-Multisite Index Einstellungen"
+msgstr "Paramètres de l'index PS-Multisite"
+
+#: classes/class.postindexeradmin.php:99
+#, fuzzy
+msgid "PS-Multisite Index Zusammenfassung"
+msgstr "Résumé de l'indice PS-Multisite"
+
+#: classes/class.postindexeradmin.php:107
+#, fuzzy
+msgid "Indizierung für die angeforderte Seite deaktiviert."
+msgstr "Indexation désactivée pour la page demandée."
+
+#: classes/class.postindexeradmin.php:110
+#, fuzzy
+msgid ""
+"Die Indizierung für die angeforderte Seite konnte nicht deaktiviert werden."
+msgstr "L'indexation pour la page demandée n'a pas pu être désactivée."
+
+#: classes/class.postindexeradmin.php:113
+#, fuzzy
+msgid "Indizierung für die angeforderte Seite aktiviert."
+msgstr "Indexation activée pour la page demandée."
+
+#: classes/class.postindexeradmin.php:116
+#, fuzzy
+msgid ""
+"Die Indizierung für die angeforderte Seite konnte nicht aktiviert werden."
+msgstr "L'indexation pour la page demandée n'a pas pu être activée."
+
+#: classes/class.postindexeradmin.php:119
+#, fuzzy
+msgid "Index, der für die Neuerstellung der angeforderten Seite geplant ist."
+msgstr "Index prévu pour la recréation de la page demandée."
+
+#: classes/class.postindexeradmin.php:122
+#, fuzzy
+msgid ""
+"Der Index konnte nicht für die Neuerstellung der angeforderten Seite geplant "
+"werden."
+msgstr ""
+"L'index n'a pas pu être planifié pour la recréation de la page demandée."
+
+#: classes/class.postindexeradmin.php:125
+#, fuzzy
+msgid "Deine Einstellungen wurden für die angeforderte Seite aktualisiert."
+msgstr "Tes paramètres ont été mis à jour pour la page demandée."
+
+#: classes/class.postindexeradmin.php:139
+#, fuzzy
+msgid ""
+"Deine Seite wurde <strong>DISABLE_WP_CRON</strong> definiert als "
+"<strong>true</strong>. In den meisten Fällen bedeutet dies, dass Post "
+"Indexer Deine Seite(n) möglicherweise nicht richtig indiziert, da er auf dem "
+"ClassicPress-Scheduler (WP_Cron) basiert. Wenn Du einen alternativen Cron "
+"ausführst, kannst Du diese Meldung ignorieren."
+msgstr ""
+"Ta page a été définie <strong>DISABLE_WP_CRON</strong> comme <strong>true</"
+"strong>. Dans la plupart des cas, cela signifie que Post Indexer n'indexe "
+"peut-être pas correctement ta/vos page(s), car il est basé sur le "
+"planificateur ClassicPress (WP_Cron). Si tu exécutes un cron alternatif, tu "
+"peux ignorer ce message."
+
+#: classes/class.postindexeradmin.php:156
+#: classes/class.postindexeradmin.php:177
+#: classes/class.postindexeradmin.php:200
+#: classes/class.postindexeradmin.php:221
+#, fuzzy
+msgid "Du hast keine Berechtigung, auf diese Seite zuzugreifen."
+msgstr "Tu n'as pas l'autorisation d'accéder à cette page."
+
+#: classes/class.postindexeradmin.php:270
+#, fuzzy
+msgid "Indizierung"
+msgstr "Indexation"
+
+#: classes/class.postindexeradmin.php:294
+msgid "Deaktivieren"
+msgstr "estropier"
+
+#: classes/class.postindexeradmin.php:298
+#: classes/class.postindexeradmin.php:320
+msgid "Bearbeiten"
+msgstr "Modifier"
+
+#: classes/class.postindexeradmin.php:302
+#, fuzzy
+msgid "Wiederaufbauen"
+msgstr "Reconstruire"
+
+#: classes/class.postindexeradmin.php:306
+#: classes/class.postindexeradmin.php:1335
+#, fuzzy
+msgid "Statistiken"
+msgstr "Statistiques"
+
+#: classes/class.postindexeradmin.php:311
+#, fuzzy
+msgid "Not Indexing"
+msgstr "Pas d'indexation"
+
+#: classes/class.postindexeradmin.php:316
+msgid "Aktivieren"
+msgstr "pour activer"
+
+#: classes/class.postindexeradmin.php:355
+#, fuzzy
+msgid "Webseiten-Index Zusammenfassung"
+msgstr "Index des sites web Résumé"
+
+#: classes/class.postindexeradmin.php:434
+#, fuzzy
+msgid "Cheatin&#8217; uh?"
+msgstr "Cheatin' euh ?"
+
+#: classes/class.postindexeradmin.php:452
+#, fuzzy
+msgid "PS-Multisite Indizierung"
+msgstr "PS-Multisite Indexation"
+
+#: classes/class.postindexeradmin.php:453
+#, fuzzy
+msgid ""
+"Du kannst die Post-Indizierung für diese Seite mithilfe der folgenden "
+"Einstellung aktivieren oder deaktivieren."
+msgstr ""
+"Tu peux activer ou désactiver la post-indexation pour cette page à l'aide du "
+"paramètre suivant."
+
+#: classes/class.postindexeradmin.php:458
+#, fuzzy
+msgid "Indizierung ist"
+msgstr "L'indexation est"
+
+#: classes/class.postindexeradmin.php:464
+#: classes/class.postindexeradmin.php:871
+msgid "Aktiviert"
+msgstr "Activé (-e/s)"
+
+#: classes/class.postindexeradmin.php:467
+#: classes/class.postindexeradmin.php:877
+msgid "Deaktiviert"
+msgstr "Désactivé (-e/s)"
+
+#: classes/class.postindexeradmin.php:474
+#, fuzzy
+msgid "Beitrags-Typen für den Index"
+msgstr "Types de contributions pour l'index"
+
+#: classes/class.postindexeradmin.php:475
+#, fuzzy
+msgid ""
+"Wähle die Beitragstypen aus, die für diese Seite indiziert werden sollen."
+msgstr "Sélectionne les types de publications à indexer pour cette page."
+
+#: classes/class.postindexeradmin.php:480
+#, fuzzy
+msgid "Derzeit indiziert"
+msgstr "Actuellement indexé"
+
+#: classes/class.postindexeradmin.php:506
+#, fuzzy
+msgid "Alle Änderungen speichern"
+msgstr "Enregistrer toutes les modifications"
+
+#: classes/class.postindexeradmin.php:519
+#, fuzzy
+msgid "PS-Multisite Index"
+msgstr "Index PS-Multisite"
+
+#: classes/class.postindexeradmin.php:792
+#, fuzzy
+msgid "Beitrags Index Zusammenfassung"
+msgstr "Index des contributions Résumé"
+
+#: classes/class.postindexeradmin.php:796
+#: classes/class.postindexeradmin.php:1077
+#, fuzzy
+msgid "Indizierte Beitragstypen"
+msgstr "Types de messages indexés"
+
+#: classes/class.postindexeradmin.php:824
+#, fuzzy
+msgid "Meist indizierten Webseiten"
+msgstr "Sites web les plus indexés"
+
+#: classes/class.postindexeradmin.php:866
+#, fuzzy
+msgid "PS-Multisite Index Prozess Information"
+msgstr "PS-Multisite Index Process Information"
+
+#: classes/class.postindexeradmin.php:868
+#, fuzzy
+msgid "<strong>PS-Multisite Index-Version</strong>:"
+msgstr "<strong>PS-Multisite version index</strong>:"
+
+#: classes/class.postindexeradmin.php:869
+#, fuzzy
+msgid "<strong>Debug-Protokollierung</strong>: "
+msgstr "<strong>Journal de débogage</strong>: "
+
+#: classes/class.postindexeradmin.php:873
+msgid "Einträge"
+msgstr "Entrées"
+
+#: classes/class.postindexeradmin.php:883
+#, fuzzy
+msgid "<strong>Zeitlimit für WP Cron-Sperre</strong>:"
+msgstr "<strong>Délai de verrouillage du WP Cron</strong>:"
+
+#: classes/class.postindexeradmin.php:910
+#, fuzzy
+msgid "Beitragsindex WP Cron Einträge"
+msgstr "Index des contributions WP Cron Entrées"
+
+#: classes/class.postindexeradmin.php:911
+#, fuzzy
+msgid "Aktuelle Uhrzeit:"
+msgstr "Heure actuelle :"
+
+#: classes/class.postindexeradmin.php:927
+msgid "Aktion"
+msgstr "action"
+
+#: classes/class.postindexeradmin.php:928
+msgid "Eintrag"
+msgstr "Inscription"
+
+#: classes/class.postindexeradmin.php:929
+#, fuzzy
+msgid "Nächster Lauf"
+msgstr "Prochaine course"
+
+#: classes/class.postindexeradmin.php:936
+#, fuzzy
+msgid "1. Durchgang"
+msgstr "1. Passage"
+
+#: classes/class.postindexeradmin.php:937
+#, fuzzy
+msgid " Seiten / Stapel"
+msgstr " Pages / Pile"
+
+#: classes/class.postindexeradmin.php:940
+#, fuzzy
+msgid "2. Durchgang"
+msgstr "2. Passage"
+
+#: classes/class.postindexeradmin.php:941
+#, fuzzy
+msgid " Seiten"
+msgstr " Pages"
+
+#: classes/class.postindexeradmin.php:942
+#, fuzzy
+msgid "Beiträge"
+msgstr "Contributions"
+
+#: classes/class.postindexeradmin.php:942
+#: classes/class.postindexeradmin.php:947
+#, fuzzy
+msgid "/ Stapel"
+msgstr "/ pile"
+
+#: classes/class.postindexeradmin.php:945
+#, fuzzy
+msgid "Beitrags Tags ordentlich"
+msgstr "Balises de contribution ordonnée"
+
+#: classes/class.postindexeradmin.php:946
+#, fuzzy
+msgid " Beiträge"
+msgstr " Contributions"
+
+#: classes/class.postindexeradmin.php:947
+msgid "Tags"
+msgstr "tags"
+
+#: classes/class.postindexeradmin.php:950
+#, fuzzy
+msgid "Beitrags Meta ordentlich"
+msgstr "Contribution Meta ordonnée"
+
+#: classes/class.postindexeradmin.php:951
+#: classes/class.postindexeradmin.php:955
+#, fuzzy
+msgid " Löschen / Stapel"
+msgstr " Supprimer / Pile"
+
+#: classes/class.postindexeradmin.php:954
+#, fuzzy
+msgid "Gealterte Beiträge ordentlich"
+msgstr "Contributions vieillies de manière ordonnée"
+
+#: classes/class.postindexeradmin.php:965
+#, fuzzy
+msgid "Cron-Eintrag löschen"
+msgstr "Supprimer l'entrée Cron"
+
+#: classes/class.postindexeradmin.php:971
+msgid "löschen"
+msgstr "supprimer"
+
+#: classes/class.postindexeradmin.php:1018
+#, fuzzy
+msgid "aktiv:"
+msgstr "active :"
+
+#: classes/class.postindexeradmin.php:1020
+#, fuzzy
+msgid "frühere:"
+msgstr "plus tôt :"
+
+#: classes/class.postindexeradmin.php:1040
+#, fuzzy
+msgid "Kein Plan"
+msgstr "Pas de plan"
+
+#: classes/class.postindexeradmin.php:1063
+#, fuzzy
+msgid "Die am häufigsten indizierten Webseiten im Netzwerk"
+msgstr "Les sites web les plus fréquemment indexés sur le réseau"
+
+#: classes/class.postindexeradmin.php:1091
+#, fuzzy
+msgid "Warteschlangenstatus für Indizierung"
+msgstr "Statut de la file d'attente pour l'indexation"
+
+#: classes/class.postindexeradmin.php:1095
+#, fuzzy
+msgid "Aktuelle Warteschlangenübersicht"
+msgstr "Aperçu de la file d'attente actuelle"
+
+#: classes/class.postindexeradmin.php:1104
+#, fuzzy
+msgid "Webseiten in der Warteschlange"
+msgstr "Pages web en file d'attente"
+
+#: classes/class.postindexeradmin.php:1108
+#, fuzzy
+msgid "Webseiten, die gerade verarbeitet werden"
+msgstr "Pages web en cours de traitement"
+
+#: classes/class.postindexeradmin.php:1112
+#, fuzzy
+msgid "Webseiten, die auf ihre Bearbeitung warten"
+msgstr "Pages web en attente de traitement"
+
+#: classes/class.postindexeradmin.php:1116
+#, fuzzy
+msgid ""
+"Die Verarbeitung der Webseiten wird beim nächsten Durchgang abgeschlossen"
+msgstr "Le traitement des pages web sera terminé lors du prochain passage"
+
+#: classes/class.postindexeradmin.php:1134
+#, fuzzy
+msgid "Kürzlich indizierte Beiträge"
+msgstr "Articles récemment indexés"
+
+#: classes/class.postindexeradmin.php:1139
+#: classes/class.postindexeradmin.php:1145
+#, fuzzy
+msgid "Beitragstitel"
+msgstr "Titre de la contribution"
+
+#: classes/class.postindexeradmin.php:1140
+#: classes/class.postindexeradmin.php:1146
+msgid "Seite"
+msgstr "Page"
+
+#: classes/class.postindexeradmin.php:1211
+#, fuzzy
+msgid "Netzwerk-Beiträge-Index-Statistiken"
+msgstr "Statistiques de l'index des contributions au réseau"
+
+#: classes/class.postindexeradmin.php:1218
+#: classes/class.postindexeradmin.php:1270
+#: classes/class.postindexeradmin.php:1373
+#: classes/class.postindexeradmin.php:1419
+#, fuzzy
+msgid "Es befinden sich derzeit Elemente in Deiner Indexierungswarteschlange."
+msgstr "Il y a actuellement des éléments dans ta file d'attente d'indexation."
+
+#: classes/class.postindexeradmin.php:1263
+#, fuzzy
+msgid "PS-Multisite Index Cron Log"
+msgstr "PS-Multisite Index Cron Log"
+
+#: classes/class.postindexeradmin.php:1287
+#, fuzzy, php-format
+msgid "Anzeigen der neuesten <strong>%s</strong> Cron-Protokolleinträge."
+msgstr "Afficher les dernières <strong>%s</strong> Entrées du journal Cron."
+
+#: classes/class.postindexeradmin.php:1324
+#, fuzzy
+msgid "Der Wiederaufbau des Post-Index ist geplant."
+msgstr "La reconstruction du post-index est prévue."
+
+#: classes/class.postindexeradmin.php:1325
+#, fuzzy
+msgid "Einstellungen wurden aktualisiert."
+msgstr "Les paramètres ont été mis à jour."
+
+#: classes/class.postindexeradmin.php:1342
+#, fuzzy
+msgid "Globale Einstellungen"
+msgstr "Paramètres globaux"
+
+#: classes/class.postindexeradmin.php:1346
+#: classes/class.postindexeradmin.php:1397
+#, fuzzy
+msgid "Index neu erstellen"
+msgstr "Recréer un index"
+
+#: classes/class.postindexeradmin.php:1353
+#, fuzzy
+msgid "Cron Log"
+msgstr "Journal de Cron"
+
+#: classes/class.postindexeradmin.php:1366
+#, fuzzy
+msgid "Neurstellen des Netzwerkbeitragsindex"
+msgstr "Nouvelle mise à jour de l'indice de contribution au réseau"
+
+#: classes/class.postindexeradmin.php:1392
+#, fuzzy
+msgid ""
+"Du kannst den Post-Index neu erstellen, indem Du unten auf die Schaltfläche "
+"<strong>Index neu erstellen</strong> klickst."
+msgstr ""
+"Tu peux recréer le post-index en cliquant sur le bouton <strong>Reconstruire "
+"l'index</strong> en bas."
+
+#: classes/class.postindexeradmin.php:1393
+#, fuzzy
+msgid ""
+"Hinweis: Dies kann viel Zeit in Anspruch nehmen und die Leistung Deines "
+"Servers beeinträchtigen."
+msgstr ""
+"Remarque : cela peut prendre beaucoup de temps et affecter les performances "
+"de ton serveur."
+
+#: classes/class.postindexeradmin.php:1412
+#, fuzzy
+msgid "PS-Multisite Index - Globale Einstellungen"
+msgstr "PS-Multisite Index - Paramètres globaux"
+
+#: classes/class.postindexeradmin.php:1440
+#, fuzzy
+msgid ""
+"Mit den folgenden Einstellungen kannst Du die Standardeinstellungen für alle "
+"Seiten in Deinem Netzwerk und die Verarbeitung festlegen, die für den "
+"gesamten Index stattfinden. "
+msgstr ""
+"Avec les paramètres suivants, tu peux définir les paramètres par défaut pour "
+"toutes les pages de ton réseau et le traitement qui a lieu pour l'ensemble "
+"de l'index."
+
+#: classes/class.postindexeradmin.php:1441
+#, fuzzy, php-format
+msgid ""
+"Du kannst einige dieser Einstellungen Seite für Seite über die <a "
+"href=%s>Webseiten Admin-Seite</a> überschreiben."
+msgstr ""
+"Tu peux remplacer certains de ces paramètres page par page via &lt;a "
+"href=%s&gt;Page d'administration des pages web</a>."
+
+#: classes/class.postindexeradmin.php:1448
+#, fuzzy
+msgid "Standardposttypen"
+msgstr "Types de courrier standard"
+
+#: classes/class.postindexeradmin.php:1454
+#, fuzzy
+msgid ""
+"Dies sind die Standardposttypen, die vom Plugin indiziert werden. Platziere "
+"jeden Beitragstyp in einer separaten Zeile."
+msgstr ""
+"Il s'agit des types de messages standard indexés par le plugin. Placez "
+"chaque type de message sur une ligne séparée."
+
+#: classes/class.postindexeradmin.php:1460
+#, fuzzy
+msgid "Indizierte Beiträge entfernen, die älter als sind"
+msgstr "Supprimer les messages indexés antérieurs à"
+
+#: classes/class.postindexeradmin.php:1481
+#, fuzzy
+msgid "Stunde(n)"
+msgstr "Heure(s)"
+
+#: classes/class.postindexeradmin.php:1483
+msgid "Tag(e)"
+msgstr "Jour (s)"
+
+#: classes/class.postindexeradmin.php:1485
+#, fuzzy
+msgid "Woche(n)"
+msgstr "Semaine(s)"
+
+#: classes/class.postindexeradmin.php:1487
+#, fuzzy
+msgid "Monat(e)"
+msgstr "Mois(s)"
+
+#: classes/class.postindexeradmin.php:1489
+msgid "Jahr(e)"
+msgstr "Année(s)"
+
+#: classes/class.postindexeradmin.php:1493
+#, fuzzy
+msgid ""
+"Beiträge, die älter als diese Zeitspanne sind, werden aus dem globalen Index "
+"entfernt."
+msgstr ""
+"Les contributions antérieures à cette période seront supprimées de l'index "
+"global."
+
+#: classes/class.postindexeradmin.php:1504
+#, fuzzy
+msgid "Einstellungen aktualisieren"
+msgstr "Mettre à jour les paramètres"
+
+#: classes/cron.postindexerrebuild.php:48
+#: classes/cron.postindexerrebuild.php:61
+#: classes/cron.postindexerrebuild.php:70
+#: classes/cron.postindexerrebuild.php:79
+#: classes/cron.postindexerrebuild.php:84
+#: classes/cron.postindexerrebuild.php:93
+#: classes/cron.postindexerrebuild.php:103
+#, fuzzy
+msgid "Beitragsindex Erster Durchlauf"
+msgstr "Indice de contribution Premier passage"
+
+#: classes/cron.postindexerrebuild.php:48
+#: classes/cron.postindexerrebuild.php:114
+#: classes/cron.postindexerrebuild.php:262
+#: classes/cron.postindexerrebuild.php:292
+#: classes/cron.postindexerrebuild.php:317
+#, fuzzy
+msgid "Initialisieren..."
+msgstr "Initialiser..."
+
+#: classes/cron.postindexerrebuild.php:61
+#, fuzzy, php-format
+msgid "Verarbeite %s in der Warteschlange befindliche Elemente."
+msgstr "Traite %s éléments en file d'attente."
+
+#: classes/cron.postindexerrebuild.php:70
+#, fuzzy, php-format
+msgid "Blog: %d, ist indizierbar."
+msgstr "Blog : %d, est indexable."
+
+#: classes/cron.postindexerrebuild.php:79
+#, fuzzy, php-format
+msgid "Blog: %d, Höchste Beitrag-ID ist %d"
+msgstr "Le blog : %d, L'ID de message le plus élevé est %d"
+
+#: classes/cron.postindexerrebuild.php:84
+#, fuzzy, php-format
+msgid ""
+"Blog: %d, Keine Beiträge gefunden, die aus der Warteschlange entfernt wurden."
+msgstr "Le blog : %d, Aucun message trouvé supprimé de la file d'attente."
+
+#: classes/cron.postindexerrebuild.php:93
+#, fuzzy, php-format
+msgid "Blog: %d, ist NICHT indizierbar - wird aus der Warteschlange entfernt."
+msgstr "Blog : %d, n'est PAS indexable - est retiré de la file d'attente."
+
+#: classes/cron.postindexerrebuild.php:103
+#, fuzzy
+msgid "Durchlauf abgeschlossen"
+msgstr "Passage terminé"
+
+#: classes/cron.postindexerrebuild.php:114
+#: classes/cron.postindexerrebuild.php:126
+#: classes/cron.postindexerrebuild.php:133
+#: classes/cron.postindexerrebuild.php:146
+#: classes/cron.postindexerrebuild.php:152
+#: classes/cron.postindexerrebuild.php:163
+#: classes/cron.postindexerrebuild.php:167
+#: classes/cron.postindexerrebuild.php:197
+#: classes/cron.postindexerrebuild.php:203
+#: classes/cron.postindexerrebuild.php:208
+#: classes/cron.postindexerrebuild.php:210
+#: classes/cron.postindexerrebuild.php:221
+#: classes/cron.postindexerrebuild.php:229
+#: classes/cron.postindexerrebuild.php:239
+#: classes/cron.postindexerrebuild.php:250
+#, fuzzy
+msgid "Beitragsindex Zweiter Durchlauf"
+msgstr "Indice de contribution Second tour"
+
+#: classes/cron.postindexerrebuild.php:126
+#, fuzzy, php-format
+msgid "Verarbeite %d in der Warteschlange befindliche Elemente."
+msgstr "Traite %d éléments en file d'attente."
+
+#: classes/cron.postindexerrebuild.php:133
+#, fuzzy, php-format
+msgid "Blog: %d, ist indexierbar."
+msgstr "Le blog : %d, est indexable."
+
+#: classes/cron.postindexerrebuild.php:146
+#, fuzzy, php-format
+msgid "Blog: %d, %d Beiträge verarbeiten"
+msgstr "Le blog : %d, %d Traitement des messages"
+
+#: classes/cron.postindexerrebuild.php:152
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Beginne mit der Verarbeitung"
+msgstr "Blog : %d, ID du message : %d, Commencer le traitement"
+
+#: classes/cron.postindexerrebuild.php:163
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Indiziere Beitrag"
+msgstr "Le blog : %d, ID du message : %d, Indiquer le message"
+
+#: classes/cron.postindexerrebuild.php:167
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Beitrag-Metadaten"
+msgstr "Le blog : %d, ID du message : %d, Métadonnées du message"
+
+#: classes/cron.postindexerrebuild.php:197
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d,  Verarbeitung von Taxonomie: %s"
+msgstr "Blog : %d, ID de message : %d, Traitement de la taxinomie : %s"
+
+#: classes/cron.postindexerrebuild.php:203
+#, fuzzy, php-format
+msgid "BLog: %d, Beitrag ID: %d, Verarbeitung von Taxonomie: %s"
+msgstr "BLog : %d, ID de la contribution : %d, Traitement de la taxinomie : %s"
+
+#: classes/cron.postindexerrebuild.php:208
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, keine zugehörigen Taxonomien"
+msgstr "Le blog : %d, ID de message : %d, aucune taxinomie associée"
+
+#: classes/cron.postindexerrebuild.php:210
+#, fuzzy, php-format
+msgid "Blog: %d, Beitrag ID: %d, Verarbeitung beenden"
+msgstr "Le blog : %d, ID de message : %d, Terminer le traitement"
+
+#: classes/cron.postindexerrebuild.php:221
+#: classes/cron.postindexerrebuild.php:229
+#, fuzzy, php-format
+msgid "Blog: %d, Keine Beiträge mehr aus der Warteschlange entfernt."
+msgstr "Blog : %d, Plus de messages supprimés de la file d'attente."
+
+#: classes/cron.postindexerrebuild.php:239
+#, fuzzy, php-format
+msgid ""
+"Blog: %d, ist NICHT indizierbar und wird aus der Warteschlange entfernt."
+msgstr "Blog : %d, n'est PAS indexable et sera supprimé de la file d'attente."
+
+#: classes/cron.postindexerrebuild.php:250
+#: classes/cron.postindexerrebuild.php:280
+#: classes/cron.postindexerrebuild.php:308
+#: classes/cron.postindexerrebuild.php:339
+#, fuzzy
+msgid "Verarbeitung abgeschlossen"
+msgstr "Traitement terminé"
+
+#: classes/cron.postindexerrebuild.php:262
+#: classes/cron.postindexerrebuild.php:273
+#: classes/cron.postindexerrebuild.php:277
+#: classes/cron.postindexerrebuild.php:280
+#, fuzzy
+msgid "Beitragsindex Tags aufräumen"
+msgstr "Nettoyer les tags d'index de contribution"
+
+#: classes/cron.postindexerrebuild.php:273
+#, fuzzy
+msgid "Verwaiste Taxonomieeinträge entfernen"
+msgstr "Supprimer les entrées de taxinomie orphelines"
+
+#: classes/cron.postindexerrebuild.php:277
+#, fuzzy
+msgid "Neuberechnung der Taxonomiezähler"
+msgstr "Recalcul des compteurs de taxonomie"
+
+#: classes/cron.postindexerrebuild.php:292
+#: classes/cron.postindexerrebuild.php:305
+#: classes/cron.postindexerrebuild.php:308
+#, fuzzy
+msgid "Beitragsindex Beitragsmeta aufräumen"
+msgstr "Index des contributions Nettoyer le méta des contributions"
+
+#: classes/cron.postindexerrebuild.php:305
+#, fuzzy
+msgid "Verwaiste Beitragsmeta-Einträge entfernen"
+msgstr "Supprimer les métadonnées de contribution orphelines"
+
+#: classes/cron.postindexerrebuild.php:317
+#: classes/cron.postindexerrebuild.php:336
+#: classes/cron.postindexerrebuild.php:339
+#, fuzzy
+msgid "Beitragsindex Alte Beiträge aufräumen"
+msgstr "Index des contributions Nettoyer les anciennes contributions"
+
+#: classes/cron.postindexerrebuild.php:336
+#, fuzzy, php-format
+msgid "Beiträge entfernen, die älter sind als: %d %s"
+msgstr "Supprimer les messages plus anciens que : %d %s"
+
+#: classes/cron.postindexerrebuild.php:350
+#, fuzzy
+msgid "Alle 10 Minuten"
+msgstr "Toutes les 10 minutes"
+
+#: classes/cron.postindexerrebuild.php:351
+#, fuzzy
+msgid "Alle 5 Minuten"
+msgstr "Toutes les 5 minutes"
+
+#: classes/networkquery.php:137 classes/networkquery.php:158
+#: classes/networkquery.php:178 classes/networkquery.php:202
+#: classes/networkquery.php:226 classes/networkquery.php:250
+#: classes/networkquery.php:279 classes/networkquery.php:299
+#: classes/networkquery.php:319 classes/networkquery.php:339
+#: classes/networkquery.php:360 classes/networkquery.php:380
+#: classes/networkquery.php:410 classes/networkquery.php:439
+#: classes/networkquery.php:459 classes/networkquery.php:486
+#: classes/networkquery.php:506 classes/networkquery.php:526
+#: classes/networkquery.php:546 classes/networkquery.php:566
+#: classes/networkquery.php:595 classes/networkquery.php:622
+#: classes/networkquery.php:642 classes/networkquery.php:662
+#: classes/networkquery.php:682 classes/networkquery.php:702
+#, fuzzy
+msgid ""
+"Bedingte Abfragetags funktionieren nicht, bevor die Abfrage ausgeführt wird. "
+"Vorher geben sie immer false zurück."
+msgstr ""
+"Les balises d'interrogation conditionnelles ne fonctionnent pas avant "
+"l'exécution de la requête. Avant cela, elles renvoient toujours false."
+
+#: classes/networkquery.php:1973
+#, fuzzy
+msgid ""
+"\"caller_get_posts\" is deprecated. Use \"ignore_sticky_posts\" instead."
+msgstr ""
+"\"caller_get_posts\" est déprécié. Utiliser \"ignore_sticky_posts\" à la "
+"place."
+
+#: includes/functions.php:371
+#, fuzzy
+msgid "(mehr...)"
+msgstr "(plus...)"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:56
+#, fuzzy
+msgid "View details"
+msgstr "Voir les détails"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:79
+#, fuzzy, php-format
+msgid "Weitere Informationen zu %s"
+msgstr "Plus d'informations sur %s"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:130
+#, fuzzy
+msgid "Auf neuere Version prüfen"
+msgstr "Vérifier la disponibilité d'une version plus récente"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:217
+#, fuzzy, php-format
+msgctxt "the plugin title"
+msgid "Keine neuere Version von %s im PSOURCE REPO gefunden."
+msgstr "Aucune version plus récente de %s n'a été trouvée dans PSOURCE REPO."
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:219
+#, fuzzy, php-format
+msgctxt "the plugin title"
+msgid "Im PSOURCE REPO ist eine <b>neuere Version von %s</b> verfügbar!."
+msgstr ""
+"Une <b>version plus récente de %s</b> est disponible dans PSOURCE REPO !"
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:221
+#, fuzzy, php-format
+msgctxt "the plugin title"
+msgid ""
+"Entschuldige, es konnte nicht festgestellt werden, ob Updates für %s "
+"verfügbar sind."
+msgstr ""
+"Désolé, il n'a pas été possible de déterminer si des mises à jour étaient "
+"disponibles pour %s."
+
+#: psource/psource-plugin-update/Puc/v5p0/Plugin/Ui.php:227
+#, fuzzy, php-format
+msgid "Unbekannter PSOURCE-UPDATTER-Status \"%s\""
+msgstr "Statut inconnu de PSOURCE-UPDATTER \"%s\""
+
+#: psource/psource-plugin-update/Puc/v5p0/Vcs/PluginUpdateChecker.php:98
+#, fuzzy
+msgid "There is no changelog available."
+msgstr "Il n'y a pas de journal des changements disponible."
+
+#. Plugin Name of the plugin/theme
+#, fuzzy
+msgid "Multisite Beitragsindex"
+msgstr "Index de contribution multisite"
+
+#. Plugin URI of the plugin/theme
+#, fuzzy
+msgid "https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/"
+msgstr "https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/"
+
+#. Description of the plugin/theme
+#, fuzzy
+msgid ""
+"Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein "
+"sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise "
+"anzeigen oder Dein Netzwerk verwalten kannst."
+msgstr ""
+"Indexer tous les messages de ton réseau et les placer au même endroit - un "
+"outil très puissant qui te permet d'afficher les messages de différentes "
+"manières ou de gérer ton réseau."
+
+#. Author of the plugin/theme
+msgid "WMS N@W"
+msgstr "WMS N@W"
+
+#. Author URI of the plugin/theme
+msgid "https://n3rds.work"
+msgstr "https://n3rds.work"
