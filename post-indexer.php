@@ -10,8 +10,6 @@ Requires at least: 4.9
 Network: true
 Text Domain: postindexer
 Domain Path: /languages
-
-
 */
 
 // +----------------------------------------------------------------------+
@@ -58,6 +56,8 @@ require_once POST_INDEXER_PLUGIN_DIR . 'classes/networkquery.php';
 // Include the rebuild cron class
 require_once POST_INDEXER_PLUGIN_DIR . 'classes/cron.postindexerrebuild.php';
 
-// Include the main class
-require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.postindexeradmin.php';
+if (is_admin()){
+	// Include the main class
+	require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.postindexeradmin.php';
+}
 

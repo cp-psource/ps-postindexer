@@ -26,9 +26,6 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 			$this->model    = new postindexermodel();
 			$this->base_url = plugins_url( '/', dirname( __FILE__ ) );
 
-
-			
-
 			// Add settings menu action
 			add_action( 'network_admin_menu', array( $this, 'add_admin_page' ) );
 
