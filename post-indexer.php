@@ -3,7 +3,7 @@
 Plugin Name: Multisite Beitragsindex
 Plugin URI: https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/
 Description: Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise anzeigen oder Dein Netzwerk verwalten kannst.
-Author: WMS N@W
+Author: PSOURCE
 Version: 3.1.4
 Author URI: https://n3rds.work
 Requires at least: 4.9
@@ -13,7 +13,7 @@ Domain Path: /languages
 */
 
 // +----------------------------------------------------------------------+
-// | Copyright 2018-2023 WMS N@W (https://n3rds.work/)                                |
+// | Copyright 2018-2024 PSOURCE (https://n3rds.work/)                                |
 // +----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify |
 // | it under the terms of the GNU General Public License, version 2, as  |
@@ -30,13 +30,17 @@ Domain Path: /languages
 // | MA 02110-1301 USA                                                    |
 // +----------------------------------------------------------------------+
 
-require 'psource/psource-plugin-update/psource-plugin-updater.php';
-use Psource\PluginUpdateChecker\v5\PucFactory;
-$MyUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://n3rds.work//wp-update-server/?action=get_metadata&slug=ps-postindexer', 
-	__FILE__, 
-	'ps-postindexer' 
+require 'psource/psource-plugin-update/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+ 
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/cp-psource/ps-postindexer',
+	__FILE__,
+	'ps-postindexer'
 );
+ 
+//Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('master');
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Es tut uns leid, aber Du kannst nicht direkt auf diese Datei zugreifen.' );

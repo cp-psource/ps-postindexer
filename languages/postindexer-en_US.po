@@ -293,7 +293,7 @@ msgstr ""
 #: classes/class.postindexeradmin.php:142
 msgid ""
 "Deine Seite wurde <strong>DISABLE_WP_CRON</strong> definiert als <strong>"
-"true</strong>. In den meisten Fällen bedeutet dies, dass Post Indexer Deine "
+"true</strong>. In den meisten Fällen bedeutet dies, dass Multisite Beitragsindex Deine "
 "Seite(n) möglicherweise nicht richtig indiziert, da er auf dem ClassicPress-"
 "Scheduler (WP_Cron) basiert. Wenn Du einen alternativen Cron ausführst, "
 "kannst Du diese Meldung ignorieren."

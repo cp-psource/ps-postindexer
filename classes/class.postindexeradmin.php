@@ -136,7 +136,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 				if ( ( defined( 'DISABLE_WP_CRON' ) ) && ( DISABLE_WP_CRON == true ) ) {
 					?>
 					<div id="post-indexer-error" class="error">
-						<p><?php _e( 'Deine Seite wurde <strong>DISABLE_WP_CRON</strong> definiert als <strong>true</strong>. In den meisten Fällen bedeutet dies, dass Post Indexer Deine Seite(n) möglicherweise nicht richtig indiziert, da er auf dem ClassicPress-Scheduler (WP_Cron) basiert. Wenn Du einen alternativen Cron ausführst, kannst Du diese Meldung ignorieren.', 'postindexer' ); ?></p>
+						<p><?php _e( 'Deine Seite wurde <strong>DISABLE_WP_CRON</strong> definiert als <strong>true</strong>. In den meisten Fällen bedeutet dies, dass Multisite Beitragsindex Deine Seite(n) möglicherweise nicht richtig indiziert, da er auf dem ClassicPress-Scheduler (WP_Cron) basiert. Wenn Du einen alternativen Cron ausführst, kannst Du diese Meldung ignorieren.', 'postindexer' ); ?></p>
 					</div>
 					<?php
 				}
@@ -887,7 +887,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 					<?php
 					/*
 					if ((defined('DISABLE_WP_CRON')) && (DISABLE_WP_CRON == true)) {
-						?><p><?php _e('Your site has <strong>DISABLE_WP_CRON</strong> defined as <strong>true</strong>. In most cases this means Post Indexer may not properly index your site(s) as it relies on the ClassicPress scheduler (WP_Cron). If you are running an alternate cron you can ignore this message.', 'postindexer'); ?></p><?php
+						?><p><?php _e('Your site has <strong>DISABLE_WP_CRON</strong> defined as <strong>true</strong>. In most cases this means Multisite Beitragsindex may not properly index your site(s) as it relies on the ClassicPress scheduler (WP_Cron). If you are running an alternate cron you can ignore this message.', 'postindexer'); ?></p><?php
 					}
 					*/
 					if ( ( isset( $_GET['post_indexer_clear_cron'] ) ) && ( ! empty( $_GET['post_indexer_clear_cron'] ) ) ) {

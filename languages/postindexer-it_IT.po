@@ -83,7 +83,7 @@ msgid ""
 msgstr ""
 "La pagina è stata definita <strong>DISABLE_WP_CRON</strong> come "
 "<strong>vera</strong>. Nella maggior parte dei casi, questo significa che "
-"Post Indexer potrebbe non indicizzare correttamente le pagine perché si basa "
+"Multisite Beitragsindex potrebbe non indicizzare correttamente le pagine perché si basa "
 "sullo scheduler di ClassicPress (WP_Cron). Se si esegue un cron alternativo, "
 "si può ignorare questo messaggio."
 
