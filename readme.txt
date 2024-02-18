@@ -3,7 +3,7 @@ Contributors: DerN3rd (PSOURCE)
 Tags: multisite, suche, netzwerksuche
 Requires at least: 4.9
 Tested up to: 5.6
-Stable tag: 3.1.4
+Stable tag: 3.1.5
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -79,6 +79,11 @@ Look at which websites are the most active and how post types are used in your n
 
 
 == ChangeLog ==
+
+= 3.1.5 =
+
+* Updater 1.3
+* Links aktualisiert
 
 = 3.1.4 =
 
