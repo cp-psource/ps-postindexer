@@ -1,6 +1,5 @@
 === PS Multisite Beitragsindexer ===
-Contributors: DerN3rd (WMS N@W)
-Donate link: https://n3rds.work/spendenaktionen/unterstuetze-unsere-psource-free-werke/
+Contributors: DerN3rd (PSOURCE)
 Tags: multisite, suche, netzwerksuche
 Requires at least: 4.9
 Tested up to: 5.6
@@ -75,29 +74,9 @@ Look at which websites are the most active and how post types are used in your n
 
 === Hilfe und Support / Help and Support ===
 
-[Projektseite](https://n3rds.work/piestingtal_source/multisite-beitragsindex-plugin/)
+[Projektseite](https://cp-psource.github.io/ps-postindexer/)
 [GitHub](https://github.com/piestingtal-source/ps-postindexer)
 
-== Mehr Psource ==
-
-Erweitere die Möglichkeiten von PS Multisite Beitragsindex mit den passenden Plugins und Widgets!
-
-Expand the possibilities of PS Multisite post index with the appropriate plugins and widgets!
-
-=== PS Multisite Netzwerksuche ===
-
-[PS Multisite Netzwerksuche](https://n3rds.work/piestingtal_source/multisite-netzwerksuche-plugin/) ist in der Lage eine Netzwerkweite Suche anhand des Beitragsindex durchzuführen.
-
-== Hilf uns ==
-
-Viele, viele Kaffees konsumieren wir während wir an unseren Plugins und Themes arbeiten.
-Wie wärs? Möchtest Du uns mit einer Kaffee-Spende bei der Arbeit an unseren Plugins unterstützen?
-
-=== Unterstütze uns ===
-
-Mach eine [Spende per Überweisung oder PayPal](https://n3rds.work/spendenaktionen/unterstuetze-unsere-psource-free-werke/) wir Danken Dir!
-
-[POWERED BY PSOURCE](https://n3rds.work/psource_kategorien/psource-plugins/)
 
 == ChangeLog ==
 
