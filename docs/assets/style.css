@@ -81,17 +81,23 @@
   }
   
   .site-footer {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px solid #ddd;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #f8f8f8;
     text-align: center;
-    color: #666;
+    border-top: 2px solid #38c2bb;
     font-size: 0.9rem;
+    color: #333;
   }
   
   .site-footer a {
     color: #38c2bb;
     text-decoration: none;
+    font-weight: bold;
+  }
+
+  .site-footer a:hover {
+    text-decoration: underline;
   }
 
   .btn {
