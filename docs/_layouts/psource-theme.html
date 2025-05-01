@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 </head>
 <body>
-  <div class="site-container" style="max-width: 960px; margin: 0 auto; padding: 1rem;"></div>
-    <header>
-      <nav>
-        <a href="{{ "/" | relative_url }}">Home</a>
-        <a href="{{ "/about" | relative_url }}">About</a>
+  <div class="site-container">
+    <header class="site-header">
+      <nav class="main-nav">
+        <a href="{{ "/" | relative_url }}">🏠 Home</a>
+        <a href="{{ "/about" | relative_url }}">ℹ️ About</a>
       </nav>
     </header>
 
@@ -36,7 +36,7 @@
       </aside>
     </div>
 
-    <footer class="psource-footer">
+    <footer class="site-footer">
       <p>
         ❤️ Entwickelt mit Liebe von <a href="https://github.com/cp-psource" target="_blank">PSOURCE</a><br>
         © 2025 – Alle Rechte vorbehalten
