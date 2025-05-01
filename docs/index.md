@@ -1,10 +1,10 @@
 ---
-title: Home
+title: Multisite Beitragsindex
 ---
 
 <link rel="stylesheet" href="assets/style.css">
 
-<h2 align="center" style="color:#38c2bb;">📚 Inhaltsverzeichnis</h2>
+<h2 align="center" style="color:#38c2bb;">📚 Multisite Beitragsindex</h2>
 
 <div class="menu"> 
   <a href="https://github.com/cp-psource/ps-postindexer/discussions" style="color:#38c2bb;">💬 Forum</a> 
