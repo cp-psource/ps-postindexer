@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="site-container" style="max-width: 960px; margin: 0 auto; padding: 1rem;"></div>
+    <header>
+      <nav>
+        <a href="{{ "/" | relative_url }}">Home</a>
+        <a href="{{ "/about" | relative_url }}">About</a>
+      </nav>
+    </header>
+
+    <div class="content-wrapper" style="display: flex; gap: 2rem;">
+      <main style="flex: 2;">
+        {{ content }}
+      </main>
+
+      <aside class="sidebar" style="flex: 1;">
+        <section class="widget">
+          <h3>🔗 Nützliche Links</h3>
+          <ul>
+            <li><a href="#">Dokumentation</a></li>
+            <li><a href="#">Forum</a></li>
+          </ul>
+        </section>
+
+        <section class="widget">
+          <h3>📰 Neuigkeiten</h3>
+          <p>Letztes Update: April 2025</p>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="psource-footer">
+      <p>
+        ❤️ Entwickelt mit Liebe von <a href="https://github.com/cp-psource" target="_blank">PSOURCE</a><br>
+        © 2025 – Alle Rechte vorbehalten
+      </p>
+    </footer>
+  </div>
+</body>
