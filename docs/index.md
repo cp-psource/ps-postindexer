@@ -1,22 +1,35 @@
-# Multisite Beitragsindex
+---
+title: Home
+---
 
-## Multisite Beitragsindex for Multisite makes network wide search and share possible. Unlock new ways to find and display content by bringing posts from any site on your network into one index.
+<link rel="stylesheet" href="assets/style.css">
 
-![post-indexer-post-types-735x470](https://premium.wpmudev.org/wp-content/uploads/2008/08/post-indexer-post-types-735x470-583x373.jpg)
+<h2 align="center" style="color:#38c2bb;">📚 Inhaltsverzeichnis</h2>
 
- Create a global index for your network that only pulls the content you want added.
+<div class="menu">
+  <a href="#features" style="color:#38c2bb;">🚀 Features</a> •
+  <a href="#schnelleinstieg" style="color:#38c2bb;">📖 Schnelleinstieg</a> •
+  <a href="https://github.com/cp-psource/ps-postindexer/discussions" style="color:#38c2bb;">💬 Forum</a> •
+  <a href="https://github.com/cp-psource/ps-postindexer/releases" style="color:#38c2bb;">📝 Download</a>
+</div>
 
-### Expand What Multisite Can Do
+## Multisite Beitragsindex für Multisite ermöglicht netzwerkweites Suchen und Teilen. Erschließe neue Möglichkeiten zum Suchen und Anzeigen von Inhalten, indem Du Beiträge von beliebigen Webseiten in Deinem Netzwerk in einem Index zusammenfasst.
 
-We built Multisite Beitragsindex to work in tandem with other plugins that can harness its power. While Multisite is a powerful tool, one of its biggest limitations is its inability to search and display content from site-to-sites across your network.
+![post-indexer-post-types-735x470](assets/images/post-indexer-post-types-735x470-583x373.jpg)
 
- We’ve built a huge collection of plugins that can do it, but those plugins need a single index of posts to pull from. This is where Multisite Beitragsindex comes in. Multisite Beitragsindex does more than just build an index. You can exclude certain subsites from being indexed, index a particular site right away, index pages as well as posts, index posts manually, choose a timeframe for when posts are indexed and choose posts types to be indexed per site. 
+ Erstelle einen globalen Index für Dein Netzwerk, der nur die Inhalte abruft, die Du hinzufügen möchtest.
 
-### All The Stats You'll Ever Need
+### Erweitere die Möglichkeiten von Multisite
 
-Make sure everything is set to your liking at a glance.
+Wir haben den Multisite Beitragsindex so entwickelt, dass er mit anderen Plugins zusammenarbeitet, die seine Leistungsfähigkeit nutzen können. Multisite ist zwar ein leistungsstarkes Tool, eine seiner größten Einschränkungen ist jedoch die fehlende Möglichkeit, Inhalte von Webseite zu Webseite in Deinem Netzwerk zu suchen und anzuzeigen.
 
-![order](https://premium.wpmudev.org/wp-content/uploads/2008/08/order.png)
+Wir haben eine große Sammlung von Plugins entwickelt, die dies ermöglichen. Diese Plugins benötigen jedoch einen einzigen Index von Beiträgen, aus dem sie Inhalte abrufen können. Hier kommt der Multisite Beitragsindex ins Spiel. Der Multisite Beitragsindex kann mehr als nur einen Index erstellen. Du kannst bestimmte Unterseiten von der Indexierung ausschließen, eine bestimmte Webseite sofort indexieren, Seiten sowie Beiträge indexieren, Beiträge manuell indexieren, einen Zeitraum für die Indexierung von Beiträgen festlegen und die zu indexierenden Beitragstypen pro Webseite auswählen.
+
+### Alle Statistiken, die Du jemals brauchst
+
+Stelle sicher, dass alles auf einen Blick Deinen Wünschen entspricht.
+
+![order](assets/icons/order.png)
 
 ### Multisite Beitragsindex Summary
 
@@ -145,3 +158,10 @@ Once you either add more posts or rebuild the index, you should start to see sta
 If you run into problems, you may want to check for the following: First, make sure the post is published on a site with privacy set to "Allow search engines to index this site." (Found in the regular admin area -- not the Network Admin area -- under **Settings > Reading**.) Next, there are a few config options at the top of post-indexer.php. Unless you're in a very solid dedicated environment, we recommend leaving them as is. **Check to Make Sure The Tables Installed Correctly:** **
 
 ![Multisite Beitragsindex Tables](https://premium.wpmudev.org/wp-content/uploads/2010/04/twotables.jpg)
+
+<footer class="psource-footer">
+  <p>
+    ❤️ Entwickelt mit Liebe von <a href="https://github.com/cp-psource" target="_blank">PSOURCE</a><br>
+    © 2025 – Alle Rechte vorbehalten
+  </p>
+</footer>
