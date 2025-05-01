@@ -1,4 +1,5 @@
 ---
+layout: psource-theme
 title: Multisite Beitragsindex Erweiterungen
 ---
 

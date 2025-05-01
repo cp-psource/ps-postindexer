@@ -155,10 +155,3 @@ Once you either add more posts or rebuild the index, you should start to see sta
 If you run into problems, you may want to check for the following: First, make sure the post is published on a site with privacy set to "Allow search engines to index this site." (Found in the regular admin area -- not the Network Admin area -- under **Settings > Reading**.) Next, there are a few config options at the top of post-indexer.php. Unless you're in a very solid dedicated environment, we recommend leaving them as is. **Check to Make Sure The Tables Installed Correctly:** **
 
 ![Multisite Beitragsindex Tables](https://premium.wpmudev.org/wp-content/uploads/2010/04/twotables.jpg)
-
-<footer class="psource-footer">
-  <p>
-    ❤️ Entwickelt mit Liebe von <a href="https://github.com/cp-psource" target="_blank">PSOURCE</a><br>
-    © 2025 – Alle Rechte vorbehalten
-  </p>
-</footer>
