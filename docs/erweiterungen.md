@@ -23,9 +23,7 @@ Blitzschnelle Ergebnisse
 Multisite Suche verwendet unser leistungsstarkes PS-Multisite Beitragsindex Plugin, das alle Beiträge auf jeder Seite in Deinem Netzwerk indiziert, 
 um eine blitzschnelle Suche in Deinem gesamten Netzwerk zu erstellen.
 
-<div class="btn">
-  <a href="https://cp-psource.github.io/global-site-search/"> MULTISITE SUCHE</a>
-</div>
+[MULTISITE SUCHE](https://cp-psource.github.io/global-site-search/){: .btn }
 
 ### Multisite Reader
 
@@ -33,7 +31,5 @@ Mit dem Multisite-Reader erstellst Du einen Netzwerkweiten Newsfeed für Deine B
 
 Du kannst ganz einfach einzelnen Blogs in Deinem Netzwerk folgen um so über die Neusten Beiträge und Inhalte Deiner favorisierten Netzwerk-Seiten informiert zu bleiben.
 
-<div class="btn">
-  <a href="https://cp-psource.github.io/msreader/"> MULTISITE READER</a>
-</div>
+[MULTISITE READER](https://cp-psource.github.io/msreader/){: .btn }
 
