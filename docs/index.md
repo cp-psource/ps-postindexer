@@ -6,11 +6,10 @@ title: Home
 
 <h2 align="center" style="color:#38c2bb;">📚 Inhaltsverzeichnis</h2>
 
-<div class="menu">
-  <a href="#features" style="color:#38c2bb;">🚀 Features</a> •
-  <a href="#schnelleinstieg" style="color:#38c2bb;">📖 Schnelleinstieg</a> •
-  <a href="https://github.com/cp-psource/ps-postindexer/discussions" style="color:#38c2bb;">💬 Forum</a> •
+<div class="menu"> 
+  <a href="https://github.com/cp-psource/ps-postindexer/discussions" style="color:#38c2bb;">💬 Forum</a> 
   <a href="https://github.com/cp-psource/ps-postindexer/releases" style="color:#38c2bb;">📝 Download</a>
+  <a href="erweiterungen.html" style="color:#38c2bb;">📖 ERWEITERUNGEN</a>
 </div>
 
 ## Multisite Beitragsindex für Multisite ermöglicht netzwerkweites Suchen und Teilen. Erschließe neue Möglichkeiten zum Suchen und Anzeigen von Inhalten, indem Du Beiträge von beliebigen Webseiten in Deinem Netzwerk in einem Index zusammenfasst.
