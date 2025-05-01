@@ -14,14 +14,26 @@ title: Multisite Beitragsindex Erweiterungen
 
 ## Multisite Beitragsindex lässt sich mit weiteren Plugins erweitern. Dadurch bildet dieses Plugin einen mächtigen Kern auf dem Du viele weitere Netzwerkweite Funktionen aufsetzen kannst!
 
-### Netzwerksuche
+### Multisite Suche
 
-Netzwerksuche nutzt die Leistungsfähigkeit von PS-Multisite Beitragsindex , um eine leistungsstarke netzwerkweite Beitrags-Suche zu ermöglichen.
+Multisite Suche nutzt die Leistungsfähigkeit von PS-Multisite Beitragsindex , um eine leistungsstarke netzwerkweite Beitrags-Suche zu ermöglichen.
 Multisite und BuddyPress bieten keine Möglichkeit, Blogs in einem gesamten Netzwerk zu durchsuchen.
 
 Blitzschnelle Ergebnisse
-Netzwerksuche verwendet unser leistungsstarkes PS-Multisite Beitragsindex Plugin, das alle Beiträge auf jeder Seite in Deinem Netzwerk indiziert, 
+Multisite Suche verwendet unser leistungsstarkes PS-Multisite Beitragsindex Plugin, das alle Beiträge auf jeder Seite in Deinem Netzwerk indiziert, 
 um eine blitzschnelle Suche in Deinem gesamten Netzwerk zu erstellen.
 
-[Netzwerksuche Download](https://cp-psource.github.io/global-site-search/){: .btn }
+<div class="btn">
+  <a href="https://cp-psource.github.io/global-site-search/"> MULTISITE SUCHE</a>
+</div>
+
+### Multisite Reader
+
+Mit dem Multisite-Reader erstellst Du einen Netzwerkweiten Newsfeed für Deine Benutzer/Autoren, etc. Du kannst eigene Listen mit Deinen Lieblingsinhalten anlegen, Empfehlen & Bewerten.
+
+Du kannst ganz einfach einzelnen Blogs in Deinem Netzwerk folgen um so über die Neusten Beiträge und Inhalte Deiner favorisierten Netzwerk-Seiten informiert zu bleiben.
+
+<div class="btn">
+  <a href="https://cp-psource.github.io/msreader/"> MULTISITE READER</a>
+</div>
 
