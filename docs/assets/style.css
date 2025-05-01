@@ -49,3 +49,7 @@
     border-radius: 5px;
     text-decoration: none;
   }
+
+  h1.site-title {
+    display: none;
+  }
