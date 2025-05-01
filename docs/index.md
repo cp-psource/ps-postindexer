@@ -31,39 +31,38 @@ Stelle sicher, dass alles auf einen Blick Deinen Wünschen entspricht.
 
 ![order](assets/icons/order.png)
 
-### Multisite Beitragsindex Summary
+### Zusammenfassung des Multisite-Beitragsindex
 
-See a quick list view of indexed post types and most sites indexed.
+Hier findest Du eine kurze Listenansicht der indexierten Beitragstypen und der meisten indexierten Webseiten.
 
-![pie-graph-icon](https://premium.wpmudev.org/wp-content/uploads/2008/08/pie-graph-icon.png)
+![pie-graph-icon](assets/icons/pie-graph-icon.png)
 
-### Indexed Post Types
+### Indexierte Beitragstypen
 
-A clean simple pie chart breaks down percentage of each post types indexed.
+Ein übersichtliches Kreisdiagramm zeigt den Prozentsatz der indexierten Beitragstypen.
 
-![line-graph-icon](https://premium.wpmudev.org/wp-content/uploads/2008/08/line-graph-icon.png)
+![line-graph-icon](assets/icons/line-graph-icon.png)
 
-### Recently Indexed Posts
+### Kürzlich indexierte Beiträge
 
-Access recently indexed posts with a click. See site and post name.
+Zugriff auf kürzlich indexierte Beiträge mit nur einem Klick. Webseiten und Beitragsname werden angezeigt.
 
-![bar-graph-icon](https://premium.wpmudev.org/wp-content/uploads/2008/08/bar-graph-icon.png)
+![bar-graph-icon](assets/icons/bar-graph-icon.png)
 
-### Most Indexed Sites
+### Meistindizierte Websites
 
-See which sites are most active and how post types are being used across your network.
+Sehe auf einem Blick welche Webseiten am aktivsten sind und wie Beitragstypen in Deinem Netzwerk verwendet werden.
 
-## Reimagine What Multisite Can Do
+## Multisite neu entdecken
 
-We’ve developed a robust collection of plugins that work around Multisite Beitragsindex to extend Multisite’s capabilities.
+Wir haben eine leistungsstarke Sammlung von Plugins entwickelt, die mit dem Multisite-Beitragsindex zusammenarbeiten und die Funktionen von Multisite erweitern.
 
-*   [**Reader**](https://premium.wpmudev.org/project/reader/) – Turn your Multisite into a community, complete with Tumblr, WordPress.com and Edublogs-style “Follow” features
-*   [**Anti-splog**](https://premium.wpmudev.org/project/anti-splog/) – Stop splogs in their tracks
-*   [**Blogs Directory**](https://premium.wpmudev.org/project/blogs-directory/) – A fully searchable, avatar inclusive, automatic and rather good-looking directory of all the sites in your network
+*   [**Multsite Reader**](https://cp-psource.github.io/msreader/) – Verwandel Deine Multisite in eine Community, komplett mit „Folgen“-Funktionen im Tumblr-, WordPress.com- und Edublogs-Stil
+*   [**Blogs Directory**](https://cp-psource.github.io/blogs-directory/) – Ein vollständig durchsuchbares, Avatar-inklusives, automatisches und recht gut aussehendes Verzeichnis aller Webseiten in Deinem Netzwerk
 *   [**Global Site Search**](https://premium.wpmudev.org/project/global-site-search/) – Activate global search across all of the sites on your network with ease
 *   [**Global Site Tags**](https://premium.wpmudev.org/project/global-site-tags/) – Display global site tags for your entire network
 *   [**Tag feed**](https://premium.wpmudev.org/project/tag-feed/) – Display a list of posts that have been tagged with a specific tag or category
-*   [**Recent Global Posts**](https://premium.wpmudev.org/project/recent-global-posts-widget/) – Display a list of recent posts anywhere on your site using a simple shortcode or template function
+*   [**Recent Global Posts**](https://cp-psource.github.io/recent-global-posts-widget/) – Display a list of recent posts anywhere on your site using a simple shortcode or template function
 *   [**Recent Global Posts Feed**](https://premium.wpmudev.org/project/recent-global-posts-feed/) – Create an RSS feed of all the latest posts on your network
 *   [**Live Stream**](https://premium.wpmudev.org/project/live-stream-widget/) – Display your own slick animated Live Stream Widget
 *   [**User Reports**](https://premium.wpmudev.org/project/user-reports/) – Track user posts across your network
