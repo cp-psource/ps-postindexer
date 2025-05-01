@@ -3,6 +3,8 @@ layout: psource-theme
 title: "Multisite Beitragsindex"
 ---
 
+<link rel="stylesheet" href="assets/style.css">
+
 <h2 align="center" style="color:#38c2bb;">📚 Multisite Beitragsindex</h2>
 
 <div class="menu"> 
