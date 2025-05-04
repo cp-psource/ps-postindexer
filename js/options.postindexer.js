@@ -99,7 +99,7 @@ function piStatisticsReady() {
 	piSetWidth();
 	piPlotCharts();
 
-	jQuery(window).resize( function() {
+	jQuery(window).on('resize', function() {
 		piSetWidth();
 		piPlotCharts();
 	});
