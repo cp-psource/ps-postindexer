@@ -4,7 +4,7 @@ Plugin Name: Multisite Beitragsindex
 Plugin URI: https://cp-psource.github.io/ps-postindexer/
 Description: Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise anzeigen oder Dein Netzwerk verwalten kannst.
 Author: PSOURCE
-Version: 3.1.5
+Version: 3.1.6
 Author URI: https://github.com/cp-psource
 Requires at least: 4.9
 Network: true
@@ -13,7 +13,7 @@ Domain Path: /languages
 */
 
 // +----------------------------------------------------------------------+
-// | Copyright 2018-2024 PSOURCE (https://github.com/cp-psource)                                |
+// | Copyright 2018-2025 PSOURCE (https://github.com/cp-psource)                                |
 // +----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify |
 // | it under the terms of the GNU General Public License, version 2, as  |

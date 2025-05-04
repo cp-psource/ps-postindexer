@@ -3,7 +3,7 @@ Contributors: DerN3rd (PSOURCE)
 Tags: multisite, suche, netzwerksuche
 Requires at least: 4.9
 Tested up to: 6.8.1
-Stable tag: 3.1.5
+Stable tag: 3.1.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -70,15 +70,22 @@ Look at which websites are the most active and how post types are used in your n
 * de_DE (informell)
 * el 
 
-[POWERED BY PSOURCE](https://n3rds.work/psource_kategorien/psource-plugins/)
+[POWERED BY PSOURCE](https://github.com/cp-psource/)
 
 === Hilfe und Support / Help and Support ===
 
 [Projektseite](https://cp-psource.github.io/ps-postindexer/)
-[GitHub](https://github.com/piestingtal-source/ps-postindexer)
+[GitHub](https://github.com/cp-psource/ps-postindexer)
 
 
 == ChangeLog ==
+
+= 3.1.6 =
+
+* Several jQuery Fixes
+* Code Overhauled
+* New Docs
+* Updated Links
 
 = 3.1.5 =
 
