@@ -66,7 +66,7 @@ function piSiteStatisticsReady() {
 
 	piPlotSiteChart();
 
-	jQuery(window).resize( function() {
+	jQuery(window).off('resize').on('resize', function() {
 		piPlotSiteChart();
 	});
 
