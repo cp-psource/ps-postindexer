@@ -68,6 +68,8 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 
 			// Add the jazzy statistics information
 			add_action( 'postindexer_statistics', array( $this, 'handle_statistics_page' ) );
+
+			add_action( 'network_admin_footer', array( $this, 'output_modals' ) );
 		}
 
 		//------------------------------------------------------------------------//
@@ -86,19 +88,17 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 		function add_header_sites_page() {
 			wp_enqueue_style( 'postindexernetworksettings', $this->base_url . 'css/sites.postindexer.css' );
 
-			wp_enqueue_script( 'thickbox' );
-
-			wp_register_script( 'pi-sites-post-indexer', $this->base_url . 'js/sites.postindexer.js', array(
-				'jquery',
-				'thickbox'
-			) );
+			wp_register_script(
+				'pi-sites-post-indexer',
+				$this->base_url . 'js/sites.postindexer.js',
+				array( 'jquery', 'modal' )
+			);
 			wp_enqueue_script( 'pi-sites-post-indexer' );
 
 			wp_localize_script( 'pi-sites-post-indexer', 'postindexer', array(
 				'siteedittitle'    => __( 'PS-Multisite Index Einstellungen', 'postindexer' ),
 				'sitesummarytitle' => __( 'PS-Multisite Index Zusammenfassung', 'postindexer' )
 			) );
-			wp_enqueue_style( 'thickbox' );
 		}
 
 		function output_msg_sites_page( $msg ) {
@@ -129,7 +129,6 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 			return $msg;
 		}
 
-
 		function admin_notices() {
 			if ( ( is_network_admin() ) && ( isset( $_GET['page'] ) ) && ( $_GET['page'] == 'postindexer' ) ) {
 
@@ -141,9 +140,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 					<?php
 				}
 			}
-
 		}
-
 
 		function process_sites_page() {
 
@@ -295,7 +292,10 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 						</span> |
 						<span class="edit">
 							<a class='postindexersiteeditlink'
-							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=editsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'edit_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Bearbeiten', 'postindexer' ); ?></a>
+							href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=editsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'edit_site_postindexer_' . $blog_id ); ?>'
+							data-psource-modal-open="siteedit-modal">
+							<?php _e( 'Bearbeiten', 'postindexer' ); ?>
+							</a>
 						</span> |
 						<span class="rebuild">
 							<a class='postindexersiterebuildlink'
@@ -316,8 +316,11 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 							   href='<?php echo wp_nonce_url( network_admin_url( "sites.php?action=enablesitepostindexer&amp;blog_id=" . $blog_id . "" ), 'enable_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Aktivieren', 'postindexer' ); ?></a>
 						</span> |
 						<span class="edit">
-							<a class='postindexersiteeditlink'
-							   href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=editsitepostindexer&amp;blog_id=" . $blog_id . "" ), 'edit_site_postindexer_' . $blog_id ); ?>'><?php _e( 'Bearbeiten', 'postindexer' ); ?></a>
+							<a class='postindexersitesummarylink'
+							href='<?php echo wp_nonce_url( admin_url( "admin-ajax.php?action=summarysitepostindexer&amp;blog_id=" . $blog_id . "" ), 'summary_site_postindexer_' . $blog_id ); ?>'
+							data-psource-modal-open="sitesummary-modal">
+							<?php _e( 'Statistiken', 'postindexer' ); ?>
+							</a>
 						</span>
 					</div>
 					<?php
@@ -1694,6 +1697,19 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 				//$wpdb->query( $post_indexer_table5 );
 				update_site_option( "post_indexer_installed", "yes" );
 			}
+		}
+
+		public function output_modals() {
+			?>
+			<dialog id="siteedit-modal" class="psource-modal">
+				<button class="psource-modal-close" type="button" aria-label="Schließen">×</button>
+				<iframe style="width:100%;height:80vh;border:0;"></iframe>
+			</dialog>
+			<dialog id="sitesummary-modal" class="psource-modal">
+				<button class="psource-modal-close" type="button" aria-label="Schließen">×</button>
+				<iframe style="width:100%;height:80vh;border:0;"></iframe>
+			</dialog>
+			<?php
 		}
 
 	}
