@@ -89,11 +89,22 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 			wp_enqueue_style( 'postindexernetworksettings', $this->base_url . 'css/sites.postindexer.css' );
 
 			wp_register_script(
+				'psource-modal',
+				$this->base_url . 'assets/psource-ui/modal/psource-modal.js',
+				array('jquery'),
+				'1.0.0',
+				true
+			);
+			wp_enqueue_script('psource-modal');
+
+			wp_register_script(
 				'pi-sites-post-indexer',
 				$this->base_url . 'js/sites.postindexer.js',
-				array( 'jquery', 'modal' )
+				array('jquery', 'psource-modal'),
+				'1.0.0',
+				true
 			);
-			wp_enqueue_script( 'pi-sites-post-indexer' );
+			wp_enqueue_script('pi-sites-post-indexer');
 
 			wp_localize_script( 'pi-sites-post-indexer', 'postindexer', array(
 				'siteedittitle'    => __( 'PS-Multisite Index Einstellungen', 'postindexer' ),
