@@ -441,10 +441,7 @@ class UserReports {
 			<h2><?php _ex( "User Reports", "User Reports New Page Title", 'postindexer' ); ?></h2>
 
 			<?php
-			if ( ( is_multisite() ) && ( is_network_admin() ) && ( ! $this->has_post_indexer_plugin() ) ) {
-				?>
-				<p><?php echo __( 'For Network level reporting User Reports requires ', 'postindexer' ) . ' <a target="_blank" href="http://premium.wpmudev.org/project/post-indexer/">' . __( 'Post Indexer', 'postindexer' ) . '</a> and <a target="_blank" href="http://premium.wpmudev.org/project/comment-indexer/">' . __( 'Comment Indexer', 'postindexer' ) . '</a> ' . __( 'plugins to be installed. User Report can be used at the Blog level where it will use local Posts and Comments data.', 'postindexer' ); ?></p><?php
-			} else {
+			if ( ( is_multisite() ) && ( is_network_admin() ) ) {
 				?>
 				<p><?php _ex( "To create a report, select the report type, blogs, users, and date range below. Set 'Users' to blank if you want to see all users stats.",
 						'User Reports page description', 'postindexer' ); ?></p>
