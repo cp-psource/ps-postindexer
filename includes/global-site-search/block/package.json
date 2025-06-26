@@ -1,0 +1,13 @@
+{
+  "name": "global-site-search",
+  "version": "1.0.0",
+  "description": "Netzwerksuche Block",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.15.0"
+  }
+}

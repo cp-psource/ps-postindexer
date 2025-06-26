@@ -1,0 +1,25 @@
+#wpcontent select.widget-live-stream-content-types  {
+	width: 100%;
+}
+
+#wpcontent select.widget-live-stream-content-terms[multiple] {
+	max-height: 75px;
+	width: 100%;
+}
+
+
+#wpcontent select.widget-live-stream-content-types optgroup option,
+#wpcontent select.widget-live-stream-content-terms optgroup option {
+	padding-left: 10px;
+}
+
+ul.live-stream-admin-checklist {
+	height: 150px;
+	overflow-y: scroll;
+	background: #FFFFFF;
+	padding: 5px;
+}
+
+ul.live-stream-admin-checklist ul {
+    margin-left: 18px;
+}

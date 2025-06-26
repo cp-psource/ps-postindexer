@@ -3,6 +3,8 @@
 if ( ! class_exists( 'postindexeradmin' ) ) {
 
 	include_once( dirname( __FILE__ ) . '/class.processlocker.php' );
+	include_once( dirname( __FILE__ ) . '/class.postindexerextensionsadmin.php' );
+	include_once( dirname( __FILE__ ) . '/class.postindexermonitoringadmin.php' );
 
 	class postindexeradmin {
 
@@ -18,6 +20,10 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 
 		var $base_url;
 
+		var $extensions_admin;
+
+		var $monitoring_admin;
+
 		function __construct() {
 
 			global $wpdb;
@@ -25,6 +31,9 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 			$this->db       = $wpdb;
 			$this->model    = new postindexermodel();
 			$this->base_url = plugins_url( '/', dirname( __FILE__ ) );
+
+			$this->extensions_admin = new Postindexer_Extensions_Admin();
+			$this->monitoring_admin = new Postindexer_Monitoring_Admin();
 
 			// Add settings menu action
 			add_action( 'network_admin_menu', array( $this, 'add_admin_page' ) );
@@ -530,19 +539,111 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 		function add_admin_page() {
 			global $wpmudev_notices;
 
-			$title = __( 'PS-Multisite Index', 'postindexer' );
-			$hook  = add_submenu_page( 'settings.php', $title, $title, 'manage_network_options', 'postindexer', array(
-				$this,
-				'handle_postindexer_page'
-			) );
+			$main_slug = 'ps-multisite-index';
+			$cap = 'manage_network_options';
+
+			// Hauptmenü
+			add_menu_page(
+				__( 'PS-Multisite Index', 'postindexer' ),
+				__( 'PS-Multisite Index', 'postindexer' ),
+				$cap,
+				$main_slug,
+				array( $this, 'handle_postindexer_page' ),
+				'dashicons-networking',
+				3
+			);
+
+			// Dashboard/Übersicht als erste Subpage (bisherige Seite)
+			add_submenu_page(
+				$main_slug,
+				__( 'Dashboard', 'postindexer' ),
+				__( 'Dashboard', 'postindexer' ),
+				$cap,
+				$main_slug,
+				array( $this, 'handle_postindexer_page' )
+			);
+
+			// Erweiterungen als Subpage über eigene Klasse
+			$this->extensions_admin->register_menu( $main_slug, $cap );
+
+			// Monitoring-Seite als neue Subpage
+            add_submenu_page(
+                $main_slug,
+                __( 'Monitoring', 'postindexer' ),
+                __( 'Monitoring', 'postindexer' ),
+                $cap,
+                $main_slug . '-monitoring',
+                array( $this, 'render_monitoring_page' )
+            );
 
 			$wpmudev_notices[] = array(
 				'id'      => 30,
 				'name'    => 'PS-Multisite Index',
-				'screens' => array( "{$hook}-network" ),
+				'screens' => array( $main_slug . '-network' ),
 			);
 		}
 
+		function render_extensions_page() {
+			echo '<div class="wrap"><h1>' . esc_html__( 'Erweiterungen', 'postindexer' ) . '</h1>';
+			echo '<p>Hier findest du alle verfügbaren Erweiterungen für den PS-Multisite Index. Aktiviere oder konfiguriere sie nach Bedarf.</p>';
+			// Übersicht als Grid
+			echo '<style>
+			.ps-extensions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2em; margin-top:2em; }
+			.ps-extension-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 2em 1.5em 1.5em 1.5em; display: flex; flex-direction: column; align-items: flex-start; }
+			.ps-extension-card h2 { margin-top:0; font-size:1.3em; }
+			.ps-extension-card p { color:#444; font-size:1em; }
+			.ps-extension-status { margin: 0.5em 0 1em 0; font-size:0.95em; color:#888; display:flex; align-items:center; gap:1em; }
+			.ps-switch { position: relative; display: inline-block; width: 48px; height: 24px; }
+			.ps-switch input { opacity: 0; width: 0; height: 0; }
+			.ps-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; border-radius: 24px; }
+			.ps-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+			.ps-switch input:checked + .ps-slider { background-color: #2ecc40; }
+			.ps-switch input:checked + .ps-slider:before { transform: translateX(24px); }
+			.ps-status-label { font-weight:bold; min-width:50px; display:inline-block; }
+			.ps-extension-actions { margin-top:auto; display:flex; gap:1em; }
+			.ps-extension-actions .button { min-width:110px; }
+			</style>';
+			// JS für Status-Label
+			echo '<script>
+			document.addEventListener("DOMContentLoaded",function(){
+				const toggles = document.querySelectorAll(".ps-switch input[type=checkbox]");
+				toggles.forEach(function(toggle){
+					toggle.addEventListener("change",function(){
+						const label = this.closest(".ps-extension-status").querySelector(".ps-status-label");
+						if(this.checked){ label.textContent = "Aktiv"; label.style.color = "#2ecc40"; }
+						else { label.textContent = "Inaktiv"; label.style.color = "#aaa"; }
+					});
+				});
+			});
+			</script>';
+			echo '<div class="ps-extensions-grid">';
+			// Erweiterung 1: Aktuelle Netzwerkbeiträge
+			echo '<div class="ps-extension-card">
+				<h2>Aktuelle Netzwerkbeiträge</h2>
+				<p>Zeigt eine anpassbare Liste der letzten Beiträge aus dem gesamten Multisite-Netzwerk an. Ermöglicht flexible Darstellung und Filterung.</p>
+				<div class="ps-extension-status">
+					<span class="ps-status-label" style="color:#2ecc40;">Aktiv</span>
+					<label class="ps-switch"><input type="checkbox" checked><span class="ps-slider"></span></label>
+				</div>
+				<div class="ps-extension-actions">
+					<a href="' . esc_url( network_admin_url( 'admin.php?page=network-posts-settings' ) ) . '" class="button button-primary">Einstellungen</a>
+				</div>
+			</div>';
+			// Platzhalter für weitere Erweiterungen
+			echo '<div class="ps-extension-card">
+				<h2>Beispiel-Erweiterung</h2>
+				<p>Hier könnte eine weitere Erweiterung stehen. Mehr demnächst!</p>
+				<div class="ps-extension-status">
+					<span class="ps-status-label" style="color:#aaa;">Inaktiv</span>
+					<label class="ps-switch"><input type="checkbox"><span class="ps-slider"></span></label>
+				</div>
+				<div class="ps-extension-actions">
+					<button class="button button-primary" disabled>Einstellungen</button>
+				</div>
+			</div>';
+			echo '</div>';
+			echo '</div>';
+		}
 		function add_header_postindexer_page() {
 
 			// Enqueue the graphing library
@@ -1471,6 +1572,9 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 
 									<tr valign="top">
 										<th scope="row"><label
+
+
+
 												for="agedperiod"><?php _e( 'Indizierte Beiträge entfernen, die älter als sind', 'postindexer' ); ?></label>
 										</th>
 										<td>
@@ -1509,6 +1613,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 									</tr>
 									</tbody>
 								</table>
+							
 								<?php
 								do_action( 'postindexer_options_page' );
 								?>
@@ -1572,6 +1677,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 						if ( ! empty( $meta ) ) {
 							foreach ( $meta as $metakey => $postmeta ) {
 								// Add in the blog_id to the table
+							
 								$postmeta['blog_id'] = $this->db->blogid;
 								// Add it to the network tables
 								$this->model->index_postmeta( $postmeta );
@@ -1723,6 +1829,13 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 			<?php
 		}
 
+		function render_monitoring_page() {
+            if (isset($this->monitoring_admin)) {
+            $this->monitoring_admin->render_monitoring_page();
+        } else {
+            echo '<div class="wrap"><h1>Monitoring</h1><p>Monitoring-Tools konnten nicht geladen werden.</p></div>';
+        }
+        }
 	}
 }
 
