@@ -37,10 +37,9 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 
 			// Add settings menu action
 			add_action( 'network_admin_menu', array( $this, 'add_admin_page' ) );
-
 			add_action( 'network_admin_notices', array( &$this, 'admin_notices' ) );
-
 			add_action( 'load-settings_page_postindexer', array( $this, 'add_header_postindexer_page' ) );
+			add_action( 'load-toplevel_page_ps-multisite-index', array( $this, 'add_header_postindexer_page' ) );
 			//settings_page_postindexer
 			// Sites page integration
 			add_filter( 'wpmu_blogs_columns', array( $this, 'add_sites_column_heading' ), 99 );

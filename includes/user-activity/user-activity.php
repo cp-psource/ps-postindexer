@@ -428,6 +428,7 @@ class User_Activity {
 			width: 20%;
 			margin-right: 4%;
 			float: left;
+			min-width: 225px;
 		}
 
 		.form-table h4 {
