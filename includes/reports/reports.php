@@ -78,13 +78,6 @@ class Activity_Reports {
 		add_action( 'save_post', array( &$this, 'post_activity' ) );
 		add_action( 'delete_post', array( &$this, 'post_activity_remove' ) );
 		add_action( 'delete_blog', array( &$this, 'post_activity_remove_blog' ) , 10, 1 );
-
-		// load text domain
-		if ( defined( 'WPMU_PLUGIN_DIR' ) && file_exists( WPMU_PLUGIN_DIR . '/reports.php' ) ) {
-			load_muplugin_textdomain( 'reports', 'reports-files/languages' );
-		} else {
-			load_plugin_textdomain( 'reports', false, dirname( plugin_basename( __FILE__ ) ) . '/reports-files/languages' );
-		}
 	}
 
 	function make_current() {

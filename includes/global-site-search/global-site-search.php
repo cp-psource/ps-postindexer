@@ -58,8 +58,6 @@ class global_site_search {
 
 		add_action( 'wpmu_options', array( $this, 'global_site_search_site_admin_options' ) );
 		add_action( 'update_wpmu_options', array( $this, 'global_site_search_site_admin_options_process' ) );
-
-		add_action( 'plugins_loaded', array( $this, 'global_site_search_site_load_textdomain' ) );
 	}
 
 	function add_queryvars( $vars ) {
@@ -113,10 +111,6 @@ class global_site_search {
 
 			update_option( 'global_site_search_page', $page_id );
 		}
-	}
-
-	function global_site_search_site_load_textdomain() {
-		load_plugin_textdomain( 'globalsitesearch', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	function global_site_search_site_admin_options() {

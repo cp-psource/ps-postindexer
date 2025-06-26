@@ -32,13 +32,6 @@ class Blog_Activity {
 		else
 			add_action( 'admin_menu', array( &$this, 'pre_3_1_network_admin_page' ) );
 
-		// load text domain
-		if ( defined( 'WPMU_PLUGIN_DIR' ) && file_exists( WPMU_PLUGIN_DIR . '/blog-activity.php' ) ) {
-			load_muplugin_textdomain( 'blog_activity', 'blog-activity-files/languages' );
-		} else {
-			load_plugin_textdomain( 'blog_activity', false, dirname( plugin_basename( __FILE__ ) ) . '/blog-activity-files/languages' );
-		}
-
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 	}
 

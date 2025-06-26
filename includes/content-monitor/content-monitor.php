@@ -6,8 +6,6 @@ Description: Allows you to monitor your entire site for set words that you defin
 Version: 1.4
 Author: WPMU DEV
 Author URI: https://premium.wpmudev.org/
-Text Domain: contentmon
-Domain Path: /languages/
 Network: true
 WDP ID: 12
 */
@@ -47,9 +45,6 @@ class Content_Monitor {
 	}
 
 	public function localization() {
-		// Load up the localization file if we're using WordPress in a different language
-		// Place it in this plugin's "languages" folder and name it "contentmon-[value in wp-config].mo"
-		load_plugin_textdomain( 'contentmon', false, '/content-monitor/languages/' );
 	}
 
 	public function send_email( $post_permalink, $post_type ) {

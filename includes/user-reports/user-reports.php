@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'USER_REPORTS_I18N_DOMAIN' ) ) {
-	define( 'USER_REPORTS_I18N_DOMAIN', 'user-reports' );
-}
-
 require_once( dirname( __FILE__ ) . '/lib/class-user-reports-posts-list-table.php' );
 require_once( dirname( __FILE__ ) . '/lib/class-user-reports-comments-list-table.php' );
 
@@ -39,7 +35,7 @@ class UserReports {
         $plugin_url = plugins_url('', __FILE__);
         $this->_settings['PLUGIN_URL'] = $plugin_url;
         $this->_settings['PLUGIN_BASE_DIR'] = $plugin_dir;
-		$this->_settings['admin_menu_label'] = __( "User Reports", USER_REPORTS_I18N_DOMAIN );
+		$this->_settings['admin_menu_label'] = __( "User Reports", 'postindexer' );
 
 		$this->_settings['options_key'] = "user-report-" . $this->_settings['VERSION'];
 
@@ -52,9 +48,6 @@ class UserReports {
 
 		add_action( 'admin_notices', array( &$this, 'user_reports_admin_notices_proc' ) );
 		add_action( 'network_admin_notices', array( &$this, 'user_reports_admin_notices_proc' ) );
-
-		/* Setup the tetdomain for i18n language handling see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain */
-		load_plugin_textdomain( USER_REPORTS_I18N_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		/* Standard activation hook for all WordPress plugins see http://codex.wordpress.org/Function_Reference/register_activation_hook */
 		register_activation_hook( __FILE__, array( &$this, 'user_reports_plugin_activation_proc' ) );
@@ -112,7 +105,7 @@ class UserReports {
 
 				$actions['user-reports'] = sprintf(
 					'<a class="submitreports" href="%s">%s</a>',
-					esc_url( $url ), __( 'Reports', USER_REPORTS_I18N_DOMAIN )
+					esc_url( $url ), __( 'Reports', 'postindexer' )
 				);
 			}
 		}
@@ -134,16 +127,16 @@ class UserReports {
 	function user_reports_admin_menu_proc() {
 
 		$this->_pagehooks['user-reports'] = add_users_page(
-			_x('Reports', 'page label', USER_REPORTS_I18N_DOMAIN ),
-			_x( 'Reports', 'menu label', USER_REPORTS_I18N_DOMAIN ),
+			_x('Reports', 'page label', 'postindexer' ),
+			_x( 'Reports', 'menu label', 'postindexer' ),
 			'list_users', 'user-reports',
 			array( $this, 'user_reports_admin_show_panel' ) );
 
 		//site-users-network
 		$this->_pagehooks['network-user-reports'] = add_submenu_page(
 			'users-network',
-			_x( 'Reports', 'page label', USER_REPORTS_I18N_DOMAIN ),
-			_x( 'Reports', 'menu label', USER_REPORTS_I18N_DOMAIN ),
+			_x( 'Reports', 'page label', 'postindexer' ),
+			_x( 'Reports', 'menu label', 'postindexer' ),
 			'list_users', 'user-reports',
 			array( $this, 'user_reports_admin_show_panel' ) );
 
@@ -333,20 +326,20 @@ class UserReports {
 
 		$screen = get_current_screen();
 		$screen_help_text = array();
-		$screen_help_text['user-reports-help-overview'] = '<p>' . __( 'The User Reports plugins lets you build reports of the activity of your users.', USER_REPORTS_I18N_DOMAIN ) . '</p>';
+		$screen_help_text['user-reports-help-overview'] = '<p>' . __( 'The User Reports plugins lets you build reports of the activity of your users.', 'postindexer' ) . '</p>';
 		$screen_help_text['user-reports-help-overview'] .= '<ul>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Report Type', USER_REPORTS_I18N_DOMAIN ) . '</strong> - ' . __( 'From the Report main screen you can select the type or report: Posts or Comments', USER_REPORTS_I18N_DOMAIN ) . '</li>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Blogs', USER_REPORTS_I18N_DOMAIN ) . '</strong> - ' . __( 'Select which blog to report on. Or you can generate a report for all Blogs. (Multisite SuperAdmin only)', USER_REPORTS_I18N_DOMAIN ) . '</li>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Users', USER_REPORTS_I18N_DOMAIN ) . '</strong> - ' . __( 'Select the User from the dropdown. If you are viewing reports from the network admin you can enter the username directly or select the user from the Users listing page first.', USER_REPORTS_I18N_DOMAIN ) . '</li>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Date', USER_REPORTS_I18N_DOMAIN ) . '</strong> - ' . __( 'Select a date range for your report. Note you will be limited to 90 days maximum between the start and finish dates.', USER_REPORTS_I18N_DOMAIN ) . '</li>';
+		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Report Type', 'postindexer' ) . '</strong> - ' . __( 'From the Report main screen you can select the type or report: Posts or Comments', 'postindexer' ) . '</li>';
+		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Blogs', 'postindexer' ) . '</strong> - ' . __( 'Select which blog to report on. Or you can generate a report for all Blogs. (Multisite SuperAdmin only)', 'postindexer' ) . '</li>';
+		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Users', 'postindexer' ) . '</strong> - ' . __( 'Select the User from the dropdown. If you are viewing reports from the network admin you can enter the username directly or select the user from the Users listing page first.', 'postindexer' ) . '</li>';
+		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Date', 'postindexer' ) . '</strong> - ' . __( 'Select a date range for your report. Note you will be limited to 90 days maximum between the start and finish dates.', 'postindexer' ) . '</li>';
 
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Export', USER_REPORTS_I18N_DOMAIN ) . '</strong> - ' . __( 'Below the report table you can optionally select to export the report to PDF or CSV data.', USER_REPORTS_I18N_DOMAIN ) . '</li>';
+		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Export', 'postindexer' ) . '</strong> - ' . __( 'Below the report table you can optionally select to export the report to PDF or CSV data.', 'postindexer' ) . '</li>';
 
 		if ( version_compare( $wp_version, '3.3.0', '>' ) ) {
 
 			$screen->add_help_tab( array(
 					'id'      => 'users_page_user-reports',
-					'title'   => __( 'Overview', USER_REPORTS_I18N_DOMAIN ),
+					'title'   => __( 'Overview', 'postindexer' ),
 					'content' => $screen_help_text['user-reports-help-overview'],
 				)
 			);
@@ -409,7 +402,7 @@ class UserReports {
 			}
 
 		}
-		add_screen_option( 'per_page', array( 'label' => __( 'per Page', USER_REPORTS_I18N_DOMAIN ), 'default' => $option_value ) );
+		add_screen_option( 'per_page', array( 'label' => __( 'per Page', 'postindexer' ), 'default' => $option_value ) );
 	}
 
 	/**
@@ -445,16 +438,16 @@ class UserReports {
 		?>
 		<div id="user-reports-panel" class="wrap user-reports-wrap">
 			<?php screen_icon(); ?>
-			<h2><?php _ex( "User Reports", "User Reports New Page Title", USER_REPORTS_I18N_DOMAIN ); ?></h2>
+			<h2><?php _ex( "User Reports", "User Reports New Page Title", 'postindexer' ); ?></h2>
 
 			<?php
 			if ( ( is_multisite() ) && ( is_network_admin() ) && ( ! $this->has_post_indexer_plugin() ) ) {
 				?>
-				<p><?php echo __( 'For Network level reporting User Reports requires ', USER_REPORTS_I18N_DOMAIN ) . ' <a target="_blank" href="http://premium.wpmudev.org/project/post-indexer/">' . __( 'Post Indexer', USER_REPORTS_I18N_DOMAIN ) . '</a> and <a target="_blank" href="http://premium.wpmudev.org/project/comment-indexer/">' . __( 'Comment Indexer', USER_REPORTS_I18N_DOMAIN ) . '</a> ' . __( 'plugins to be installed. User Report can be used at the Blog level where it will use local Posts and Comments data.', USER_REPORTS_I18N_DOMAIN ); ?></p><?php
+				<p><?php echo __( 'For Network level reporting User Reports requires ', 'postindexer' ) . ' <a target="_blank" href="http://premium.wpmudev.org/project/post-indexer/">' . __( 'Post Indexer', 'postindexer' ) . '</a> and <a target="_blank" href="http://premium.wpmudev.org/project/comment-indexer/">' . __( 'Comment Indexer', 'postindexer' ) . '</a> ' . __( 'plugins to be installed. User Report can be used at the Blog level where it will use local Posts and Comments data.', 'postindexer' ); ?></p><?php
 			} else {
 				?>
 				<p><?php _ex( "To create a report, select the report type, blogs, users, and date range below. Set 'Users' to blank if you want to see all users stats.",
-						'User Reports page description', USER_REPORTS_I18N_DOMAIN ); ?></p>
+						'User Reports page description', 'postindexer' ); ?></p>
 				<?php $this->user_reports_show_filter_form_bar(); ?>
 				<?php
 				$this->user_reports_table->prepare_items( $this->_filters );
@@ -491,8 +484,8 @@ class UserReports {
 				}
 
 				?>
-				<a class="button-secondary" href="<?php echo $href_str; ?>&amp;user-report-download=pdf"><?php _e( "Download PDF", USER_REPORTS_I18N_DOMAIN ); ?></a>
-				<a class="button-secondary" href="<?php echo esc_url( $href_str ); ?>&amp;user-report-download=csv"><?php _e( "Download CSV", USER_REPORTS_I18N_DOMAIN ); ?></a>
+				<a class="button-secondary" href="<?php echo $href_str; ?>&amp;user-report-download=pdf"><?php _e( "Download PDF", 'postindexer' ); ?></a>
+				<a class="button-secondary" href="<?php echo esc_url( $href_str ); ?>&amp;user-report-download=csv"><?php _e( "Download CSV", 'postindexer' ); ?></a>
 				<?php
 			}
 			?>
@@ -693,7 +686,7 @@ class UserReports {
 			$this->user_reports_show_filter_form_users();
 			$this->user_reports_show_filter_form_dates();
 			?>
-			<input class="button-secondary" id="user-reports-filters-submit" type="submit" value="<?php _e( 'Create', USER_REPORTS_I18N_DOMAIN ); ?>" />
+			<input class="button-secondary" id="user-reports-filters-submit" type="submit" value="<?php _e( 'Create', 'postindexer' ); ?>" />
 		</form>
 		<?php
 	}
@@ -713,7 +706,7 @@ class UserReports {
 		$content_types = array();
 
 		if ( $this->has_post_indexer_plugin() ) {
-			$content_types['post'] = __( 'Post', USER_REPORTS_I18N_DOMAIN );
+			$content_types['post'] = __( 'Post', 'postindexer' );
 		} else {
 			if ( ! is_multisite() || ! is_network_admin() ) {
 				foreach ( (array) get_post_types( array( 'show_ui' => true ), 'name' ) as $post_type => $details ) {
@@ -723,16 +716,16 @@ class UserReports {
 		}
 
 		if ( $this->has_post_indexer_plugin() ) {
-			$content_types['comments'] = __( 'Comments', USER_REPORTS_I18N_DOMAIN );
+			$content_types['comments'] = __( 'Comments', 'postindexer' );
 		} else {
 			if ( ! is_multisite() || ! is_network_admin() ) {
-				$content_types['comments'] = __( 'Comments', USER_REPORTS_I18N_DOMAIN );
+				$content_types['comments'] = __( 'Comments', 'postindexer' );
 			}
 		}
 
 		if ( $content_types && count( $content_types ) ) {
 			?>
-			<label for="user-reports-filter-types"><?php _e( 'Report Type', USER_REPORTS_I18N_DOMAIN ); ?></label>:
+			<label for="user-reports-filter-types"><?php _e( 'Report Type', 'postindexer' ); ?></label>:
 			<select id="user-reports-filter-types" name="type">
 				<?php
 
@@ -769,20 +762,20 @@ class UserReports {
 			if ( is_network_admin() ) {
 
 				$blogs = array(
-					'0' => __( 'All Blogs', USER_REPORTS_I18N_DOMAIN ),
+					'0' => __( 'All Blogs', 'postindexer' ),
 				);
 
 			} else {
 				$current_blog = get_blog_details( $wpdb->blogid );
 
 				$blogs = array(
-					'0' => __( 'All Blogs', USER_REPORTS_I18N_DOMAIN ),
-					$current_blog->blog_id => __( 'This Blog Only', USER_REPORTS_I18N_DOMAIN ),
+					'0' => __( 'All Blogs', 'postindexer' ),
+					$current_blog->blog_id => __( 'This Blog Only', 'postindexer' ),
 				);
 			}
 
 			?>
-			<label for="user-reports-filter-blogs"><?php _e( 'Blogs', USER_REPORTS_I18N_DOMAIN ); ?></label>:
+			<label for="user-reports-filter-blogs"><?php _e( 'Blogs', 'postindexer' ); ?></label>:
 			<select id="user-reports-filter-blogs" name="blog_id">
 				<?php
 				foreach ( $blogs as $blog_id => $blog_name ) {
@@ -817,9 +810,9 @@ class UserReports {
 			$users = $this->user_reports_get_users( $wpdb->blogid );
 			if ( $users ) {
 				?>
-				<label for="user-reports-filter-users"><?php _e( 'Users', USER_REPORTS_I18N_DOMAIN ); ?>: </label>
+				<label for="user-reports-filter-users"><?php _e( 'Users', 'postindexer' ); ?>: </label>
 				<select id="user-reports-filter-users" name="user_id">
-					<option value="0"><?php _e( 'All Users', USER_REPORTS_I18N_DOMAIN ); ?></option>
+					<option value="0"><?php _e( 'All Users', 'postindexer' ); ?></option>
 					<?php
 					foreach ( $users as $user_group_name => $user_group ) {
 						if ( ( is_array( $user_group ) ) && ( count( $user_group ) ) ) {
@@ -845,7 +838,7 @@ class UserReports {
 		} else {
 			$user_login = ! empty( $this->_filters['user_login'] ) ? $this->_filters['user_login'] : '';
 			?>
-			<label for="user-reports-filter-users"><?php _e( 'Users', USER_REPORTS_I18N_DOMAIN ); ?>: </label>
+			<label for="user-reports-filter-users"><?php _e( 'Users', 'postindexer' ); ?>: </label>
 			<input type="text" id="user-reports-filter-users" name="user_login" value="<?php echo esc_attr( $user_login ); ?>" />
 			<?php
 		}

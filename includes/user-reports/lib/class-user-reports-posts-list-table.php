@@ -37,7 +37,7 @@ if ( ! class_exists( 'User_Reports_Posts_List_Table' ) ) {
 			if ( ! isset( $this->filters['doing_reports'] ) ) {
 
 				$actions = array();
-				$actions['view'] = '<a target="_blank" href="' . $item->post_permalink . '">' . __( 'view', USER_REPORTS_I18N_DOMAIN ) . '</a>';
+				$actions['view'] = '<a target="_blank" href="' . $item->post_permalink . '">' . __( 'view', 'postindexer' ) . '</a>';
 
 				//Return the title contents
 				return sprintf( '%1$s %2$s',
@@ -74,7 +74,7 @@ if ( ! class_exists( 'User_Reports_Posts_List_Table' ) ) {
 
 			if ( ! isset( $this->filters['doing_reports'] ) ) {
 
-				$actions['view'] = '<a target="_blank" href="' . $siteurl . '">' . __( 'view', USER_REPORTS_I18N_DOMAIN ) . '</a>';
+				$actions['view'] = '<a target="_blank" href="' . $siteurl . '">' . __( 'view', 'postindexer' ) . '</a>';
 
 				//Return the title contents
 				return sprintf( '%1$s %2$s',
@@ -134,7 +134,7 @@ if ( ! class_exists( 'User_Reports_Posts_List_Table' ) ) {
 						$href_str .= "&user_id=" . $item->post_author;
 					}
 
-					$actions['user-reports'] = '<a class="submitreports" href="' . $href_str . '">' . __( 'Reports', USER_REPORTS_I18N_DOMAIN ) . '</a>';
+					$actions['user-reports'] = '<a class="submitreports" href="' . $href_str . '">' . __( 'Reports', 'postindexer' ) . '</a>';
 
 					return sprintf( '%1$s %2$s',
 						'<a class="submitreports" href="users.php?page=user-reports&amp;user_id=' .
@@ -179,46 +179,46 @@ if ( ! class_exists( 'User_Reports_Posts_List_Table' ) ) {
 			$columns = array();
 			if ( ! isset( $this->filters['doing_reports'] ) ) {
 				if ( $user_reports->has_post_indexer_plugin() ) {
-					$columns['blog'] = __( 'Blog', USER_REPORTS_I18N_DOMAIN );
+					$columns['blog'] = __( 'Blog', 'postindexer' );
 				}
 
-				$columns['user'] = __( 'Author', USER_REPORTS_I18N_DOMAIN );
-				$columns['post_title'] = __( 'Post Title', USER_REPORTS_I18N_DOMAIN );
+				$columns['user'] = __( 'Author', 'postindexer' );
+				$columns['post_title'] = __( 'Post Title', 'postindexer' );
 
 //				if (!UserReports::has_post_indexer_plugin())
-//					$columns['post_type']	= 	__('Post Type', USER_REPORTS_I18N_DOMAIN);
+//					$columns['post_type']	= 	__('Post Type', 'postindexer');
 
-				$columns['post_date'] = __( 'Date', USER_REPORTS_I18N_DOMAIN );
+				$columns['post_date'] = __( 'Date', 'postindexer' );
 
 			} else if ( $this->filters['doing_reports'] == "pdf" ) {
 				if ( $user_reports->has_post_indexer_plugin() ) {
-					$columns['blog'] = __( 'Blog', USER_REPORTS_I18N_DOMAIN );
+					$columns['blog'] = __( 'Blog', 'postindexer' );
 				}
 
-				$columns['user'] = __( 'Author', USER_REPORTS_I18N_DOMAIN );
-				$columns['post_title'] = __( 'Post Title', USER_REPORTS_I18N_DOMAIN );
+				$columns['user'] = __( 'Author', 'postindexer' );
+				$columns['post_title'] = __( 'Post Title', 'postindexer' );
 
 //				if (!UserReports::has_post_indexer_plugin())
-//					$columns['post_type']	= 	__('Post Type', USER_REPORTS_I18N_DOMAIN);
+//					$columns['post_type']	= 	__('Post Type', 'postindexer');
 
-				$columns['post_date'] = __( 'Date', USER_REPORTS_I18N_DOMAIN );
+				$columns['post_date'] = __( 'Date', 'postindexer' );
 
 			} else if ( $this->filters['doing_reports'] == "csv" ) {
 
 				if ( UserReports::has_post_indexer_plugin() ) {
-					$columns['blog'] = __( 'Blog', USER_REPORTS_I18N_DOMAIN );
+					$columns['blog'] = __( 'Blog', 'postindexer' );
 				}
 
-				$columns['blog_url'] = __( 'Blog Url', USER_REPORTS_I18N_DOMAIN );
-				$columns['user'] = __( 'Author Name', USER_REPORTS_I18N_DOMAIN );
-				$columns['login'] = __( 'Author Login', USER_REPORTS_I18N_DOMAIN );
-				$columns['post_title'] = __( 'Post Title', USER_REPORTS_I18N_DOMAIN );
-				$columns['post_url'] = __( 'Post Url', USER_REPORTS_I18N_DOMAIN );
+				$columns['blog_url'] = __( 'Blog Url', 'postindexer' );
+				$columns['user'] = __( 'Author Name', 'postindexer' );
+				$columns['login'] = __( 'Author Login', 'postindexer' );
+				$columns['post_title'] = __( 'Post Title', 'postindexer' );
+				$columns['post_url'] = __( 'Post Url', 'postindexer' );
 
 //				if (!UserReports::has_post_indexer_plugin())
-//					$columns['post_type']	= 	__('Post Type', USER_REPORTS_I18N_DOMAIN);
+//					$columns['post_type']	= 	__('Post Type', 'postindexer');
 
-				$columns['post_date'] = __( 'Date', USER_REPORTS_I18N_DOMAIN );
+				$columns['post_date'] = __( 'Date', 'postindexer' );
 			}
 
 			return $columns;

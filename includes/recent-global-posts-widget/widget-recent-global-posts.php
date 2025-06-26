@@ -72,18 +72,6 @@ if ( !function_exists( 'rgpwidget_register_widget' ) ) :
 	}
 endif;
 
-add_action( 'plugins_loaded', 'rgpwidget_load_text_domain' );
-if ( !function_exists( 'rgpwidget_load_text_domain' ) ) :
-	/**
-	 * Loads text domain for Recent Global Posts Widget
-	 *
-	 * @since 3.0.2
-	 */
-	function rgpwidget_load_text_domain() {
-		load_plugin_textdomain( 'rgpwidget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
-endif;
-
 add_filter( 'network_posts_where', 'rgpwidget_exclude_blogs', 10, 2 );
 if ( !function_exists( 'rgpwidget_exclude_blogs' ) ) :
 	/**

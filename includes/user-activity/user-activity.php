@@ -59,12 +59,6 @@ class User_Activity {
 
 		add_action( 'ua_remove_old_activity', array( $this, 'remove_old_activity' ) );
 
-		if ( did_action( 'plugins_loaded' ) ) {
-			self::plugin_textdomain();
-		} else {
-			add_action( 'plugins_loaded', array( __CLASS__, 'plugin_textdomain' ) );
-		}
-
 		global $wpmudev_notices;
 		$wpmudev_notices[] = array(
 			'id' => 3,
@@ -102,10 +96,6 @@ class User_Activity {
 
 		$pq = $wpdb->prepare("DELETE FROM {$wpdb->base_prefix}user_activity_log WHERE visit_date < %d", $last_31_days);
 		$wpdb->query( $pq );
-	}
-
-	public static function plugin_textdomain() {
-		load_plugin_textdomain( 'user_activity', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 	}
 
 	/**

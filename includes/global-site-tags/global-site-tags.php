@@ -45,7 +45,6 @@ class globalsitetags {
 		// Get a local handle to the database
 		$this->db = $wpdb;
 
-		add_action( 'plugins_loaded', array( $this, 'global_site_tags_internationalisation' ) );
 		add_action( 'wpmu_options', array( $this, 'global_site_tags_site_admin_options' ) );
 		add_action( 'update_wpmu_options', array( $this, 'global_site_tags_site_admin_options_process' ) );
 
@@ -101,11 +100,6 @@ class globalsitetags {
 
 		return $wp_rewrite;
 
-	}
-
-	function global_site_tags_internationalisation() {
-		// Load the text-domain
-		load_plugin_textdomain( 'globalsitetags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	function global_site_tags_page_setup() {

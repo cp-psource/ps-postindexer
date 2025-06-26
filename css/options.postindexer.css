@@ -25,6 +25,7 @@ div.postbox {
 	margin-top: 5px;
 	margin-bottom: 15px;
 	background: #fff;
+	min-width: 225px
 }
 
 div.postbox div.inside {

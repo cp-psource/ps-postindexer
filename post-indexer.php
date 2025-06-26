@@ -65,3 +65,7 @@ if (is_admin()){
 	require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.postindexeradmin.php';
 }
 
+add_action('plugins_loaded', function() {
+    load_plugin_textdomain('postindexer', false, dirname(plugin_basename(__FILE__)) . '/languages');
+});
+
