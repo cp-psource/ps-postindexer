@@ -2,35 +2,29 @@
 
 <?php global_site_search_form() ?>
 
-<?php if ( network_have_posts() ) : ?>
+<?php if ( isset($network_query_posts) && $network_query_posts && network_have_posts() ) : ?>
 	<div class="gssnav"><?php echo global_site_search_get_pagination() ?></div>
-
 	<style type="text/css">
 		.gss-results tr:first-child td {
 			border-bottom-style: solid;
 			border-bottom-color: <?php echo global_site_search_get_border_color() ?>;
 			border-bottom-width: 1px;
 		}
-
 		.gss-results tr:nth-child(odd) td {
 			background-color: <?php echo global_site_search_get_background_color() ?>;
 		}
-
 		.gss-results tr:not(:first-child) td {
 			padding-top: 10px;
 			text-align: left;
 			vertical-align: top;
 		}
-
 		.gss-results tr:not(:first-child) td:first-child {
 			text-align: center;
 		}
-
 		.gss-results a {
 			text-decoration: none;
 		}
 	</style>
-
 	<div style="float:left; width:100%">
 		<table class="gss-results" border="0" width="100%">
 			<tr>
@@ -39,15 +33,12 @@
 					<strong><?php esc_html_e( 'Beiträge', 'globalsitesearch' ) ?></strong>
 				</td>
 			</tr>
-
 			<?php $tic_toc = 'toc'; ?>
 			<?php $substr = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr'; ?>
-
 			<?php while ( network_have_posts() ) : network_the_post(); ?>
 				<?php $author_id = network_get_the_author_id(); ?>
 				<?php $the_author = get_user_by( 'id', $author_id ); ?>
 				<?php $post_author_display_name = $the_author ? $the_author->display_name : __( 'Unbekannt', 'globalsitesearch' ); ?>
-
 				<tr>
 					<td>
 						<a href="<?php echo network_get_permalink() ?>"><?php echo get_avatar( $author_id, 32 ) ?></a>
@@ -63,7 +54,6 @@
 						<?php else : ?>
 							<strong><?php echo $post_author_display_name ?> <?php _e( 'schrieb', 'globalsitesearch' ) ?>:</strong>
 						<?php endif; ?>
-
 						<a href="<?php echo network_get_permalink() ?>">
 							<strong><?php network_the_title() ?></strong>
 						</a><br>
@@ -74,8 +64,7 @@
 			<?php endwhile; ?>
 		</table>
 	</div>
-
 	<div class="gssnav"><?php echo global_site_search_get_pagination() ?></div>
-<?php else : ?>
+<?php elseif ( isset($network_query_posts) && $network_query_posts ) : ?>
 	<p style="text-align:center"><?php _e( 'Nichts gefunden für Suchbegriff(e).', 'globalsitesearch' ) ?></p>
 <?php endif; ?>
