@@ -136,13 +136,6 @@ class Recent_Network_Posts {
 	}
 
 	public function render_shortcode( $atts ) {
-		// DEBUG: Zeige aktuelle Blog-ID und Aktivierungsstatus
-		if ( defined('WP_DEBUG') && WP_DEBUG ) {
-			global $postindexer_extensions_admin;
-			$site_id = get_current_blog_id();
-			$active = isset($postindexer_extensions_admin) ? $postindexer_extensions_admin->is_extension_active_for_site('recent_network_posts', $site_id) : 'NO EXT ADMIN';
-			echo '<div style="background:#ffe;border:1px solid #cc0;padding:8px 12px;margin:10px 0;">DEBUG: Blog-ID: ' . esc_html($site_id) . ' | Aktiviert: ' . var_export($active, true) . '</div>';
-		}
 		$options = get_site_option( 'network_posts_defaults', [] );
 
 		$args = shortcode_atts( [
@@ -296,7 +289,6 @@ class Recent_Network_Posts {
 
 	public function render_settings_form() {
 		ob_start();
-		echo '<div style="background:#ff0;color:#000;padding:2px 8px;">TESTMARKER: FORMULAR-START</div>';
 		$options = get_site_option('network_posts_defaults', []);
 		$ajax_url = admin_url('admin-ajax.php');
 		echo '<form id="network-posts-settings-form" method="post" action="#" style="max-width:700px;">';
@@ -379,7 +371,6 @@ class Recent_Network_Posts {
 		echo '</div>';
 		echo '<p style="margin-top:1.5em;">'.get_submit_button('Änderungen speichern', 'primary', '', false).'</p>';
 		echo '</form>';
-		echo '<div style="background:#ff0;color:#000;padding:2px 8px;">TESTMARKER: FORMULAR-ENDE</div>';
 		echo '<div id="network-posts-settings-success" style="display:none;margin-top:1em;" class="updated notice"><p>Einstellungen gespeichert!</p></div>';
 		return ob_get_clean();
 	}
@@ -396,14 +387,10 @@ add_action('updated_option', function($option, $old, $new) {
 
 // Netzwerkweite Einstellungen speichern
 add_action('network_admin_edit_network_posts_options', function() {
-    echo '<div style="background:#f00;color:#fff;padding:20px;font-size:2em;">DEBUG: Netzwerk-Handler wurde ausgeführt!</div>';
-    echo '<pre style="background:#ffe;border:1px solid #cc0;padding:8px 12px;">DEBUG POST:'.print_r($_POST,true).'</pre>';
     if (isset($_POST['network_posts_defaults'])) {
         check_admin_referer('network_posts_options-options');
         update_site_option('network_posts_defaults', $_POST['network_posts_defaults']);
-        echo '<pre style="background:#efe;border:1px solid #0c0;padding:8px 12px;">DEBUG GESPEICHERT:'.print_r(get_site_option('network_posts_defaults'),true).'</pre>';
     }
-    wp_die('Debug-Ausgabe siehe oben. <a href="'.esc_url(network_admin_url('admin.php?page=ps-multisite-index-extensions')).'">Zurück</a>');
 });
 
 // AJAX-Handler für das Speichern der Netzwerk-Optionen

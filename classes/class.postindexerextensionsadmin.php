@@ -150,8 +150,6 @@ class Postindexer_Extensions_Admin {
             echo '</div>';
         }
         echo '</div>';
-        // Panel-Container für Einstellungen
-        echo '<div id="ps-extension-settings-panel-debug" style="border:2px dashed red;padding:8px;margin:1em 0;">DEBUG: Panel-Wrapper<br><div id="ps-extension-settings-panel" style="margin-top:2em;"></div></div>';
         // JS: Card-Click füllt das Panel
         echo "<script>document.addEventListener(\"DOMContentLoaded\",function(){
             var settings = ".json_encode($settings_html).";
@@ -213,18 +211,6 @@ class Postindexer_Extensions_Admin {
         $scope = $settings[$extension_key]['scope'] ?? 'main';
         $active = isset($settings[$extension_key]['active']) ? (int)$settings[$extension_key]['active'] : 1;
         $main_site = function_exists('get_main_site_id') ? get_main_site_id() : 1;
-        $debug = '';
-        if ( defined('WP_DEBUG') && WP_DEBUG ) {
-            $debug = sprintf('<div style="background:#ffe;border:1px solid #cc0;padding:8px 12px;margin:10px 0;">DEBUG Erweiterung: %s | Blog-ID: %s | Scope: %s | Aktiv: %s | Main-Site: %s | Sites: %s</div>',
-                esc_html($extension_key),
-                esc_html($site_id),
-                esc_html($scope),
-                esc_html($active),
-                esc_html($main_site),
-                esc_html(json_encode($settings[$extension_key]['sites'] ?? []))
-            );
-            if (!is_admin()) echo $debug;
-        }
         if (!$active) return false;
         if ($scope === 'network') return true;
         if ($scope === 'main') return $site_id == $main_site;
