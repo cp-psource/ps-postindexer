@@ -498,7 +498,7 @@ class LiveStreamWidget extends WP_Widget {
 		// We changed 'network' to 'site'. Need to conver the instance var is set.		
 		if ($instance['show_users_content'] == 'network') $instance['show_users_content'] = "site";
 		
-		if ( (has_comment_indexer_plugin()) && (has_post_indexer_plugin()) ) { 
+		if ( (has_comment_indexer_plugin()) ) { 
 			$source_content_array = array(
 				'local'	=>	__('Local - Content from only this site.', 'live-stream-widget'),
 				'site'	=>	__('Site - Content from all sites created by users from this site.', 'live-stream-widget'),
