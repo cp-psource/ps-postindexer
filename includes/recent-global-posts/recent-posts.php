@@ -49,7 +49,6 @@ class Recent_Network_Posts {
 	public function __construct() {
 		add_shortcode( 'recent_network_posts', [ $this, 'render_shortcode' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 99 );
-		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'admin_notices', [ $this, 'check_indexer_plugin' ] );
 	}
 
@@ -137,7 +136,14 @@ class Recent_Network_Posts {
 	}
 
 	public function render_shortcode( $atts ) {
-		$options = get_option( 'network_posts_defaults', [] );
+		// DEBUG: Zeige aktuelle Blog-ID und Aktivierungsstatus
+		if ( defined('WP_DEBUG') && WP_DEBUG ) {
+			global $postindexer_extensions_admin;
+			$site_id = get_current_blog_id();
+			$active = isset($postindexer_extensions_admin) ? $postindexer_extensions_admin->is_extension_active_for_site('recent_network_posts', $site_id) : 'NO EXT ADMIN';
+			echo '<div style="background:#ffe;border:1px solid #cc0;padding:8px 12px;margin:10px 0;">DEBUG: Blog-ID: ' . esc_html($site_id) . ' | Aktiviert: ' . var_export($active, true) . '</div>';
+		}
+		$options = get_site_option( 'network_posts_defaults', [] );
 
 		$args = shortcode_atts( [
 			'number'           => $options['number'] ?? 5,
@@ -265,221 +271,171 @@ class Recent_Network_Posts {
 				$html .= '<div class="thumb">' . $post['thumb'] . '</div>';
 			}
 
-			$html .= '<div class="content">
-				<h3><a href="' . esc_url( $post['url'] ) . '">' . esc_html( $post['title'] ) . '</a></h3>
-				<p>' . esc_html( $post['excerpt'] ) . '</p>';
+			$html .= '<div class="content">'
+				. '<h3><a href="' . esc_url( $post['url'] ) . '">' . esc_html( $post['title'] ) . '</a></h3>'
+				. '<p>' . esc_html( $post['excerpt'] ) . '</p>';
+
+            // Blogname anzeigen
+            if ( $args['show_blog'] === 'yes' && !empty($post['blogname']) ) {
+                $html .= '<div class="blogname">' . esc_html( $post['blogname'] ) . '</div>';
+            }
+            // Autor anzeigen
+            if ( $args['show_author'] === 'yes' && !empty($post['author']) ) {
+                $html .= '<div class="author">' . esc_html( $post['author'] ) . '</div>';
+            }
+            // Weiterlesen-Link
+            $read_more = $args['read_more_text'] !== '' ? $args['read_more_text'] : 'Weiterlesen';
+            $html .= '<a class="read-more" href="' . esc_url( $post['url'] ) . '">' . esc_html( $read_more ) . '</a>';
+
+            $html .= '</div>';
 			$html .= '</div>';
 		}
-
+		$html .= '</div>';
 		return $html;
-	}
-
-	public function register_settings() {
-		register_setting( 'network_posts_options', 'network_posts_defaults' );
-
-		add_settings_section(
-			'network_posts_main',
-			'',
-			null,
-			'network-posts-settings'
-		);
-
-		// Anzahl Beiträge
-		add_settings_field(
-			'number',
-			'Anzahl Beiträge',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Anzahl Beiträge</legend>'
-					. '<input type="number" name="network_posts_defaults[number]" value="' . esc_attr( $options['number'] ?? 5 ) . '" min="1" max="20" style="width:80px;">'
-					. '<span style="color:#666;font-size:0.95em;">Wie viele Beiträge sollen angezeigt werden?</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Layout
-		add_settings_field(
-			'layout',
-			'Layout',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$layout = $options['layout'] ?? 'card';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Layout</legend>'
-					. '<select name="network_posts_defaults[layout]" style="min-width:120px;">'
-					. '<option value="card"' . selected( $layout, 'card', false ) . '>Card</option>'
-					. '<option value="grid"' . selected( $layout, 'grid', false ) . '>Grid</option>'
-					. '</select>'
-					. '<span style="color:#666;font-size:0.95em;">Darstellung der Beitragsliste</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Beitragsbild anzeigen
-		add_settings_field(
-			'show_thumb',
-			'Beitragsbild anzeigen',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$val = $options['show_thumb'] ?? 'yes';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Beitragsbild anzeigen</legend>'
-					. '<label><input type="checkbox" name="network_posts_defaults[show_thumb]" value="yes" ' . checked( $val, 'yes', false ) . '> Ja</label>'
-					. '<span style="color:#666;font-size:0.95em;">Beitragsbild anzeigen?</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Beitragsbild-Größe
-		add_settings_field(
-			'thumb_size',
-			'Beitragsbild-Größe',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$size = $options['thumb_size'] ?? 'medium';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Beitragsbild-Größe</legend>'
-					. '<select name="network_posts_defaults[thumb_size]" style="min-width:120px;">'
-					. '<option value="thumbnail"' . selected( $size, 'thumbnail', false ) . '>Thumbnail</option>'
-					. '<option value="medium"' . selected( $size, 'medium', false ) . '>Medium</option>'
-					. '<option value="large"' . selected( $size, 'large', false ) . '>Large</option>'
-					. '</select>'
-					. '<span style="color:#666;font-size:0.95em;">Größe des Beitragsbilds</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Autor anzeigen
-		add_settings_field(
-			'show_author',
-			'Autor anzeigen',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$val = $options['show_author'] ?? 'yes';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Autor anzeigen</legend>'
-					. '<label><input type="checkbox" name="network_posts_defaults[show_author]" value="yes" ' . checked( $val, 'yes', false ) . '> Ja</label>'
-					. '<span style="color:#666;font-size:0.95em;">Autor anzeigen?</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Blogname anzeigen
-		add_settings_field(
-			'show_blog',
-			'Blogname anzeigen',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$val = $options['show_blog'] ?? 'yes';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Blogname anzeigen</legend>'
-					. '<label><input type="checkbox" name="network_posts_defaults[show_blog]" value="yes" ' . checked( $val, 'yes', false ) . '> Ja</label>'
-					. '<span style="color:#666;font-size:0.95em;">Blogname anzeigen?</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Länge Auszug (Zeichen)
-		add_settings_field(
-			'excerpt_length',
-			'Länge Auszug (Zeichen)',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$val = $options['excerpt_length'] ?? 200;
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Länge Auszug (Zeichen)</legend>'
-					. '<input type="number" name="network_posts_defaults[excerpt_length]" value="' . esc_attr( $val ) . '" min="10" max="500" style="width:80px;">'
-					. '<span style="color:#666;font-size:0.95em;">Maximale Zeichenanzahl für den Auszug</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Weiterlesen-Text
-		add_settings_field(
-			'read_more_text',
-			'"Weiterlesen"-Text',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$val = $options['read_more_text'] ?? 'Weiterlesen';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">"Weiterlesen"-Text</legend>'
-					. '<input type="text" name="network_posts_defaults[read_more_text]" value="' . esc_attr( $val ) . '" style="min-width:180px;">'
-					. '<span style="color:#666;font-size:0.95em;">Text für den Weiterlesen-Link</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Sortierung
-		add_settings_field(
-			'sort_order',
-			'Sortierung',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$sort = $options['sort_order'] ?? 'date';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Sortierung</legend>'
-					. '<select name="network_posts_defaults[sort_order]" style="min-width:160px;">'
-					. '<option value="date"' . selected( $sort, 'date', false ) . '>Veröffentlichungsdatum (neueste zuerst)</option>'
-					. '<option value="modified"' . selected( $sort, 'modified', false ) . '>Zuletzt bearbeitet</option>'
-					. '<option value="title"' . selected( $sort, 'title', false ) . '>Alphabetisch (A-Z)</option>'
-					. '<option value="rand"' . selected( $sort, 'rand', false ) . '>Zufällig</option>'
-					. '</select>'
-					. '<span style="color:#666;font-size:0.95em;">Bestimmt die Sortierung der Beiträge</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
-
-		// Paginierung
-		add_settings_field(
-			'pagination',
-			'Paginierung',
-			function() {
-				$options = get_option( 'network_posts_defaults' );
-				$val = $options['pagination'] ?? 'no';
-				echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
-					. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Paginierung</legend>'
-					. '<label><input type="checkbox" name="network_posts_defaults[pagination]" value="yes" ' . checked( $val, 'yes', false ) . '> Ja</label>'
-					. '<span style="color:#666;font-size:0.95em;">Beiträge werden nach der eingestellten Anzahl pro Seite paginiert</span>'
-					. '</fieldset>';
-			},
-			'network-posts-settings',
-			'network_posts_main'
-		);
 	}
 
 	public function render_settings_form() {
 		ob_start();
-		// Info-Box entfernt, da sie jetzt in der Card steht
-		echo '<form method="post" action="options.php" style="max-width:700px;">';
-		settings_fields( 'network_posts_options' );
+		echo '<div style="background:#ff0;color:#000;padding:2px 8px;">TESTMARKER: FORMULAR-START</div>';
+		$options = get_site_option('network_posts_defaults', []);
+		$ajax_url = admin_url('admin-ajax.php');
+		echo '<form id="network-posts-settings-form" method="post" action="#" style="max-width:700px;">';
+		wp_nonce_field('network_posts_options-ajax', 'network_posts_options_ajax_nonce');
 		echo '<div class="network-posts-settings-fields-wrapper" style="background:#fff;border:1px solid #e5e5e5;padding:2em 2em 1em 2em;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2em;">';
 		echo '<div class="network-posts-settings-fields" style="display:grid;grid-template-columns:1fr 1fr;gap:2em;">';
-		do_settings_sections( 'network-posts-settings' );
+		// Anzahl Beiträge
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Anzahl Beiträge</legend>'
+			. '<input type="number" name="network_posts_defaults[number]" value="' . esc_attr( $options['number'] ?? 5 ) . '" min="1" max="20" style="width:80px;">'
+			. '<span style="color:#666;font-size:0.95em;">Wie viele Beiträge sollen angezeigt werden?</span>'
+			. '</fieldset>';
+		// Layout
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Layout</legend>'
+			. '<select name="network_posts_defaults[layout]" style="min-width:120px;">'
+			. '<option value="card"' . selected( $options['layout'] ?? 'card', 'card', false ) . '>Card</option>'
+			. '<option value="grid"' . selected( $options['layout'] ?? 'card', 'grid', false ) . '>Grid</option>'
+			. '</select>'
+			. '<span style="color:#666;font-size:0.95em;">Darstellung der Beitragsliste</span>'
+			. '</fieldset>';
+		// Beitragsbild anzeigen
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Beitragsbild anzeigen</legend>'
+			. '<label><input type="checkbox" name="network_posts_defaults[show_thumb]" value="yes" ' . checked( $options['show_thumb'] ?? 'yes', 'yes', false ) . '> Ja</label>'
+			. '<span style="color:#666;font-size:0.95em;">Beitragsbild anzeigen?</span>'
+			. '</fieldset>';
+		// Beitragsbild-Größe
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Beitragsbild-Größe</legend>'
+			. '<select name="network_posts_defaults[thumb_size]" style="min-width:120px;">'
+			. '<option value="thumbnail"' . selected( $options['thumb_size'] ?? 'medium', 'thumbnail', false ) . '>Thumbnail</option>'
+			. '<option value="medium"' . selected( $options['thumb_size'] ?? 'medium', 'medium', false ) . '>Medium</option>'
+			. '<option value="large"' . selected( $options['thumb_size'] ?? 'medium', 'large', false ) . '>Large</option>'
+			. '</select>'
+			. '<span style="color:#666;font-size:0.95em;">Größe des Beitragsbilds</span>'
+			. '</fieldset>';
+		// Autor anzeigen
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Autor anzeigen</legend>'
+			. '<label><input type="checkbox" name="network_posts_defaults[show_author]" value="yes" ' . checked( $options['show_author'] ?? 'yes', 'yes', false ) . '> Ja</label>'
+			. '<span style="color:#666;font-size:0.95em;">Autor anzeigen?</span>'
+			. '</fieldset>';
+		// Blogname anzeigen
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Blogname anzeigen</legend>'
+			. '<label><input type="checkbox" name="network_posts_defaults[show_blog]" value="yes" ' . checked( $options['show_blog'] ?? 'yes', 'yes', false ) . '> Ja</label>'
+			. '<span style="color:#666;font-size:0.95em;">Blogname anzeigen?</span>'
+			. '</fieldset>';
+		// Länge Auszug
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Länge Auszug (Zeichen)</legend>'
+			. '<input type="number" name="network_posts_defaults[excerpt_length]" value="' . esc_attr( $options['excerpt_length'] ?? 200 ) . '" min="10" max="500" style="width:80px;">'
+			. '<span style="color:#666;font-size:0.95em;">Maximale Zeichenanzahl für den Auszug</span>'
+			. '</fieldset>';
+		// Weiterlesen-Text
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">"Weiterlesen"-Text</legend>'
+			. '<input type="text" name="network_posts_defaults[read_more_text]" value="' . esc_attr( $options['read_more_text'] ?? 'Weiterlesen' ) . '" style="min-width:180px;">'
+			. '<span style="color:#666;font-size:0.95em;">Text für den Weiterlesen-Link</span>'
+			. '</fieldset>';
+		// Sortierung
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Sortierung</legend>'
+			. '<select name="network_posts_defaults[sort_order]" style="min-width:160px;">'
+			. '<option value="date"' . selected( $options['sort_order'] ?? 'date', 'date', false ) . '>Veröffentlichungsdatum (neueste zuerst)</option>'
+			. '<option value="modified"' . selected( $options['sort_order'] ?? 'date', 'modified', false ) . '>Zuletzt bearbeitet</option>'
+			. '<option value="title"' . selected( $options['sort_order'] ?? 'date', 'title', false ) . '>Alphabetisch (A-Z)</option>'
+			. '<option value="rand"' . selected( $options['sort_order'] ?? 'date', 'rand', false ) . '>Zufällig</option>'
+			. '</select>'
+			. '<span style="color:#666;font-size:0.95em;">Bestimmt die Sortierung der Beiträge</span>'
+			. '</fieldset>';
+		// Paginierung
+		echo '<fieldset class="network-posts-setting-row" style="display:flex;align-items:center;gap:1em;border:1px solid #e5e5e5;padding:0.7em 1em 0.7em 1em;border-radius:6px;background:#fcfcfc;margin-bottom:0;">'
+			. '<legend style="font-weight:bold;font-size:1em;margin-right:1em;">Paginierung</legend>'
+			. '<label><input type="checkbox" name="network_posts_defaults[pagination]" value="yes" ' . checked( $options['pagination'] ?? 'no', 'yes', false ) . '> Ja</label>'
+			. '<span style="color:#666;font-size:0.95em;">Beiträge werden nach der eingestellten Anzahl pro Seite paginiert</span>'
+			. '</fieldset>';
 		echo '</div>';
 		echo '</div>';
-		submit_button();
+		echo '<p style="margin-top:1.5em;">'.get_submit_button('Änderungen speichern', 'primary', '', false).'</p>';
 		echo '</form>';
+		echo '<div style="background:#ff0;color:#000;padding:2px 8px;">TESTMARKER: FORMULAR-ENDE</div>';
+		echo '<div id="network-posts-settings-success" style="display:none;margin-top:1em;" class="updated notice"><p>Einstellungen gespeichert!</p></div>';
 		return ob_get_clean();
 	}
 }
 //delete_option( 'network_posts_defaults' );
 new Recent_Network_Posts();
+
+// Nach dem Speichern: update_site_option statt update_option
+add_action('updated_option', function($option, $old, $new) {
+    if ($option === 'network_posts_defaults' && is_multisite()) {
+        update_site_option('network_posts_defaults', $new);
+    }
+}, 10, 3);
+
+// Netzwerkweite Einstellungen speichern
+add_action('network_admin_edit_network_posts_options', function() {
+    echo '<div style="background:#f00;color:#fff;padding:20px;font-size:2em;">DEBUG: Netzwerk-Handler wurde ausgeführt!</div>';
+    echo '<pre style="background:#ffe;border:1px solid #cc0;padding:8px 12px;">DEBUG POST:'.print_r($_POST,true).'</pre>';
+    if (isset($_POST['network_posts_defaults'])) {
+        check_admin_referer('network_posts_options-options');
+        update_site_option('network_posts_defaults', $_POST['network_posts_defaults']);
+        echo '<pre style="background:#efe;border:1px solid #0c0;padding:8px 12px;">DEBUG GESPEICHERT:'.print_r(get_site_option('network_posts_defaults'),true).'</pre>';
+    }
+    wp_die('Debug-Ausgabe siehe oben. <a href="'.esc_url(network_admin_url('admin.php?page=ps-multisite-index-extensions')).'">Zurück</a>');
+});
+
+// AJAX-Handler für das Speichern der Netzwerk-Optionen
+add_action('wp_ajax_save_network_posts_settings', function() {
+	if (!current_user_can('manage_network_options')) wp_send_json_error('Fehlende Berechtigung: manage_network_options');
+	if (!isset($_POST['network_posts_options_ajax_nonce'])) wp_send_json_error('Nonce fehlt');
+	if (!wp_verify_nonce($_POST['network_posts_options_ajax_nonce'], 'network_posts_options-ajax')) wp_send_json_error('Nonce ungültig');
+	if (!isset($_POST['network_posts_defaults']) || !is_array($_POST['network_posts_defaults'])) wp_send_json_error('Keine Daten erhalten');
+	update_site_option('network_posts_defaults', $_POST['network_posts_defaults']);
+	wp_send_json_success();
+});
+
+// jQuery im Netzwerk-Admin laden, damit AJAX funktioniert
+add_action('admin_enqueue_scripts', function($hook) {
+    if (is_network_admin() && $hook === 'ps-multisite-index_page_ps-multisite-index-extensions') {
+        wp_enqueue_script('jquery');
+        $ajax_url = admin_url('admin-ajax.php');
+        wp_add_inline_script('jquery', "
+            jQuery(document).on('submit', '#network-posts-settings-form', function(e) {
+                console.log('AJAX submit!');
+                e.preventDefault();
+                var form = jQuery(this);
+                var data = form.serialize();
+                data += '&action=save_network_posts_settings';
+                jQuery.post('" . esc_js($ajax_url) . "', data, function(response){
+                    if(response.success){
+                        jQuery('#network-posts-settings-success').show().delay(2000).fadeOut();
+                    }else{
+                        alert('Fehler beim Speichern: '+(response.data||'Unbekannter Fehler'));
+                    }
+                });
+            });
+        ");
+    }
+});

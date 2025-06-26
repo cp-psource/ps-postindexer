@@ -60,6 +60,13 @@ require_once POST_INDEXER_PLUGIN_DIR . 'classes/networkquery.php';
 // Include the rebuild cron class
 require_once POST_INDEXER_PLUGIN_DIR . 'classes/cron.postindexerrebuild.php';
 
+// Initialisiere Erweiterungsverwaltung IMMER, auch im Frontend
+require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.postindexerextensionsadmin.php';
+global $postindexer_extensions_admin;
+if ( !isset($postindexer_extensions_admin) ) {
+    $postindexer_extensions_admin = new Postindexer_Extensions_Admin();
+}
+
 if (is_admin()){
 	// Include the main class
 	require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.postindexeradmin.php';

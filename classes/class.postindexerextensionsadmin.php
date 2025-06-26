@@ -77,8 +77,25 @@ class Postindexer_Extensions_Admin {
         $settings = $this->get_settings();
         $sites = get_sites(['fields'=>'ids','number'=>0]);
         $main_site = function_exists('get_main_site_id') ? get_main_site_id() : 1;
+        $settings_html = [];
+        foreach ($this->extensions as $key => $ext) {
+            ob_start();
+            if ($key === 'recent_network_posts' && class_exists('Recent_Network_Posts')) {
+                $recent = new \Recent_Network_Posts();
+                echo $recent->render_settings_form();
+            } elseif ($key === 'global_site_search' && class_exists('Global_Site_Search_Settings_Renderer')) {
+                $gss = new \Global_Site_Search_Settings_Renderer();
+                echo $gss->render_settings_form();
+            } elseif ($key === 'global_site_tags' && class_exists('Global_Site_Tags_Settings_Renderer')) {
+                $gst = new \Global_Site_Tags_Settings_Renderer();
+                echo $gst->render_settings_form();
+            } else {
+                echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
+            }
+            $settings_html[$key] = ob_get_clean();
+        }
         echo '<div class="wrap"><h1>' . esc_html__( 'Erweiterungen', 'postindexer' ) . '</h1>';
-        echo '<form method="post">';
+        // <form> entfernt!
         wp_nonce_field('ps_extensions_scope_save','ps_extensions_scope_nonce');
         echo '<style>
         .ps-extensions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2em; margin-top:2em; }
@@ -102,45 +119,7 @@ class Postindexer_Extensions_Admin {
         .ps-scope-sites { margin-top:0.7em; }
         .ps-scope-sites select { min-width:180px; }
         </style>';
-        echo '<script>document.addEventListener("DOMContentLoaded",function(){
-            var settings = '.json_encode($settings_html).';
-            var panel = document.getElementById("ps-extension-settings-panel");
-            document.querySelectorAll(".ps-extension-card").forEach(function(card){
-                card.addEventListener("click",function(e){
-                    if(e.target.closest("input,select,button,label")) return;
-                    document.querySelectorAll(".ps-extension-card").forEach(function(c){c.classList.remove("active");});
-                    card.classList.add("active");
-                    var extkey = card.getAttribute("data-extkey");
-                    if(settings[extkey]){
-                        panel.innerHTML = settings[extkey];
-                        panel.style.display = "block";
-                        panel.scrollIntoView({behavior:"smooth",block:"start"});
-                    }
-                });
-            });
-            // Bereichsauswahl wie gehabt
-            document.querySelectorAll("input[type=radio][value=sites]").forEach(function(radio){
-                radio.addEventListener("change",function(){
-                    var sel = this.closest(".ps-scope-row").querySelector(".ps-scope-sites");
-                    if(sel) sel.style.display = "block";
-                });
-            });
-            document.querySelectorAll("input[type=radio]:not([value=sites])").forEach(function(radio){
-                radio.addEventListener("change",function(){
-                    var sel = this.closest(".ps-scope-row").querySelector(".ps-scope-sites");
-                    if(sel) sel.style.display = "none";
-                });
-            });
-            document.querySelectorAll(".ps-switch input[type=checkbox]").forEach(function(toggle){
-                toggle.addEventListener("change",function(){
-                    const label = this.closest(".ps-extension-status").querySelector(".ps-status-label");
-                    if(this.checked){ label.textContent = "Aktiv"; label.style.color = "#2ecc40"; }
-                    else { label.textContent = "Inaktiv"; label.style.color = "#aaa"; }
-                });
-            });
-        });</script>';
         echo '<div class="ps-extensions-grid">';
-        $settings_html = [];
         foreach ($this->extensions as $key => $ext) {
             $scope = $settings[$key]['scope'] ?? 'main';
             $selected_sites = $settings[$key]['sites'] ?? [];
@@ -153,14 +132,6 @@ class Postindexer_Extensions_Admin {
             echo '</div>';
             echo '<h2>' . esc_html($ext['name']) . '</h2>';
             echo '<p>' . esc_html($ext['desc']) . '</p>';
-            // Info-Box nur für recent_network_posts
-            if ($key === 'recent_network_posts') {
-                echo '<div class="network-posts-settings-info" style="background:#f8f9fa;border:1px solid #e5e5e5;padding:1.1em 1.5em 1em 1.5em;border-radius:8px;margin-bottom:1.2em;max-width:100%;">';
-                echo '<strong>So funktioniert’s:</strong><br>';
-                echo 'Füge den Shortcode <code id="rnp-shortcode">[recent_network_posts]</code> <button type="button" class="button" onclick="navigator.clipboard.writeText(\'[recent_network_posts]\');this.textContent=\'Kopiert!\';setTimeout(()=>this.textContent=\'Kopieren\',1200);">Kopieren</button> an beliebiger Stelle ein, um ein Archiv der letzten Beiträge aus dem gesamten Netzwerk anzuzeigen.<br>';
-                echo 'Das Plugin benötigt das <strong>Multisite Beitragsindex</strong>-Plugin. <a href="https://cp-psource.github.io/ps-postindexer/" target="_blank" rel="noopener noreferrer">Mehr Infos & Download</a>';
-                echo '</div>';
-            }
             // Bereich-Auswahl optisch abgesetzt
             echo '<div class="ps-scope-row">Aktivierungsbereich:<br>';
             echo '<label><input type="radio" name="ps_extensions_scope['.$key.']" value="network" '.checked($scope,'network',false).'> Netzwerkweit</label>';
@@ -177,65 +148,51 @@ class Postindexer_Extensions_Admin {
             echo '</select></div>';
             echo '</div>';
             echo '</div>';
-            // Einstellungen-HTML für das zentrale Panel sammeln
-            ob_start();
-            if ($key === 'recent_network_posts' && class_exists('Recent_Network_Posts')) {
-                $recent = new \Recent_Network_Posts();
-                echo $recent->render_settings_form();
-            } elseif ($key === 'global_site_search' && class_exists('Global_Site_Search_Settings_Renderer')) {
-                $gss = new \Global_Site_Search_Settings_Renderer();
-                echo $gss->render_settings_form();
-            } elseif ($key === 'global_site_tags' && class_exists('Global_Site_Tags_Settings_Renderer')) {
-                $gst = new \Global_Site_Tags_Settings_Renderer();
-                echo $gst->render_settings_form();
-            } else {
-                echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
-            }
-            $settings_html[$key] = ob_get_clean();
         }
         echo '</div>';
-        // Zentrales Panel für Einstellungen
-        echo '<div id="ps-extension-settings-panel" style="display:none; margin-top:2.5em;"></div>';
-        echo '<p><button type="submit" class="button button-primary">Speichern</button></p>';
-        echo '</form></div>';
-        // JS: Card-Click füllt das zentrale Panel
-        echo '<script>document.addEventListener("DOMContentLoaded",function(){
-            var settings = '.json_encode($settings_html).';
-            var panel = document.getElementById("ps-extension-settings-panel");
-            document.querySelectorAll(".ps-extension-card").forEach(function(card){
-                card.addEventListener("click",function(e){
-                    if(e.target.closest("input,select,button,label")) return;
-                    document.querySelectorAll(".ps-extension-card").forEach(function(c){c.classList.remove("active");});
-                    card.classList.add("active");
-                    var extkey = card.getAttribute("data-extkey");
+        // Panel-Container für Einstellungen
+        echo '<div id="ps-extension-settings-panel-debug" style="border:2px dashed red;padding:8px;margin:1em 0;">DEBUG: Panel-Wrapper<br><div id="ps-extension-settings-panel" style="margin-top:2em;"></div></div>';
+        // JS: Card-Click füllt das Panel
+        echo "<script>document.addEventListener(\"DOMContentLoaded\",function(){
+            var settings = ".json_encode($settings_html).";
+            var panel = document.getElementById(\"ps-extension-settings-panel\");
+            document.querySelectorAll(\".ps-extension-card\").forEach(function(card){
+                card.addEventListener(\"click\",function(e){
+                    if(e.target.closest(\"input,select,button,label\")) return;
+                    document.querySelectorAll(\".ps-extension-card\").forEach(function(c){c.classList.remove(\"active\");});
+                    card.classList.add(\"active\");
+                    var extkey = card.getAttribute(\"data-extkey\");
+                    panel.innerHTML = '';
                     if(settings[extkey]){
                         panel.innerHTML = settings[extkey];
-                        panel.style.display = "block";
-                        panel.scrollIntoView({behavior:"smooth",block:"start"});
+                        panel.style.display = \"block\";
+                        panel.scrollIntoView({behavior:\"smooth\",block:\"start\"});
+                    } else {
+                        panel.innerHTML = '';
+                        panel.style.display = \"none\";
                     }
                 });
             });
-            // Bereichsauswahl wie gehabt
-            document.querySelectorAll("input[type=radio][value=sites]").forEach(function(radio){
-                radio.addEventListener("change",function(){
-                    var sel = this.closest(".ps-scope-row").querySelector(".ps-scope-sites");
-                    if(sel) sel.style.display = "block";
+            document.querySelectorAll(\"input[type=radio][value=sites]\").forEach(function(radio){
+                radio.addEventListener(\"change\",function(){
+                    var sel = this.closest(\".ps-scope-row\").querySelector(\".ps-scope-sites\");
+                    if(sel) sel.style.display = \"block\";
                 });
             });
-            document.querySelectorAll("input[type=radio]:not([value=sites])").forEach(function(radio){
-                radio.addEventListener("change",function(){
-                    var sel = this.closest(".ps-scope-row").querySelector(".ps-scope-sites");
-                    if(sel) sel.style.display = "none";
+            document.querySelectorAll(\"input[type=radio]:not([value=sites])\").forEach(function(radio){
+                radio.addEventListener(\"change\",function(){
+                    var sel = this.closest(\".ps-scope-row\").querySelector(\".ps-scope-sites\");
+                    if(sel) sel.style.display = \"none\";
                 });
             });
-            document.querySelectorAll(".ps-switch input[type=checkbox]").forEach(function(toggle){
-                toggle.addEventListener("change",function(){
-                    const label = this.closest(".ps-extension-status").querySelector(".ps-status-label");
-                    if(this.checked){ label.textContent = "Aktiv"; label.style.color = "#2ecc40"; }
-                    else { label.textContent = "Inaktiv"; label.style.color = "#aaa"; }
+            document.querySelectorAll(\".ps-switch input[type=checkbox]\").forEach(function(toggle){
+                toggle.addEventListener(\"change\",function(){
+                    const label = this.closest(\".ps-extension-status\").querySelector(\".ps-status-label\");
+                    if(this.checked){ label.textContent = \"Aktiv\"; label.style.color = \"#2ecc40\"; }
+                    else { label.textContent = \"Inaktiv\"; label.style.color = \"#aaa\"; }
                 });
             });
-        });</script>';
+        });</script>";
     }
 
     public function get_settings() {
@@ -255,8 +212,20 @@ class Postindexer_Extensions_Admin {
         $settings = $this->get_settings();
         $scope = $settings[$extension_key]['scope'] ?? 'main';
         $active = isset($settings[$extension_key]['active']) ? (int)$settings[$extension_key]['active'] : 1;
-        if (!$active) return false;
         $main_site = function_exists('get_main_site_id') ? get_main_site_id() : 1;
+        $debug = '';
+        if ( defined('WP_DEBUG') && WP_DEBUG ) {
+            $debug = sprintf('<div style="background:#ffe;border:1px solid #cc0;padding:8px 12px;margin:10px 0;">DEBUG Erweiterung: %s | Blog-ID: %s | Scope: %s | Aktiv: %s | Main-Site: %s | Sites: %s</div>',
+                esc_html($extension_key),
+                esc_html($site_id),
+                esc_html($scope),
+                esc_html($active),
+                esc_html($main_site),
+                esc_html(json_encode($settings[$extension_key]['sites'] ?? []))
+            );
+            if (!is_admin()) echo $debug;
+        }
+        if (!$active) return false;
         if ($scope === 'network') return true;
         if ($scope === 'main') return $site_id == $main_site;
         if ($scope === 'sites') return in_array($site_id, $settings[$extension_key]['sites'] ?? []);
