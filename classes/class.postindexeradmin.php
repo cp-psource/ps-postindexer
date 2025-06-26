@@ -1444,25 +1444,25 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 				<h3 class="nav-tab-wrapper">
 					<?php if ( has_action( 'postindexer_statistics' ) ) {
 						?>
-						<a href="settings.php?page=postindexer&amp;tab=statistics"
+						<a href="admin.php?page=ps-multisite-index&amp;tab=statistics"
 						   class="nav-tab <?php if ( ! isset( $_GET['tab'] ) || $_GET['tab'] == 'statistics' ) {
 							   echo 'nav-tab-active';
 						   } ?>"><?php _e( 'Statistiken', 'postindexer' ); ?></a>
 						<?php
 					}
 					?>
-					<a href="settings.php?page=postindexer&amp;tab=globaloptions"
+					<a href="admin.php?page=ps-multisite-index&amp;tab=globaloptions"
 					   class="nav-tab <?php if ( isset( $_GET['tab'] ) && $_GET['tab'] == 'globaloptions' ) {
 						   echo 'nav-tab-active';
 					   } ?>"><?php _e( 'Globale Einstellungen', 'postindexer' ); ?></a>
-					<a href="settings.php?page=postindexer&amp;tab=rebuildindex"
+					<a href="admin.php?page=ps-multisite-index&amp;tab=rebuildindex"
 					   class="nav-tab <?php if ( isset( $_GET['tab'] ) && $_GET['tab'] == 'rebuildindex' ) {
 						   echo 'nav-tab-active';
 					   } ?>"><?php _e( 'Index neu erstellen', 'postindexer' ); ?></a>
 					<?php
 					if ( defined( 'PI_CRON_DEBUG' ) && PI_CRON_DEBUG == true ) {
 						?>
-						<a href="settings.php?page=postindexer&amp;tab=log"
+						<a href="admin.php?page=ps-multisite-index&amp;tab=log"
 						   class="nav-tab <?php if ( isset( $_GET['tab'] ) && $_GET['tab'] == 'log' ) {
 							   echo 'nav-tab-active';
 						   } ?>"><?php _e( 'Cron Log', 'postindexer' ); ?></a>
