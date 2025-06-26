@@ -375,8 +375,7 @@ class Recent_Network_Posts {
 		return ob_get_clean();
 	}
 }
-//delete_option( 'network_posts_defaults' );
-new Recent_Network_Posts();
+//delete_option( 'network_posts_defaults' ); // ENTFERNT! Instanziierung nur noch über plugins_loaded bei aktiver Erweiterung
 
 // Nach dem Speichern: update_site_option statt update_option
 add_action('updated_option', function($option, $old, $new) {

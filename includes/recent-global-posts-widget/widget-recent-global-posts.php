@@ -47,7 +47,6 @@ add_action('plugins_loaded', function() {
 	}
 });
 
-add_action( 'widgets_init', 'rgpwidget_register_widget' );
 if ( !function_exists( 'rgpwidget_register_widget' ) ) :
 	/**
 	 * Registers widget in the system.

@@ -278,9 +278,6 @@ class globalsitetags {
 		}
 
 		$query .= " GROUP BY t.term_id ORDER BY 'count' DESC LIMIT " . $number;
-		if (isset($_GET['TAGS_DEBUG'])) {
-			echo "DEBUG: query[". $query ."]<br />";
-		}
 		$thetags = $wpdb->get_results( $query );
 		$content .= !empty( $thetags )
 			? wp_generate_tag_cloud( $thetags, array( 'smallest' => $smallest, 'largest' => $largest, 'unit' => 'px', 'number' => $number, 'orderby' => 'count', 'order' => 'DESC' ) )
@@ -340,13 +337,6 @@ class globalsitetags {
 				? $global_site_tags_post_type
 				: $this->global_site_tags_get_post_types(),
 		) );
-
-		if (isset($_GET['TAGS_DEBUG'])) {
-			if (isset($GLOBALS['network_query'])) {
-				echo "network_query<pre>"; print_r($GLOBALS['network_query']); echo "</pre>";
-			}
-		}
-
 
 		if ( !network_have_posts() ) {
 			$content .= '<p style="text-align:center">';

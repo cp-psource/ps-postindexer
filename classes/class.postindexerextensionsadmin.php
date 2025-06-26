@@ -7,7 +7,7 @@ class Postindexer_Extensions_Admin {
     private $extensions = [
         'recent_network_posts' => [
             'name' => 'Aktuelle Netzwerkbeiträge',
-            'desc' => 'Zeigt eine anpassbare Liste der letzten Beiträge aus dem gesamten Multisite-Netzwerk an. Ermöglicht flexible Darstellung und Filterung.',
+            'desc' => 'Zeigt eine anpassbare Liste der letzten Beiträge aus dem gesamten Multisite-Netzwerk an. Die Ausgabe erfolgt per Shortcode: [recent_network_posts] – einfach auf einer beliebigen Seite oder im Block-Editor einfügen.',
             'settings_page' => 'network-posts-settings',
         ],
         'global_site_search' => [
@@ -95,7 +95,8 @@ class Postindexer_Extensions_Admin {
             $settings_html[$key] = ob_get_clean();
         }
         echo '<div class="wrap"><h1>' . esc_html__( 'Erweiterungen', 'postindexer' ) . '</h1>';
-        // <form> entfernt!
+        // <form> wieder einfügen, damit die Aktivierungs-Checkboxen korrekt gespeichert werden
+        echo '<form method="post">';
         wp_nonce_field('ps_extensions_scope_save','ps_extensions_scope_nonce');
         echo '<style>
         .ps-extensions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2em; margin-top:2em; }
@@ -149,7 +150,9 @@ class Postindexer_Extensions_Admin {
             echo '</div>';
             echo '</div>';
         }
-        echo '</div>';
+        echo '</div>'; // .ps-extensions-grid
+        echo '<div id="ps-extension-settings-panel" style="margin-top:2em;"></div>';
+        echo '</form>';
         // JS: Card-Click füllt das Panel
         echo "<script>document.addEventListener(\"DOMContentLoaded\",function(){
             var settings = ".json_encode($settings_html).";

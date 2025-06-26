@@ -16,22 +16,60 @@ class Global_Site_Search_Widget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		global $global_site_search, $wp_query;
+		global $global_site_search, $wp_query, $wpdb;
 
 		extract( $args );
 
-		/* Before widget (defined by themes). */
 		echo $before_widget;
 
-		/* Display the widget title if one was input (before and after defined by themes). */
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		if ( !empty( $title ) ) {
 			echo $before_title . $title . $after_title;
 		}
 
-		global_site_search_form();
+		// Suchformular
+		$phrase = isset($_GET['gss_widget_phrase']) ? trim(stripslashes($_GET['gss_widget_phrase'])) : '';
+		// Widget-Suchformular per AJAX, damit kein Redirect erfolgt
+		echo '<form id="gss-widget-form-' . esc_attr($this->id) . '" action="#" method="get">';
+		echo '<input type="text" name="gss_widget_phrase" value="' . esc_attr($phrase) . '" placeholder="Suchbegriff..." style="width:70%;margin-right:0.5em;">';
+		echo '<input type="submit" value="Suchen">';
+		echo '</form>';
+		echo '<div id="gss-widget-results-' . esc_attr($this->id) . '">';
+		if ($phrase !== '') {
+			$limit = 5;
+			$post_type = get_site_option('global_site_search_post_type', 'post');
+			$where = $wpdb->prepare("post_title LIKE %s AND post_type = %s AND post_status = 'publish'", '%' . $wpdb->esc_like($phrase) . '%', $post_type);
+			$results = $wpdb->get_results("SELECT * FROM {$wpdb->base_prefix}network_posts WHERE $where ORDER BY post_date DESC LIMIT $limit");
+			if ($results) {
+				echo '<ul class="gss-widget-results">';
+				foreach ($results as $row) {
+					echo '<li><a href="' . esc_url($row->guid) . '">' . esc_html($row->post_title) . '</a></li>';
+				}
+				echo '</ul>';
+				$main_site_url = network_home_url( global_site_search_get_search_base() . '/' . urlencode($phrase) . '/' );
+				echo '<div style="margin-top:0.7em;"><a href="' . esc_url($main_site_url) . '" style="font-weight:bold;">Weitere Treffer anzeigen</a></div>';
+			} else {
+				echo '<div style="margin-top:0.7em;color:#888;">Keine Treffer gefunden.</div>';
+			}
+		}
+		echo '</div>';
+		// AJAX-Handler für das Widget
+		echo '<script>document.addEventListener("DOMContentLoaded",function(){
+            var form=document.getElementById("gss-widget-form-' . esc_attr($this->id) . '");
+            var results=document.getElementById("gss-widget-results-' . esc_attr($this->id) . '");
+            if(form){
+                form.addEventListener("submit",function(e){
+                    e.preventDefault();
+                    var phrase=form.querySelector("input[name=gss_widget_phrase]").value;
+                    if(!phrase) return;
+                    results.innerHTML=\'<div style="color:#888;">Suche läuft...</div>\';
+                    fetch(window.location.pathname+"?gss_widget_ajax=1&phrase="+encodeURIComponent(phrase))
+                        .then(r=>r.text())
+                        .then(html=>{results.innerHTML=html;});
+                });
+            }
+        });</script>';
 
-		/* After widget (defined by themes). */
 		echo $after_widget;
 	}
 
@@ -57,7 +95,21 @@ class Global_Site_Search_Widget extends WP_Widget {
 
 }
 
-add_action( 'widgets_init', 'global_site_search_load_widgets' );
+// Integration als Erweiterung für den Beitragsindexer
+add_action('plugins_loaded', function() {
+	if ( !class_exists('Postindexer_Extensions_Admin') ) return;
+	global $postindexer_extensions_admin;
+	if ( !isset($postindexer_extensions_admin) ) {
+		if ( isset($GLOBALS['postindexeradmin']) && isset($GLOBALS['postindexeradmin']->extensions_admin) ) {
+			$postindexer_extensions_admin = $GLOBALS['postindexeradmin']->extensions_admin;
+		}
+	}
+	if ( isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('global_site_search') ) {
+		add_action( 'widgets_init', 'global_site_search_load_widgets' );
+	}
+});
+
+// Entfernt: add_action( 'widgets_init', 'global_site_search_load_widgets' );
 function global_site_search_load_widgets() {
 	if ( in_array( get_current_blog_id(), global_site_search_get_allowed_blogs() ) ) {
 		register_widget( 'Global_Site_Search_Widget' );

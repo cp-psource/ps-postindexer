@@ -42,18 +42,21 @@ class global_site_search {
 
 	function __construct() {
 		global $wpdb;
-
 		$this->db = $wpdb;
 
-		if ( in_array( get_current_blog_id(), global_site_search_get_allowed_blogs() ) ) {
-			add_action( 'init', array( $this, 'global_site_search_page_setup' ) );
-
-			// Add the rewrites
-			add_action( 'generate_rewrite_rules', array( $this, 'add_rewrite' ) );
-			add_filter( 'query_vars', array( $this, 'add_queryvars' ) );
-
-			add_filter( 'the_content', array( $this, 'global_site_search_output' ), 20 );
-			//add_filter( 'the_title', array( $this, 'global_site_search_title_output'), 99, 2 );
+		if ( class_exists('Postindexer_Extensions_Admin') ) {
+			global $postindexer_extensions_admin;
+			if ( !isset($postindexer_extensions_admin) ) {
+				if ( isset($GLOBALS['postindexeradmin']) && isset($GLOBALS['postindexeradmin']->extensions_admin) ) {
+					$postindexer_extensions_admin = $GLOBALS['postindexeradmin']->extensions_admin;
+				}
+			}
+			if ( isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('global_site_search') ) {
+				add_action( 'init', array( $this, 'global_site_search_page_setup' ) );
+				add_action( 'generate_rewrite_rules', array( $this, 'add_rewrite' ) );
+				add_filter( 'query_vars', array( $this, 'add_queryvars' ) );
+				add_filter( 'the_content', array( $this, 'global_site_search_output' ), 20 );
+			}
 		}
 
 		add_action( 'wpmu_options', array( $this, 'global_site_search_site_admin_options' ) );
@@ -199,6 +202,11 @@ class global_site_search {
 	function global_site_search_output( $content ) {
 		global $wp_query;
 
+		// Nur im Frontend und auf der Hauptseite ausgeben
+		if ( is_admin() || !is_main_site() ) {
+			return $content;
+		}
+
 		if ( !isset( $wp_query->query_vars['namespace'] ) || $wp_query->query_vars['namespace'] != 'gss' || $wp_query->query_vars['type'] != 'search' ) {
 			return $content;
 		}
@@ -213,14 +221,6 @@ class global_site_search {
 		$phrase = isset( $wp_query->query_vars['search'] ) ? urldecode( $wp_query->query_vars['search'] ) : '';
 		if ( empty( $phrase ) && isset( $_REQUEST['phrase'] ) ) {
 			$phrase = trim( $_REQUEST['phrase'] );
-		}
-
-		if ( empty( $phrase ) ) {
-			ob_start();
-			global_site_search_form();
-			$content .= ob_get_clean();
-
-			return $content;
 		}
 
 		$theauthor = get_user_by( 'login', $phrase );
@@ -253,17 +253,25 @@ class global_site_search {
 
 		//=====================================//
 		
+		// Entfernt: Debug-Ausgaben wie [DEBUG: Vor Template-Include] und Dummy-Ausgabe
+		$show_results = !empty($phrase);
 		ob_start();
-		$network_query_posts = network_query_posts( $parameters );
+		if ($show_results) {
+			$network_query_posts = network_query_posts($parameters);
+		} else {
+			$network_query_posts = null;
+		}
 		include global_site_search_locate_template( 'global-site-search.php' );
 		$content .= ob_get_clean();
-
 		return $content;
 	}
 
-}
+	static function static_page_setup() {
+		$instance = new self();
+		$instance->global_site_search_page_setup();
+	}
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+}
 
 // Integration als Erweiterung für den Beitragsindexer
 add_action('plugins_loaded', function() {
@@ -282,7 +290,13 @@ add_action('plugins_loaded', function() {
 	}
 });
 
-register_activation_hook( __FILE__, 'flush_rewrite_rules' );
+// Automatische Seitenerstellung beim Aktivieren der Erweiterung
+register_activation_hook( __FILE__, function() {
+    if (class_exists('global_site_search')) {
+        global_site_search::static_page_setup();
+    }
+});
+
 register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
 
 if (class_exists('global_site_search')) {
@@ -296,7 +310,9 @@ if (class_exists('global_site_search')) {
 			$post_type = get_site_option( 'global_site_search_post_type', 'post' );
 			$post_types = $this->db->get_col( "SELECT post_type FROM {$this->db->base_prefix}network_posts GROUP BY post_type" );
 			ob_start();
-			echo '<form method="post" action="network/settings.php?page=ps-multisite-index-extensions" style="max-width:700px;">';
+			// --- AJAX-Formular für Netzwerk-Admin ---
+			$ajax_url = admin_url('admin-ajax.php');
+			echo '<form id="gss-settings-form" method="post" action="#" style="max-width:700px;">';
 			wp_nonce_field('ps_gss_settings_save','ps_gss_settings_nonce');
 			echo '<div style="background:#fff;border:1px solid #e5e5e5;padding:2em 2em 1em 2em;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2em;">';
 			echo '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2em;">';
@@ -325,10 +341,84 @@ if (class_exists('global_site_search')) {
 			}
 			echo '</select></div>';
 			echo '</div>';
-			submit_button();
+			echo '<p style="margin-top:1.5em;">'.get_submit_button('Änderungen speichern', 'primary', '', false).'</p>';
 			echo '</div>';
 			echo '</form>';
+			echo '<div id="gss-settings-success" style="display:none;margin-top:1em;" class="updated notice"><p>Einstellungen gespeichert!</p></div>';
 			return ob_get_clean();
 		}
 	}
 }
+
+// AJAX-Handler für das Speichern der Netzwerk-Optionen für Global Site Search
+add_action('wp_ajax_save_gss_settings', function() {
+    if (!current_user_can('manage_network_options')) wp_send_json_error('Fehlende Berechtigung: manage_network_options');
+    if (!isset($_POST['ps_gss_settings_nonce'])) wp_send_json_error('Nonce fehlt');
+    if (!wp_verify_nonce($_POST['ps_gss_settings_nonce'], 'ps_gss_settings_save')) wp_send_json_error('Nonce ungültig');
+    update_site_option('global_site_search_per_page', intval($_POST['global_site_search_per_page']));
+    update_site_option('global_site_search_background_color', trim($_POST['global_site_search_background_color']));
+    update_site_option('global_site_search_alternate_background_color', trim($_POST['global_site_search_alternate_background_color']));
+    update_site_option('global_site_search_border_color', trim($_POST['global_site_search_border_color']));
+    update_site_option('global_site_search_post_type', sanitize_text_field($_POST['global_site_search_post_type']));
+    wp_send_json_success();
+});
+
+// jQuery im Netzwerk-Admin laden, damit AJAX funktioniert
+add_action('admin_enqueue_scripts', function($hook) {
+    if (is_network_admin() && $hook === 'ps-multisite-index_page_ps-multisite-index-extensions') {
+        wp_enqueue_script('jquery');
+        $ajax_url = admin_url('admin-ajax.php');
+        wp_add_inline_script('jquery', "\n            jQuery(document).on('submit', '#gss-settings-form', function(e) {\n                e.preventDefault();\n                var form = jQuery(this);\n                var data = form.serialize();\n                data += '&action=save_gss_settings';\n                jQuery.post('" . esc_js($ajax_url) . "', data, function(response){\n                    if(response.success){\n                        jQuery('#gss-settings-success').show().delay(2000).fadeOut();\n                    }else{\n                        alert('Fehler beim Speichern: '+(response.data||'Unbekannter Fehler'));\n                    }\n                });\n            });\n        ");
+    }
+});
+
+// AJAX-Handler für Suchergebnisse
+add_action('init', function() {
+    if (isset($_GET['gss_ajax']) && $_GET['gss_ajax'] == '1' && !empty($_GET['phrase'])) {
+        global $wpdb;
+        $phrase = trim(stripslashes($_GET['phrase']));
+        $limit = get_site_option('global_site_search_per_page', 10);
+        $post_type = get_site_option('global_site_search_post_type', 'post');
+        $where = $wpdb->prepare("post_title LIKE %s AND post_type = %s AND post_status = 'publish'", '%' . $wpdb->esc_like($phrase) . '%', $post_type);
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->base_prefix}network_posts WHERE $where ORDER BY post_date DESC LIMIT $limit");
+        if ($results) {
+            echo '<ul class="gss-ajax-list">';
+            foreach ($results as $row) {
+                echo '<li><a href="' . esc_url($row->guid) . '">' . esc_html($row->post_title) . '</a></li>';
+            }
+            echo '</ul>';
+        } else {
+            echo '<div style="color:#888;">Keine Treffer gefunden.</div>';
+        }
+        exit;
+    }
+});
+
+// AJAX-Handler für Widget-Suche
+add_action('init', function() {
+    if (isset($_GET['gss_widget_ajax']) && $_GET['gss_widget_ajax'] == '1' && !empty($_GET['phrase'])) {
+        global $wpdb;
+        $phrase = trim(stripslashes($_GET['phrase']));
+        $limit = 5;
+        $post_type = get_site_option('global_site_search_post_type', 'post');
+        $where = $wpdb->prepare("post_title LIKE %s AND post_type = %s AND post_status = 'publish'", '%' . $wpdb->esc_like($phrase) . '%', $post_type);
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->base_prefix}network_posts WHERE $where ORDER BY post_date DESC LIMIT $limit");
+        if ($results) {
+            echo '<ul class="gss-widget-results">';
+            foreach ($results as $row) {
+                echo '<li><a href="' . esc_url($row->guid) . '">' . esc_html($row->post_title) . '</a></li>';
+            }
+            echo '</ul>';
+            $main_site_url = network_home_url( global_site_search_get_search_base() . '/' . urlencode($phrase) . '/' );
+            echo '<div style="margin-top:0.7em;"><a href="' . esc_url($main_site_url) . '" style="font-weight:bold;">Weitere Treffer anzeigen</a></div>';
+        } else {
+            echo '<div style="margin-top:0.7em;color:#888;">Keine Treffer gefunden.</div>';
+        }
+        exit;
+    }
+});
+
+// Nur im Haupt-Query, auf der Seite und für den Hauptinhalt ausgeben
+		if ( !is_main_query() || !is_page() || !isset($wp_query->post) || $wp_query->post->ID !== $wp_query->get_queried_object_id() ) {
+			return $content;
+		}

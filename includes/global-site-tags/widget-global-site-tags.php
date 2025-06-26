@@ -121,7 +121,20 @@ class widget_global_site_tags extends WP_Widget {
 
 }
 
-add_action( 'widgets_init', 'widget_global_site_tags_init' );
+// Integration als Erweiterung für den Beitragsindexer
+add_action('plugins_loaded', function() {
+	if ( !class_exists('Postindexer_Extensions_Admin') ) return;
+	global $postindexer_extensions_admin;
+	if ( !isset($postindexer_extensions_admin) ) {
+		if ( isset($GLOBALS['postindexeradmin']) && isset($GLOBALS['postindexeradmin']->extensions_admin) ) {
+			$postindexer_extensions_admin = $GLOBALS['postindexeradmin']->extensions_admin;
+		}
+	}
+	if ( isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('global_site_tags') ) {
+		add_action( 'widgets_init', 'widget_global_site_tags_init' );
+	}
+});
+
 function widget_global_site_tags_init() {
 	register_widget( 'widget_global_site_tags' );
 }
