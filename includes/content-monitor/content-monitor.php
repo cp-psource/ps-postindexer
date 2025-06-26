@@ -1,32 +1,4 @@
 <?php
-/*
-Plugin Name: Content Monitor
-Plugin URI: https://premium.wpmudev.org/project/content-monitor/
-Description: Allows you to monitor your entire site for set words that you define (and get an email whenever they are used) - perfect for educational or high profile sites.
-Version: 1.4
-Author: WPMU DEV
-Author URI: https://premium.wpmudev.org/
-Network: true
-WDP ID: 12
-*/
-
-/* 
-Copyright 2007-2015 Incsub (http://incsub.com)
-Developers: Andrew Billits, Aaron Edwards
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 
 //force multisite
 if ( ! is_multisite() ) {

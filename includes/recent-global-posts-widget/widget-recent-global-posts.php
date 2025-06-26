@@ -1,31 +1,4 @@
 <?php
-/*
-Plugin Name: Recent Global Posts Widget
-Plugin URI: http://premium.wpmudev.org/project/recent-global-posts-widget/
-Description: Show the most recent global posts in a widget
-Author: WPMU DEV
-Author URI: http://premium.wpmudev.org/
-Version: 3.0.6
-WDP ID: 66
-*/
-
-// +----------------------------------------------------------------------+
-// | Copyright Incsub (http://incsub.com/)                                |
-// +----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify |
-// | it under the terms of the GNU General Public License, version 2, as  |
-// | published by the Free Software Foundation.                           |
-// |                                                                      |
-// | This program is distributed in the hope that it will be useful,      |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        |
-// | GNU General Public License for more details.                         |
-// |                                                                      |
-// | You should have received a copy of the GNU General Public License    |
-// | along with this program; if not, write to the Free Software          |
-// | Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,               |
-// | MA 02110-1301 USA                                                    |
-// +----------------------------------------------------------------------+
 
 // define default constan value
 if ( !defined( 'RECENT_GLOBAL_POSTS_WIDGET_MAIN_BLOG_ONLY' ) ) {
@@ -60,14 +33,7 @@ if ( !function_exists( 'rgpwidget_register_widget' ) ) :
 		if ( !class_exists( 'Network_Query', false ) ) {
 			return;
 		}
-
-		if ( filter_var( RECENT_GLOBAL_POSTS_WIDGET_MAIN_BLOG_ONLY, FILTER_VALIDATE_BOOLEAN ) ) {
-			if ( $wpdb->blogid == 1 ) {
-				register_widget( Recent_Global_Posts_Widget::NAME );
-			}
-		} else {
-			register_widget( Recent_Global_Posts_Widget::NAME );
-		}
+		register_widget( Recent_Global_Posts_Widget::NAME );
 	}
 endif;
 

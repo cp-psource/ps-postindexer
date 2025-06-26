@@ -1,32 +1,4 @@
 <?php
-/*
-Plugin Name: Global Site Tags
-Plugin URI: http://premium.wpmudev.org/project/global-site-tags
-Description: This powerful plugin allows you to simply display a global tag cloud for your entire WordPress Multisite network. How cool is that!
-Author: WPMU DEV
-Version: 3.1.0.1
-Author URI: http://premium.wpmudev.org
-WDP ID: 105
-Network: true
-*/
-
-// +----------------------------------------------------------------------+
-// | Copyright Incsub (http://incsub.com/)                                |
-// +----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify |
-// | it under the terms of the GNU General Public License, version 2, as  |
-// | published by the Free Software Foundation.                           |
-// |                                                                      |
-// | This program is distributed in the hope that it will be useful,      |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        |
-// | GNU General Public License for more details.                         |
-// |                                                                      |
-// | You should have received a copy of the GNU General Public License    |
-// | along with this program; if not, write to the Free Software          |
-// | Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,               |
-// | MA 02110-1301 USA                                                    |
-// +----------------------------------------------------------------------+
 
 if ( !defined( 'GLOBAL_SITE_TAGS_BLOG' ) ) define( 'GLOBAL_SITE_TAGS_BLOG', 1 );
 
@@ -108,12 +80,18 @@ class globalsitetags {
 			if ( empty( $page_id ) ) {
 				// a page hasn't been set - so check if there is already one with the base name
 				$page_id = $this->db->get_var( "SELECT ID FROM {$this->db->posts} WHERE post_name = '{$this->global_site_tags_base}' AND post_type = 'page'" );
+				if ( !empty( $page_id ) ) {
+					$post = get_post( $page_id );
+					if ( !$post ) {
+						$page_id = 0; // Seite existiert nicht mehr, neu anlegen
+					}
+				}
 				if ( empty( $page_id ) ) {
 					// Doesn't exist so create the page
 					$page_id = wp_insert_post( array(
 						"post_author" => get_current_user_id(),
 						"post_date" => current_time( 'mysql' ),
-						"post_date_gmt" => current_time( 'mysql' ),
+						"post_date_gmt" => current_time( 'mysql', 1 ),
 						"post_content" => '',
 						"post_title" => __( 'Tags', 'globalsitetags' ),
 						"post_excerpt" => '',
@@ -125,13 +103,19 @@ class globalsitetags {
 						"to_ping" => '',
 						"pinged" => '',
 						"post_modified" => current_time( 'mysql' ),
-						"post_modified_gmt" => current_time( 'mysql' ),
+						"post_modified_gmt" => current_time( 'mysql', 1 ),
 						"post_content_filtered" => '',
 						"post_parent" => 0,
 						"menu_order" => 0,
 						"post_type" => 'page',
 						"comment_count" => 0
 					) );
+				} else {
+					// Seite existiert, Status ggf. auf publish setzen
+					$post = get_post( $page_id );
+					if ( $post && $post->post_status !== 'publish' ) {
+						wp_update_post( array( 'ID' => $page_id, 'post_status' => 'publish' ) );
+					}
 				}
 				update_option( 'global_site_tags_page', $page_id );
 			}
@@ -428,6 +412,13 @@ class globalsitetags {
 		return ceil( $value * pow( 10, $dp ) ) / pow( 10, $dp );
 	}
 
+	// Setup erzwingen (z.B. nach Aktivierung im Netzwerk-Admin)
+	public function force_setup() {
+		delete_option('global_site_tags_page_setup');
+		delete_option('global_site_tags_page');
+		delete_option('gst_installed');
+		$this->initialise_plugin();
+	}
 }
 
 // Integration als Erweiterung für den Beitragsindexer

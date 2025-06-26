@@ -1,32 +1,4 @@
 <?php
-/*
-Plugin Name: Multisite Suche
-Plugin URI: https://cp-psource.github.io/global-site-search/
-Description: Ein großartiges Plugin, das eine globale Suche in allen Blogs auf Deiner WordPress Multisite/BuddyPress-Installation mit Leichtigkeit ermöglicht!
-Author: PSOURCE
-Version: 3.2.4
-Requires at least: 4.9
-Author URI: https://github.com/cp-psource
-Network: true
-*/
-
-// +----------------------------------------------------------------------+
-// | Copyright 2018-2025 PSOURCE (https://github.com/cp-psource)                                |
-// +----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify |
-// | it under the terms of the GNU General Public License, version 2, as  |
-// | published by the Free Software Foundation.                           |
-// |                                                                      |
-// | This program is distributed in the hope that it will be useful,      |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        |
-// | GNU General Public License for more details.                         |
-// |                                                                      |
-// | You should have received a copy of the GNU General Public License    |
-// | along with this program; if not, write to the Free Software          |
-// | Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,               |
-// | MA 02110-1301 USA                                                    |
-// +----------------------------------------------------------------------+
 
 
 // do not remove dirname( __FILE__ ) because it could case to loading wrong file

@@ -89,6 +89,14 @@ class Postindexer_Extensions_Admin {
             } elseif ($key === 'global_site_tags' && class_exists('Global_Site_Tags_Settings_Renderer')) {
                 $gst = new \Global_Site_Tags_Settings_Renderer();
                 echo $gst->render_settings_form();
+            } elseif ($key === 'recent_global_posts_widget') {
+                require_once dirname(__DIR__) . '/includes/recent-global-posts-widget/settings.php';
+                if (class_exists('Recent_Global_Posts_Widget_Settings_Renderer')) {
+                    $rgpw = new \Recent_Global_Posts_Widget_Settings_Renderer();
+                    echo $rgpw->render_settings_form();
+                } else {
+                    echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
+                }
             } else {
                 echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
             }
@@ -194,6 +202,18 @@ class Postindexer_Extensions_Admin {
                 });
             });
         });</script>";
+        // Nach dem Speichern: Setup für Global Site Tags erzwingen, wenn aktiviert
+        if (isset($settings['global_site_tags']['active']) && $settings['global_site_tags']['active']) {
+            if (!class_exists('globalsitetags')) {
+                require_once dirname(__DIR__) . '/includes/global-site-tags/global-site-tags.php';
+            }
+            if (class_exists('globalsitetags')) {
+                $gst = new \globalsitetags();
+                if (method_exists($gst, 'force_setup')) {
+                    $gst->force_setup();
+                }
+            }
+        }
     }
 
     public function get_settings() {

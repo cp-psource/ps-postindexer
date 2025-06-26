@@ -50,6 +50,9 @@ define( 'POST_INDEXER_PLUGIN_DIR', plugin_dir_path( __FILE__) );
 
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/config.php';
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/functions.php';
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-posts-widget/widget-recent-global-posts.php';
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/global-site-tags/global-site-tags.php';
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/global-site-tags/widget-global-site-tags.php';
 
 // Include the database model we will be using across classes
 require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.model.php';
