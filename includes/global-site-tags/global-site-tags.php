@@ -437,61 +437,68 @@ add_action('plugins_loaded', function() {
 	}
 });
 
-if (class_exists('globalsitetags')) {
-	class Global_Site_Tags_Settings_Renderer extends globalsitetags {
-		public function render_settings_form() {
-			$shown = get_site_option( 'global_site_tags_shown', '50' );
-			$per_page = get_site_option( 'global_site_tags_per_page', '10' );
-			$background = get_site_option( 'global_site_tags_background_color', '#F2F2EA' );
-			$alt_background = get_site_option( 'global_site_tags_alternate_background_color', '#FFFFFF' );
-			$border = get_site_option( 'global_site_tags_border_color', '#CFD0CB' );
-			$banned = get_site_option( 'global_site_tags_banned_tags', 'uncategorized' );
-			$post_type = get_site_option( 'global_site_tags_post_type', 'post' );
-			$post_types = $this->global_site_tags_get_post_types();
-			ob_start();
-			echo '<form method="post" action="network/settings.php?page=ps-multisite-index-extensions" style="max-width:700px;">';
-			wp_nonce_field('ps_gst_settings_save','ps_gst_settings_nonce');
-			echo '<div style="background:#fff;border:1px solid #e5e5e5;padding:2em 2em 1em 2em;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2em;">';
-			echo '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2em;">';
-			// Tags Shown
-			echo '<div><label for="gst_shown" style="font-weight:bold;">Anzahl angezeigter Tags</label><br>';
-			echo '<select name="global_site_tags_shown" id="gst_shown" style="min-width:120px;">';
-			for ( $i = 5; $i <= 50; $i += 5 ) {
-				echo '<option value="'.$i.'"'.selected($shown,$i,false).'>'.$i.'</option>';
-			}
-			echo '</select></div>';
-			// Auflistung pro Seite
-			echo '<div><label for="gst_per_page" style="font-weight:bold;">Auflistung pro Seite</label><br>';
-			echo '<select name="global_site_tags_per_page" id="gst_per_page" style="min-width:120px;">';
-			for ( $i = 5; $i <= 50; $i += 5 ) {
-				echo '<option value="'.$i.'"'.selected($per_page,$i,false).'>'.$i.'</option>';
-			}
-			echo '</select></div>';
-			// Hintergrundfarbe
-			echo '<div><label for="gst_bg" style="font-weight:bold;">Hintergrundfarbe</label><br>';
-			echo '<input name="global_site_tags_background_color" type="text" id="gst_bg" value="'.esc_attr($background).'" size="20"> <span style="color:#888;font-size:0.95em;">Standard: #F2F2EA</span></div>';
-			// Alternative Hintergrundfarbe
-			echo '<div><label for="gst_alt_bg" style="font-weight:bold;">Alternative Hintergrundfarbe</label><br>';
-			echo '<input name="global_site_tags_alternate_background_color" type="text" id="gst_alt_bg" value="'.esc_attr($alt_background).'" size="20"> <span style="color:#888;font-size:0.95em;">Standard: #FFFFFF</span></div>';
-			// Rahmenfarbe
-			echo '<div><label for="gst_border" style="font-weight:bold;">Rahmenfarbe</label><br>';
-			echo '<input name="global_site_tags_border_color" type="text" id="gst_border" value="'.esc_attr($border).'" size="20"> <span style="color:#888;font-size:0.95em;">Standard: #CFD0CB</span></div>';
-			// Banned Tags
-			echo '<div style="grid-column:1/3;"><label for="gst_banned" style="font-weight:bold;">Ausgeschlossene Tags</label><br>';
-			echo '<input name="global_site_tags_banned_tags" type="text" id="gst_banned" value="'.esc_attr($banned).'" style="width:95%"> <span style="color:#888;font-size:0.95em;">Mit Komma trennen, z.B. uncategorized,foo,bar</span></div>';
-			// Beitragstyp
-			echo '<div style="grid-column:1/3;"><label for="gst_post_type" style="font-weight:bold;">Beitragstyp auflisten</label><br>';
-			echo '<select name="global_site_tags_post_type" id="gst_post_type" style="min-width:160px;">';
-			echo '<option value="all"'.selected($post_type,'all',false).'>alle</option>';
-			foreach ($post_types as $r) {
-				echo '<option value="'.esc_attr($r).'"'.selected($post_type,$r,false).'>'.esc_html($r).'</option>';
-			}
-			echo '</select></div>';
-			echo '</div>';
-			submit_button();
-			echo '</div>';
-			echo '</form>';
-			return ob_get_clean();
-		}
-	}
+// Settings-Renderer für Netzwerk-Admin (immer deklarieren)
+if (!class_exists('Global_Site_Tags_Settings_Renderer')) {
+    class Global_Site_Tags_Settings_Renderer extends globalsitetags {
+        public function __construct() {
+            if (!class_exists('globalsitetags')) {
+                throw new \Exception('Basisklasse globalsitetags nicht gefunden!');
+            }
+            parent::__construct();
+        }
+        public function render_settings_form() {
+            $shown = get_site_option( 'global_site_tags_shown', '50' );
+            $per_page = get_site_option( 'global_site_tags_per_page', '10' );
+            $background = get_site_option( 'global_site_tags_background_color', '#F2F2EA' );
+            $alt_background = get_site_option( 'global_site_tags_alternate_background_color', '#FFFFFF' );
+            $border = get_site_option( 'global_site_tags_border_color', '#CFD0CB' );
+            $banned = get_site_option( 'global_site_tags_banned_tags', 'uncategorized' );
+            $post_type = get_site_option( 'global_site_tags_post_type', 'post' );
+            $post_types = $this->global_site_tags_get_post_types();
+            ob_start();
+            echo '<form method="post" action="network/settings.php?page=ps-multisite-index-extensions" style="max-width:700px;">';
+            wp_nonce_field('ps_gst_settings_save','ps_gst_settings_nonce');
+            echo '<div style="background:#fff;border:1px solid #e5e5e5;padding:2em 2em 1em 2em;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2em;">';
+            echo '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2em;">';
+            // Tags Shown
+            echo '<div><label for="gst_shown" style="font-weight:bold;">Anzahl angezeigter Tags</label><br>';
+            echo '<select name="global_site_tags_shown" id="gst_shown" style="min-width:120px;">';
+            for ( $i = 5; $i <= 50; $i += 5 ) {
+                echo '<option value="'.$i.'"'.selected($shown,$i,false).'>'.$i.'</option>';
+            }
+            echo '</select></div>';
+            // Auflistung pro Seite
+            echo '<div><label for="gst_per_page" style="font-weight:bold;">Auflistung pro Seite</label><br>';
+            echo '<select name="global_site_tags_per_page" id="gst_per_page" style="min-width:120px;">';
+            for ( $i = 5; $i <= 50; $i += 5 ) {
+                echo '<option value="'.$i.'"'.selected($per_page,$i,false).'>'.$i.'</option>';
+            }
+            echo '</select></div>';
+            // Hintergrundfarbe
+            echo '<div><label for="gst_bg" style="font-weight:bold;">Hintergrundfarbe</label><br>';
+            echo '<input name="global_site_tags_background_color" type="text" id="gst_bg" value="'.esc_attr($background).'" size="20"> <span style="color:#888;font-size:0.95em;">Standard: #F2F2EA</span></div>';
+            // Alternative Hintergrundfarbe
+            echo '<div><label for="gst_alt_bg" style="font-weight:bold;">Alternative Hintergrundfarbe</label><br>';
+            echo '<input name="global_site_tags_alternate_background_color" type="text" id="gst_alt_bg" value="'.esc_attr($alt_background).'" size="20"> <span style="color:#888;font-size:0.95em;">Standard: #FFFFFF</span></div>';
+            // Rahmenfarbe
+            echo '<div><label for="gst_border" style="font-weight:bold;">Rahmenfarbe</label><br>';
+            echo '<input name="global_site_tags_border_color" type="text" id="gst_border" value="'.esc_attr($border).'" size="20"> <span style="color:#888;font-size:0.95em;">Standard: #CFD0CB</span></div>';
+            // Banned Tags
+            echo '<div style="grid-column:1/3;"><label for="gst_banned" style="font-weight:bold;">Ausgeschlossene Tags</label><br>';
+            echo '<input name="global_site_tags_banned_tags" type="text" id="gst_banned" value="'.esc_attr($banned).'" style="width:95%"> <span style="color:#888;font-size:0.95em;">Mit Komma trennen, z.B. uncategorized,foo,bar</span></div>';
+            // Beitragstyp
+            echo '<div style="grid-column:1/3;"><label for="gst_post_type" style="font-weight:bold;">Beitragstyp auflisten</label><br>';
+            echo '<select name="global_site_tags_post_type" id="gst_post_type" style="min-width:160px;">';
+            echo '<option value="all"'.selected($post_type,'all',false).'>alle</option>';
+            foreach ($post_types as $r) {
+                echo '<option value="'.esc_attr($r).'"'.selected($post_type,$r,false).'>'.esc_html($r).'</option>';
+            }
+            echo '</select></div>';
+            echo '</div>';
+            submit_button();
+            echo '</div>';
+            echo '</form>';
+            return ob_get_clean();
+        }
+    }
 }

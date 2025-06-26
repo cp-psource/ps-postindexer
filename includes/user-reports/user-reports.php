@@ -41,11 +41,6 @@ class UserReports {
 
 		$this->_admin_header_error = "";
 
-		// Add support for new WPMUDEV Dashboard Notices
-		global $wpmudev_notices;
-		$wpmudev_notices[] = array( 'id' => 679162, 'name' => 'User Reports', 'screens' => array( 'users_page_user-reports-network' ) );
-		include_once( dirname( __FILE__ ) . '/lib/dash-notices/wpmudev-dash-notification.php' );
-
 		add_action( 'admin_notices', array( &$this, 'user_reports_admin_notices_proc' ) );
 		add_action( 'network_admin_notices', array( &$this, 'user_reports_admin_notices_proc' ) );
 

@@ -155,10 +155,3 @@ PERMALINK", 'contentmon' );
 	}
 }
 new Content_Monitor();
-
-global $wpmudev_notices;
-$wpmudev_notices[] = array( 'id'      => 12,
-                            'name'    => 'Content Monitor',
-                            'screens' => array( 'settings_page_content-monitor-network' )
-);
-include_once( dirname( __FILE__ ) . '/dash-notice/wpmudev-dash-notification.php' );

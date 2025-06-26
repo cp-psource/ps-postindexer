@@ -74,12 +74,6 @@ class Blog_Activity {
 	function install() {
 		global $wpdb;
 
-		if ( is_admin() ) {
-			global $wpmudev_notices;
-			$wpmudev_notices[] = array( 'id'=> 4,'name'=> 'Blog Activity', 'screens' => array( 'settings_page_blog_activity_main-network' ) );
-			include_once( 'externals/wpmudev-dash-notification.php' );
-		}
-
 		if( get_site_option( 'blog_activity_installed' ) == '' )
 			add_site_option( 'blog_activity_installed', 'no' );
 

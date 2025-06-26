@@ -39,8 +39,6 @@ add_action( 'admin_init', 'live_stream_admin_init' );
 add_action( 'wp_ajax_live_stream_update_ajax', 'live_stream_update_ajax_proc' );
 add_action( 'wp_ajax_nopriv_live_stream_update_ajax', 'live_stream_update_ajax_proc' );
 
-include_once( dirname(__FILE__) . '/lib/dash-notices/wpmudev-dash-notification.php' );
-
 function live_stream_init_proc() {
 	
 	/* Setup the tetdomain for i18n language handling see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain */
@@ -48,7 +46,18 @@ function live_stream_init_proc() {
 }
 
 function live_stream_widgets_init_proc() {
-	register_widget( 'LiveStreamWidget' );
+    // Integration als Erweiterung für den Beitragsindexer
+    if (class_exists('Postindexer_Extensions_Admin')) {
+        global $postindexer_extensions_admin;
+        if (!isset($postindexer_extensions_admin) && isset($GLOBALS['postindexeradmin']->extensions_admin)) {
+            $postindexer_extensions_admin = $GLOBALS['postindexeradmin']->extensions_admin;
+        }
+        if (isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('live_stream_widget')) {
+            register_widget( 'LiveStreamWidget' );
+        }
+    } else {
+        register_widget( 'LiveStreamWidget' ); // Fallback, falls zentrale Logik nicht geladen
+    }
 }
 
 /**
@@ -899,7 +908,7 @@ function live_stream_get_post_items($instance, $widget_id=0) {
 		$content_source = 'local';
 	
 	$tax_terms_query_str = '';
-	if ( (isset($instance['content_terms'])) && (count($instance['content_terms'])) ) {
+	if ( (isset($instance['content_terms'])) && (count($instance['content_terms']))) {
 //echo "content_terms<pre>"; print_r($instance['content_terms']); echo "</pre>";
 //die();
 

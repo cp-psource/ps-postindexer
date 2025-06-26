@@ -173,6 +173,10 @@ class global_site_search {
 
 	function global_site_search_output( $content ) {
 		global $wp_query;
+		// Nur im Haupt-Query, auf der Seite und für den Hauptinhalt ausgeben
+		if ( !is_main_query() || !is_page() || !isset($wp_query->post) || $wp_query->post->ID !== $wp_query->get_queried_object_id() ) {
+			return $content;
+		}
 
 		// Nur im Frontend und auf der Hauptseite ausgeben
 		if ( is_admin() || !is_main_site() ) {
@@ -389,8 +393,3 @@ add_action('init', function() {
         exit;
     }
 });
-
-// Nur im Haupt-Query, auf der Seite und für den Hauptinhalt ausgeben
-		if ( !is_main_query() || !is_page() || !isset($wp_query->post) || $wp_query->post->ID !== $wp_query->get_queried_object_id() ) {
-			return $content;
-		}

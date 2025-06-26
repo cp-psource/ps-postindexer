@@ -1,4 +1,5 @@
 <?php
+// Dieses Widget ist jetzt Teil der zentralen Erweiterungen des PS-Postindexer-Plugins (kein eigenständiges Plugin mehr).
 
 class widget_global_site_tags extends WP_Widget {
 

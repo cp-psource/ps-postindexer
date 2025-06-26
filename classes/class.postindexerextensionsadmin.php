@@ -25,6 +25,11 @@ class Postindexer_Extensions_Admin {
             'desc' => 'Ermöglicht die Anzeige und Verwaltung globaler Schlagwörter (Tags) im gesamten Netzwerk.',
             'settings_page' => '',
         ],
+        'live_stream_widget' => [
+            'name' => 'Live Stream Widget',
+            'desc' => 'Zeigt die neuesten Beiträge und Kommentare in einem Live-Stream-Widget an.',
+            'settings_page' => '',
+        ],
         // Weitere Erweiterungen können hier ergänzt werden
     ];
 
@@ -86,14 +91,27 @@ class Postindexer_Extensions_Admin {
             } elseif ($key === 'global_site_search' && class_exists('Global_Site_Search_Settings_Renderer')) {
                 $gss = new \Global_Site_Search_Settings_Renderer();
                 echo $gss->render_settings_form();
-            } elseif ($key === 'global_site_tags' && class_exists('Global_Site_Tags_Settings_Renderer')) {
-                $gst = new \Global_Site_Tags_Settings_Renderer();
-                echo $gst->render_settings_form();
+            } elseif ($key === 'global_site_tags') {
+                require_once dirname(__DIR__) . '/includes/global-site-tags/global-site-tags.php';
+                if (class_exists('Global_Site_Tags_Settings_Renderer')) {
+                    $gst = new \Global_Site_Tags_Settings_Renderer();
+                    echo $gst->render_settings_form();
+                } else {
+                    echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
+                }
             } elseif ($key === 'recent_global_posts_widget') {
                 require_once dirname(__DIR__) . '/includes/recent-global-posts-widget/settings.php';
                 if (class_exists('Recent_Global_Posts_Widget_Settings_Renderer')) {
                     $rgpw = new \Recent_Global_Posts_Widget_Settings_Renderer();
                     echo $rgpw->render_settings_form();
+                } else {
+                    echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
+                }
+            } elseif ($key === 'live_stream_widget') {
+                require_once dirname(__DIR__) . '/includes/live-stream-widget/settings.php';
+                if (class_exists('Live_Stream_Widget_Settings_Renderer')) {
+                    $lsw = new \Live_Stream_Widget_Settings_Renderer();
+                    echo $lsw->render_settings_form();
                 } else {
                     echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
                 }
@@ -252,4 +270,7 @@ if ( !class_exists('Global_Site_Search_Settings_Renderer') ) {
 }
 if ( !class_exists('Global_Site_Tags_Settings_Renderer') ) {
     require_once dirname(__DIR__) . '/includes/global-site-tags/global-site-tags.php';
+}
+if ( !class_exists('Live_Stream_Widget_Settings_Renderer') ) {
+    require_once dirname(__DIR__) . '/includes/live-stream-widget/live-stream.php';
 }

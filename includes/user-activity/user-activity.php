@@ -65,8 +65,6 @@ class User_Activity {
 			'name' => __( 'User Activity', 'user_activity' ),
 			'screens' => array( 'settings_page_user_activity_main-network' ),
 		);
-
-		include_once 'externals/wpmudev-dash-notification.php';
 	}
 
 	/**
