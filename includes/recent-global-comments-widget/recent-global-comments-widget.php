@@ -1,15 +1,13 @@
 <?php
 /*
-Plugin Name: Global Comments Widget
+Plugin Name: Recent Global Comments Widget
 Plugin URI: http://premium.wpmudev.org/project/recent-global-comments-widget
-Description: Display all the latest comments from across your entire WordPress Multisite network - using a simple but powerful widget!
+Description: Widget zeigt die neuesten Kommentare aus dem Netzwerk an.
 Author: WPMU DEV
 Author URI: http://ivan.sh
-Version: 1.0.4.2
+Version: 1.0.6.2
 Network: true
-WDP ID: 65
-Text Domain: recent-global-comments-widget
-Domain Path: languages
+WDP ID: 71
 */
 
 /* 
@@ -32,7 +30,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 function recent_global_comment_widget_init_proc() {
 	
 	/* Setup the tetdomain for i18n language handling see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain */
-    load_plugin_textdomain( 'recent-global-comments-widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+    //load_plugin_textdomain( 'recent-global-comments-widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'init', 'recent_global_comment_widget_init_proc' );
 
@@ -82,11 +80,11 @@ function widget_recent_global_comments_init() {
 		}
         ?>
         <div style="text-align:left">
-            <label for="recent-global-comments-title" style="line-height:35px;display:block;"><?php _e('Title', 'recent-global-comments-widget'); ?>:<br />
+            <label for="recent-global-comments-title" style="line-height:35px;display:block;"><?php _e('Title', 'postindexer'); ?>:<br />
             <input class="widefat" id="recent-global-comments-title" name="recent-global-comments-title" value="<?php echo sanitize_text_field($options['recent-global-comments-title']); ?>" type="text" style="width:95%;">
             </select>
             </label>
-            <label for="recent-global-comments-number" style="line-height:35px;display:block;"><?php _e('Number', 'recent-global-comments-widget'); ?>:<br />
+            <label for="recent-global-comments-number" style="line-height:35px;display:block;"><?php _e('Number', 'postindexer'); ?>:<br />
             <select name="recent-global-comments-number" id="recent-global-comments-number" style="width:95%;">
             <?php
                 if ( empty($options['recent-global-comments-number']) ) {
@@ -101,7 +99,7 @@ function widget_recent_global_comments_init() {
             ?>
             </select>
             </label>
-            <label for="recent-global-comments-content-characters" style="line-height:35px;display:block;"><?php _e('Content Characters', 'recent-global-comments-widget'); ?>:<br />
+            <label for="recent-global-comments-content-characters" style="line-height:35px;display:block;"><?php _e('Content Characters', 'postindexer'); ?>:<br />
             <select name="recent-global-comments-content-characters" id="recent-global-comments-content-characters" style="width:95%;">
             <?php
                 if ( empty($options['recent-global-comments-content-characters']) ) {
@@ -116,19 +114,19 @@ function widget_recent_global_comments_init() {
             ?>
             </select>
             </label>
-            <label for="recent-global-comments-avatars" style="line-height:35px;display:block;"><?php _e('Avatars', 'recent-global-comments-widget'); ?>:<br />
+            <label for="recent-global-comments-avatars" style="line-height:35px;display:block;"><?php _e('Avatars', 'postindexer'); ?>:<br />
             <select name="recent-global-comments-avatars" id="recent-global-comments-avatars" style="width:95%;">
-            <option value="show" <?php if ( isset( $options['recent-global-comments-avatars'] ) && $options['recent-global-comments-avatars'] == 'show' ){ echo 'selected="selected"'; } ?> ><?php _e('Show', 'recent-global-comments-widget'); ?></option>
-            <option value="hide" <?php if ( isset( $options['recent-global-comments-avatars'] ) && $options['recent-global-comments-avatars'] == 'hide' ){ echo 'selected="selected"'; } ?> ><?php _e('Hide', 'recent-global-comments-widget'); ?></option>
+            <option value="show" <?php if ( isset( $options['recent-global-comments-avatars'] ) && $options['recent-global-comments-avatars'] == 'show' ){ echo 'selected="selected"'; } ?> ><?php _e('Show', 'postindexer'); ?></option>
+            <option value="hide" <?php if ( isset( $options['recent-global-comments-avatars'] ) && $options['recent-global-comments-avatars'] == 'hide' ){ echo 'selected="selected"'; } ?> ><?php _e('Hide', 'postindexer'); ?></option>
             </select>
             </label>
-            <label for="recent-global-comments-avatar-size" style="line-height:35px;display:block;"><?php _e('Avatar Size', 'recent-global-comments-widget'); ?>:<br />
+            <label for="recent-global-comments-avatar-size" style="line-height:35px;display:block;"><?php _e('Avatar Size', 'postindexer'); ?>:<br />
             <select name="recent-global-comments-avatar-size" id="recent-global-comments-avatar-size" style="width:95%;">
-            <option value="16" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '16'){ echo 'selected="selected"'; } ?> ><?php _e('16px', 'recent-global-comments-widget'); ?></option>
-            <option value="32" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '32'){ echo 'selected="selected"'; } ?> ><?php _e('32px', 'recent-global-comments-widget'); ?></option>
-            <option value="48" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '48'){ echo 'selected="selected"'; } ?> ><?php _e('48px', 'recent-global-comments-widget'); ?></option>
-            <option value="96" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '96'){ echo 'selected="selected"'; } ?> ><?php _e('96px', 'recent-global-comments-widget'); ?></option>
-            <option value="128" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '128'){ echo 'selected="selected"'; } ?> ><?php _e('128px', 'recent-global-comments-widget'); ?></option>
+            <option value="16" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '16'){ echo 'selected="selected"'; } ?> ><?php _e('16px', 'postindexer'); ?></option>
+            <option value="32" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '32'){ echo 'selected="selected"'; } ?> ><?php _e('32px', 'postindexer'); ?></option>
+            <option value="48" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '48'){ echo 'selected="selected"'; } ?> ><?php _e('48px', 'postindexer'); ?></option>
+            <option value="96" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '96'){ echo 'selected="selected"'; } ?> ><?php _e('96px', 'postindexer'); ?></option>
+            <option value="128" <?php if ( isset( $options['recent-global-comments-avatar-size'] ) && $options['recent-global-comments-avatar-size'] == '128'){ echo 'selected="selected"'; } ?> ><?php _e('128px', 'postindexer'); ?></option>
             </select>
             </label>
             <input type="hidden" name="recent-global-comments-submit" id="recent-global-comments-submit" value="1" />
@@ -171,7 +169,7 @@ function widget_recent_global_comments_init() {
 							echo ' ';
 						}
 						echo substr( strip_tags( $comment['comment_content'] ), 0, $options['recent-global-comments-content-characters'] );
-						echo ' (<a href="' . $comment['comment_post_permalink'] . '#comment-' . $comment['comment_id'] . '">' . __('More', 'recent-global-comments-widget') . '</a>)';
+						echo ' (<a href="' . $comment['comment_post_permalink'] . '#comment-' . $comment['comment_id'] . '">' . __('More', 'postindexer') . '</a>)';
 						echo '</li>';
 					}
 					echo '</ul>';
@@ -186,12 +184,12 @@ function widget_recent_global_comments_init() {
 	if ( $recent_global_comments_widget_main_blog_only == 'yes' ) {
 		//if ( $wpdb->blogid == 1 ) {
 		if ( is_main_site() ) {
-			wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments' );
-			wp_register_widget_control( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments_control' );
+			wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Global Comments', 'postindexer' ), 'widget_recent_global_comments' );
+			wp_register_widget_control( 'recent_global_comments_widget', __( 'Global Comments', 'postindexer' ), 'widget_recent_global_comments_control' );
 		}
 	} else {
-        wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments' );
-		wp_register_widget_control( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments_control' );
+        wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Global Comments', 'postindexer' ), 'widget_recent_global_comments' );
+		wp_register_widget_control( 'recent_global_comments_widget', __( 'Global Comments', 'postindexer' ), 'widget_recent_global_comments_control' );
 	}
 }
 }

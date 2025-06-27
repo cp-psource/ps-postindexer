@@ -54,11 +54,16 @@ class Comment_Indexer_Admin {
         echo '<label style="font-size:1.2em;font-weight:bold;display:flex;align-items:center;gap:1em;">';
         echo '<span>'.__('Comment Indexer aktivieren','postindexer').'</span>';
         echo '<input type="hidden" name="comment_indexer_toggle" value="1">';
-        echo '<input type="checkbox" name="comment_indexer_active" value="1" '.($active?'checked':'').
-            ' style="width:2em;height:2em;vertical-align:middle;">';
+        echo '<span class="ps-switch">';
+        echo '<input type="checkbox" name="comment_indexer_active" value="1" '.($active?'checked':'').' style="opacity:0;width:0;height:0;">';
+        echo '<span class="ps-slider"></span>';
+        echo '</span>';
+        echo '<span class="ps-status-label" style="font-weight:bold;color:'.($active?'#2ecc40':'#aaa').';">'.($active?__('Aktiviert','postindexer'):__('Deaktiviert','postindexer')).'</span>';
         echo '</label> ';
         echo '<button type="submit" class="button button-primary" style="margin-left:1em;">'.__('Speichern','postindexer').'</button>';
         echo '</form>';
+        echo '<style>.ps-switch { position: relative; display: inline-block; width: 48px; height: 24px; } .ps-switch input { opacity: 0; width: 0; height: 0; } .ps-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; border-radius: 24px; } .ps-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; } .ps-switch input:checked + .ps-slider { background-color: #2ecc40; } .ps-switch input:checked + .ps-slider:before { transform: translateX(24px); } .ps-status-label { min-width:70px; display:inline-block; }</style>';
+        echo '<script>document.addEventListener("DOMContentLoaded",function(){var sw=document.querySelector(".ps-switch input[type=checkbox][name=\"comment_indexer_active\"]");var label=document.querySelector(".ps-status-label");if(sw&&label){sw.addEventListener("change",function(){if(this.checked){label.textContent="Aktiviert";label.style.color="#2ecc40";}else{label.textContent="Deaktiviert";label.style.color="#aaa";}});}});</script>';
         if ($active) {
             $this->render_comments_table();
         } else {

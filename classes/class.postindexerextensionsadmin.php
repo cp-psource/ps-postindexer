@@ -36,6 +36,44 @@ class Postindexer_Extensions_Admin {
             'settings_page' => '',
             'requires_comment_indexer' => true
         ],
+        'recent_comments' => [
+            'name' => 'Recent Comments',
+            'desc' => 'Zeigt die letzten Kommentare (Comment Indexer erforderlich).',
+            'settings_page' => '',
+            'requires_comment_indexer' => true
+        ],
+        'recent_global_author_comments_feed' => [
+            'name' => 'Global Author Comments Feed',
+            'desc' => 'Stellt einen globalen Feed aller Kommentare eines Autors im Netzwerk bereit.',
+            'settings_page' => '',
+            'requires_comment_indexer' => true
+        ],
+        'comment_form_text' => [
+            'name' => 'Comment Form Text',
+            'desc' => 'Ermöglicht die Anpassung des Kommentarformular-Textes im gesamten Netzwerk.',
+            'settings_page' => ''
+        ],
+        'comments_control' => [
+            'name' => 'Comments Control',
+            'desc' => 'Feinjustierung der Kommentar-Drosselung und IP-Whitelist/Blacklist für Kommentare im Netzwerk.',
+            'settings_page' => ''
+        ],
+        'recent_global_author_posts_feed' => [
+            'name' => 'Global Author Posts Feed',
+            'desc' => 'Stellt einen globalen Feed aller Beiträge eines Autors im Netzwerk bereit.',
+            'settings_page' => ''
+        ],
+        'recent_global_comments_feed' => [
+            'name' => 'Recent Global Comments Feed',
+            'desc' => 'Stellt einen globalen Feed der neuesten Kommentare im Netzwerk bereit.',
+            'settings_page' => '',
+            'requires_comment_indexer' => true
+        ],
+        'recent_global_posts_feed' => [
+            'name' => 'Recent Global Posts Feed',
+            'desc' => 'Stellt einen globalen Feed der neuesten Beiträge im Netzwerk bereit.',
+            'settings_page' => ''
+        ],
         // Weitere Erweiterungen können hier ergänzt werden
     ];
 
@@ -98,6 +136,16 @@ class Postindexer_Extensions_Admin {
                 echo '<div class="updated notice is-dismissible"><p>Global Site Tags: Einstellungen gespeichert.</p></div>';
             }
         }
+        // Speicherlogik für Comments Control
+        if (isset($_POST['comments_control_settings_nonce']) && check_admin_referer('comments_control_settings_save','comments_control_settings_nonce')) {
+            if (isset($_POST['limit_comments_allowed_ips'])) {
+                update_site_option('limit_comments_allowed_ips', $_POST['limit_comments_allowed_ips']);
+            }
+            if (isset($_POST['limit_comments_denied_ips'])) {
+                update_site_option('limit_comments_denied_ips', $_POST['limit_comments_denied_ips']);
+            }
+            echo '<div class="updated notice is-dismissible"><p>Comments Control: Einstellungen gespeichert.</p></div>';
+        }
         $settings = $this->get_settings();
         $sites = get_sites(['fields'=>'ids','number'=>0]);
         $main_site = function_exists('get_main_site_id') ? get_main_site_id() : 1;
@@ -117,32 +165,94 @@ class Postindexer_Extensions_Admin {
                     echo $gst->render_settings_form();
                 }
                 // Kein Hinweis mehr, wenn keine Einstellungen vorhanden
-            } elseif ($key === 'recent_global_posts_widget') {
+            } elseif ($key === 'recent_global_posts_widget' ) {
                 require_once dirname(__DIR__) . '/includes/recent-global-posts-widget/settings.php';
                 if (class_exists('Recent_Global_Posts_Widget_Settings_Renderer')) {
                     $rgpw = new \Recent_Global_Posts_Widget_Settings_Renderer();
                     echo $rgpw->render_settings_form();
                 }
-            } elseif ($key === 'live_stream_widget') {
+            } elseif ($key === 'live_stream_widget' ) {
                 require_once dirname(__DIR__) . '/includes/live-stream-widget/settings.php';
                 if (class_exists('Live_Stream_Widget_Settings_Renderer')) {
                     $lsw = new \Live_Stream_Widget_Settings_Renderer();
                     echo $lsw->render_settings_form();
                 }
                 // Kein Hinweis mehr, wenn keine Einstellungen vorhanden
-            } elseif ($key === 'recent_global_comments_widget') {
+            } elseif ($key === 'recent_global_comments_widget' ) {
                 require_once dirname(__DIR__) . '/includes/recent-global-comments-widget/settings.php';
                 if (class_exists('Recent_Global_Comments_Widget_Settings_Renderer')) {
                     $rgcw = new \Recent_Global_Comments_Widget_Settings_Renderer();
                     echo $rgcw->render_settings_form();
                 }
+            } elseif ($key === 'recent_comments') {
+                require_once dirname(__DIR__) . '/includes/recent-comments/settings.php';
+                if (class_exists('Recent_Comments_Settings_Renderer')) {
+                    $rcw = new \Recent_Comments_Settings_Renderer();
+                    echo $rcw->render_settings_form($comment_indexer_active);
+                }
+            } elseif ($key === 'recent_global_author_comments_feed' ) {
+                // Automatisch deaktivieren, wenn Comment Indexer nicht aktiv
+                if (!$comment_indexer_active) {
+                    $settings[$key]['active'] = 0;
+                }
+                require_once dirname(__DIR__) . '/includes/recent-global-author-comments-feed/settings.php';
+                if (class_exists('Recent_Global_Author_Comments_Feed_Settings_Renderer')) {
+                    $gacf = new \Recent_Global_Author_Comments_Feed_Settings_Renderer();
+                    echo $gacf->render_settings_form();
+                }
+            } elseif ($key === 'comment_form_text') {
+                require_once dirname(__DIR__) . '/includes/comment-form-text/comment-form-text.php';
+                if (class_exists('Comment_Form_Text_Settings_Renderer')) {
+                    $cft = new \Comment_Form_Text_Settings_Renderer();
+                    echo $cft->render_settings_form();
+                }
+            } elseif ($key === 'comments_control') {
+                require_once dirname(__DIR__) . '/includes/comments-control/settings.php';
+                if (class_exists('Comments_Control_Settings_Renderer')) {
+                    $ccr = new \Comments_Control_Settings_Renderer();
+                    echo $ccr->render_settings_form();
+                }
+            } elseif ($key === 'recent_global_author_posts_feed' ) {
+                require_once dirname(__DIR__) . '/includes/recent-global-author-posts-feed/settings.php';
+                if (class_exists('Recent_Global_Author_Posts_Feed_Settings_Renderer')) {
+                    $rgapf = new \Recent_Global_Author_Posts_Feed_Settings_Renderer();
+                    echo $rgapf->render_settings_form();
+                }
+            } elseif ($key === 'recent_global_comments_feed' ) {
+                require_once dirname(__DIR__) . '/includes/recent-global-comments-feed/settings.php';
+                if (class_exists('Recent_Global_Comments_Feed_Settings_Renderer')) {
+                    $rgcf = new \Recent_Global_Comments_Feed_Settings_Renderer();
+                    echo $rgcf->render_settings_form();
+                }
+            } elseif ($key === 'recent_global_posts_feed' ) {
+                require_once dirname(__DIR__) . '/includes/recent-global-posts-feed/settings.php';
+                if (class_exists('Recent_Global_Posts_Feed_Settings_Renderer')) {
+                    $rgpf = new \Recent_Global_Posts_Feed_Settings_Renderer();
+                    echo $rgpf->render_settings_form();
+                }
+            }
+            // Hinweis für alle Erweiterungen, die den Comment Indexer benötigen
+            if (!empty($ext['requires_comment_indexer']) && !$comment_indexer_active) {
+                echo '<div style="color:#c00;font-weight:bold;margin-top:1em;">Diese Erweiterung benötigt den Comment Indexer.</div>';
+                // Automatisch deaktivieren
+                $settings[$key]['active'] = 0;
             }
             // Für alle anderen Erweiterungen kein Hinweis mehr!
             $settings_html[$key] = ob_get_clean();
         }
         echo '<div class="wrap"><h1>' . esc_html__( 'Erweiterungen', 'postindexer' ) . '</h1>';
         if (!$comment_indexer_active) {
-            echo '<div class="notice notice-warning" style="font-size:1.1em;"><b>Hinweis:</b> Der <b>Comment Indexer</b> ist aktuell deaktiviert. Erweiterungen, die darauf basieren, können nicht genutzt werden. <a href="network.php?page=comment-index" class="button button-primary" style="margin-left:1em;">Comment Indexer aktivieren</a></div>';
+            echo '<div style="max-width:600px;margin:2em auto 1.5em auto;padding:1.5em 2em;background:#fffbe6;border:1.5px solid #ffe58f;border-radius:12px;box-shadow:0 2px 12px rgba(255,215,0,0.07);display:flex;align-items:center;gap:1.2em;">';
+            echo '<span style="font-size:2.1em;color:#f1c40f;">&#9888;&#65039;</span>';
+            echo '<div style="flex:1;">';
+            echo '<div style="font-size:1.18em;font-weight:600;color:#b8860b;margin-bottom:0.2em;">' . esc_html__('Comment Indexer ist aktuell deaktiviert', 'postindexer') . '</div>';
+            echo '<div style="font-size:1.04em;color:#444;margin-bottom:0.7em;">' . esc_html__('Erweiterungen, die darauf basieren, können nicht genutzt werden.', 'postindexer') . '</div>';
+            echo '<div style="margin-top:0.7em;font-size:1.08em;">'
+                . esc_html__('Du kannst den Comment Indexer ', 'postindexer')
+                . '<a href="' . esc_url(network_admin_url('admin.php?page=comment-index')) . '" style="font-weight:bold;">' . esc_html__('HIER aktivieren', 'postindexer') . '</a>'
+                . '.</div>';
+            echo '</div>';
+            echo '</div>';
         }
         // <form> wieder einfügen, damit die Aktivierungs-Checkboxen korrekt gespeichert werden
         echo '<form method="post">';
@@ -200,6 +310,8 @@ echo '</div>';
             echo '</div>';
             if (!empty($ext['requires_comment_indexer']) && !$comment_indexer_active) {
                 echo '<div style="color:#c00;font-weight:bold;margin-top:1em;">Diese Erweiterung benötigt den Comment Indexer.</div>';
+                // Automatisch deaktivieren
+                $settings[$key]['active'] = 0;
             }
             echo '</div>';
         }

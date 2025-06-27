@@ -482,12 +482,39 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 								<?php
 								$indexing = get_option( 'postindexer_active', 'yes' );
 								?>
-								<label><input type='radio' name='postindexer_active'
-								              value='yes' <?php checked( $indexing, 'yes' ); ?> />&nbsp;<?php _e( 'Aktiviert', 'postindexer' ); ?>
-								</label>&nbsp;&nbsp;
-								<label><input type='radio' name='postindexer_active'
-								              value='no' <?php checked( $indexing, 'no' ); ?> />&nbsp;<?php _e( 'Deaktiviert', 'postindexer' ); ?>
-								</label>
+								<div style="display:flex;align-items:center;gap:1.2em;">
+									<label class="ps-switch">
+										<input type="checkbox" name="postindexer_active" value="yes" <?php checked( $indexing, 'yes' ); ?> />
+										<span class="ps-slider"></span>
+									</label>
+									<span class="ps-status-label" style="font-weight:bold;color:<?php echo ($indexing==='yes') ? '#2ecc40' : '#aaa'; ?>;">
+										<?php echo ($indexing==='yes') ? __('Aktiviert','postindexer') : __('Deaktiviert','postindexer'); ?>
+									</span>
+								</div>
+								<input type="hidden" name="postindexer_active_hidden" value="no" />
+								<div style="margin-top:1em;max-width:420px;padding:1em 1.3em;background:#fffbeige;border:1.5px solid #ffe58f;border-radius:10px;box-shadow:0 2px 12px rgba(255,215,0,0.07);font-size:1.04em;color:#444;">
+									<?php _e('Wenn deaktiviert, werden keine neuen Beiträge oder Kommentare mehr für diese Seite indiziert.','postindexer'); ?>
+								</div>
+								<style>
+								.ps-switch { position: relative; display: inline-block; width: 48px; height: 24px; }
+								.ps-switch input { opacity: 0; width: 0; height: 0; }
+								.ps-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; border-radius: 24px; }
+								.ps-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+								.ps-switch input:checked + .ps-slider { background-color: #2ecc40; }
+								.ps-switch input:checked + .ps-slider:before { transform: translateX(24px); }
+								</style>
+								<script>
+								document.addEventListener('DOMContentLoaded',function(){
+									var sw = document.querySelector('.ps-switch input[type=checkbox][name="postindexer_active"]');
+									var label = document.querySelector('.ps-status-label');
+									if(sw && label){
+										sw.addEventListener('change',function(){
+											if(this.checked){ label.textContent = 'Aktiviert'; label.style.color = '#2ecc40'; this.value = 'yes'; }
+											else { label.textContent = 'Deaktiviert'; label.style.color = '#aaa'; this.value = 'no'; }
+										});
+									}
+								});
+								</script>
 							</td>
 						</tr>
 						</tbody>

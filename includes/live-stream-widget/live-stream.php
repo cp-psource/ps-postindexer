@@ -7,24 +7,8 @@ Author: WPMU DEV
 Version: 1.0.5
 Author URI: http://premium.wpmudev.org/
 WDP ID: 679182
-Text Domain: live-stream-widget
-Domain Path: languages
-
-Copyright 2012 Incsub (http://incsub.com)
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 ///////////////////////////////////////////////////////////////////////////
 
 if (!defined('LIVE_STREAM_VERSION'))
@@ -40,9 +24,7 @@ add_action( 'wp_ajax_live_stream_update_ajax', 'live_stream_update_ajax_proc' );
 add_action( 'wp_ajax_nopriv_live_stream_update_ajax', 'live_stream_update_ajax_proc' );
 
 function live_stream_init_proc() {
-	
-	/* Setup the tetdomain for i18n language handling see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain */
-    load_plugin_textdomain( 'live-stream-widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+    // Textdomain-Setup entfernt, zentrale Übersetzungslogik übernimmt das Hauptplugin
 }
 
 function live_stream_widgets_init_proc() {
@@ -124,14 +106,14 @@ class LiveStreamWidget extends WP_Widget {
  		/* Widget settings. */
  		$widget_ops = array( 
 			'classname' => 'live-stream-widget', 
-			'description' => __('Show Posts and Comments in a Twitter-like updating widget', 'live-stream-widget'),
+			'description' => __('Show Posts and Comments in a Twitter-like updating widget', 'postindexer'),
 			'classname' => 'live-stream-widget-admin' );
 
  		/* Widget control settings. */
  		$control_ops = array( 'width' => 350, 'height' => 350, 'id_base' => 'live-stream-widget' );
 
  		/* Create the widget. */
- 		parent::__construct( 'live-stream-widget', __('Live Stream', 'live-stream-widget'), $widget_ops, $control_ops );
+ 		parent::__construct( 'live-stream-widget', __('Live Stream', 'postindexer'), $widget_ops, $control_ops );
 	}
 
 	/**
@@ -731,7 +713,7 @@ function get_source_tax_terms($tax_slug, $show_users_content='local') {
 			$tax_terms = $wpdb->get_results($query_str);
 		} else if (($post_indexer_plugin === 3) && (class_exists('postindexermodel'))) {
 
-			$model = new postindexermodel();
+			$model = new postindexerermodel();
 			$select_query_str = "SELECT t.term_id term_id, t.name name, t.slug slug, tt.count count FROM ". 
 				$model->network_terms ." AS t INNER JOIN ". $model->network_term_taxonomy 
 				." AS tt ON t.term_id = tt.term_id";

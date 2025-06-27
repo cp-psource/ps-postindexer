@@ -47,6 +47,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'POST_INDEXER_PLUGIN_DIR', plugin_dir_path( __FILE__) );
+// Erweiterung: Comment Form Text IMMER laden (Frontend & Backend)
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/comment-form-text/comment-form-text.php';
 
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/config.php';
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/functions.php';
@@ -108,6 +110,12 @@ if (is_multisite() && is_network_admin()) {
     require_once POST_INDEXER_PLUGIN_DIR . 'admin/class.commentindexeradmin.php';
     new Comment_Indexer_Admin();
 }
+
+// Erweiterung: Comment Form Text IMMER laden (Frontend & Backend)
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/comment-form-text/comment-form-text.php';
+
+// Erweiterung: Recent Global Author Posts Feed IMMER laden
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-author-posts-feed/recent-global-author-posts-feed.php';
 
 add_action('plugins_loaded', function() {
     load_plugin_textdomain('postindexer', false, dirname(plugin_basename(__FILE__)) . '/languages');
