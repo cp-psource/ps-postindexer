@@ -263,9 +263,8 @@ class Recent_Network_Posts {
 	public function render_settings_form() {
 		ob_start();
 		$options = get_site_option('network_posts_defaults', []);
-		$ajax_url = admin_url('admin-ajax.php');
-		echo '<form id="network-posts-settings-form" method="post" action="#" style="max-width:700px;">';
-		wp_nonce_field('network_posts_options-ajax', 'network_posts_options_ajax_nonce');
+		// KEIN <form> mehr, nur noch die Felder!
+		wp_nonce_field('ps_extension_settings_save_recent_network_posts', 'ps_extension_settings_nonce_recent_network_posts');
 		echo '<div class="network-posts-settings-fields-wrapper" style="background:#fff;border:1px solid #e5e5e5;padding:2em 2em 1em 2em;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2em;">';
 		echo '<div class="network-posts-settings-fields" style="display:grid;grid-template-columns:1fr 1fr;gap:2em;">';
 		// Anzahl Beiträge
@@ -342,11 +341,23 @@ class Recent_Network_Posts {
 			. '</fieldset>';
 		echo '</div>';
 		echo '</div>';
-		echo '<p style="margin-top:1.5em;">'.get_submit_button('Änderungen speichern', 'primary', '', false).'</p>';
-		echo '</form>';
-		echo '<div id="network-posts-settings-success" style="display:none;margin-top:1em;" class="updated notice"><p>Einstellungen gespeichert!</p></div>';
+		// KEIN Button, KEIN eigenes <form> mehr!
 		return ob_get_clean();
 	}
+
+	/**
+     * Speichert die Einstellungen aus dem Card-Formular (klassischer POST, kein AJAX)
+     */
+    public function process_settings_form() {
+        if (
+            isset($_POST['network_posts_defaults']) &&
+            is_array($_POST['network_posts_defaults']) &&
+            isset($_POST['ps_extension_settings_nonce_recent_network_posts']) &&
+            wp_verify_nonce($_POST['ps_extension_settings_nonce_recent_network_posts'], 'ps_extension_settings_save_recent_network_posts')
+        ) {
+            update_site_option('network_posts_defaults', $_POST['network_posts_defaults']);
+        }
+    }
 }
 //delete_option( 'network_posts_defaults' ); // ENTFERNT! Instanziierung nur noch über plugins_loaded bei aktiver Erweiterung
 

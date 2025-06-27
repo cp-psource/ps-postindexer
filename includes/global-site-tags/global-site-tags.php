@@ -456,8 +456,8 @@ if (!class_exists('Global_Site_Tags_Settings_Renderer')) {
             $post_type = get_site_option( 'global_site_tags_post_type', 'post' );
             $post_types = $this->global_site_tags_get_post_types();
             ob_start();
-            echo '<form method="post" action="network/settings.php?page=ps-multisite-index-extensions" style="max-width:700px;">';
-            wp_nonce_field('ps_gst_settings_save','ps_gst_settings_nonce');
+            // KEIN <form> mehr, nur noch die Felder!
+            wp_nonce_field('ps_extension_settings_save_global_site_tags', 'ps_extension_settings_nonce_global_site_tags');
             echo '<div style="background:#fff;border:1px solid #e5e5e5;padding:2em 2em 1em 2em;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2em;">';
             echo '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2em;">';
             // Tags Shown
@@ -495,10 +495,33 @@ if (!class_exists('Global_Site_Tags_Settings_Renderer')) {
             }
             echo '</select></div>';
             echo '</div>';
-            submit_button();
             echo '</div>';
-            echo '</form>';
+            // KEIN Button, KEIN eigenes <form> mehr!
             return ob_get_clean();
+        }
+        /**
+         * Speichert die Einstellungen aus dem Card-Formular (klassischer POST, kein AJAX)
+         */
+        public function process_settings_form() {
+            if (
+                isset($_POST['global_site_tags_shown']) &&
+                isset($_POST['global_site_tags_per_page']) &&
+                isset($_POST['global_site_tags_background_color']) &&
+                isset($_POST['global_site_tags_alternate_background_color']) &&
+                isset($_POST['global_site_tags_border_color']) &&
+                isset($_POST['global_site_tags_banned_tags']) &&
+                isset($_POST['global_site_tags_post_type']) &&
+                isset($_POST['ps_extension_settings_nonce_global_site_tags']) &&
+                wp_verify_nonce($_POST['ps_extension_settings_nonce_global_site_tags'], 'ps_extension_settings_save_global_site_tags')
+            ) {
+                update_site_option('global_site_tags_shown', intval($_POST['global_site_tags_shown']));
+                update_site_option('global_site_tags_per_page', intval($_POST['global_site_tags_per_page']));
+                update_site_option('global_site_tags_background_color', trim($_POST['global_site_tags_background_color']));
+                update_site_option('global_site_tags_alternate_background_color', trim($_POST['global_site_tags_alternate_background_color']));
+                update_site_option('global_site_tags_border_color', trim($_POST['global_site_tags_border_color']));
+                update_site_option('global_site_tags_banned_tags', trim($_POST['global_site_tags_banned_tags']));
+                update_site_option('global_site_tags_post_type', sanitize_text_field($_POST['global_site_tags_post_type']));
+            }
         }
     }
 }

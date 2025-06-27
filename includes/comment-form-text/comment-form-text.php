@@ -128,90 +128,18 @@ if (!is_admin()) {
 if (!class_exists('Comment_Form_Text_Settings_Renderer')) {
 class Comment_Form_Text_Settings_Renderer {
     public function render_settings_form() {
-        global $cft_hooks;
-        if (isset($_POST['comment_form_text_settings_nonce']) && check_admin_referer('comment_form_text_settings_save', 'comment_form_text_settings_nonce')) {
-            update_site_option('cft_text_logged_in', wp_unslash($_POST['cft_text_logged_in'] ?? ''));
-            update_site_option('cft_text_guest', wp_unslash($_POST['cft_text_guest'] ?? ''));
-            update_site_option('cft_css', wp_unslash($_POST['cft_css'] ?? ''));
-            update_site_option('cft_output_hook', $_POST['cft_output_hook'] ?? 'comment_form_after_fields');
-            echo '<div class="updated"><p>Einstellungen gespeichert!</p></div>';
-        }
         $text_logged_in = get_site_option('cft_text_logged_in', '');
         $text_guest = get_site_option('cft_text_guest', '');
         $css = get_site_option('cft_css', '');
-        $selected_hook = get_site_option('cft_output_hook', 'comment_form_after_fields');
-        echo '<form method="post">';
+        ob_start();
         wp_nonce_field('comment_form_text_settings_save', 'comment_form_text_settings_nonce');
-        echo '<h2>Position im Kommentarformular</h2>';
-        echo '<select name="cft_output_hook">';
-        foreach ($cft_hooks as $hook => $label) {
-            $sel = selected($selected_hook, $hook, false);
-            echo "<option value='$hook' $sel>$label</option>";
-        }
-        echo '</select>';
-        echo '<h2>Text für eingeloggte Nutzer</h2>';
-        if (function_exists('wp_editor')) {
-            wp_editor($text_logged_in, 'cft_text_logged_in_editor_admin', array('textarea_name'=>'cft_text_logged_in', 'textarea_rows'=>8, 'media_buttons'=>false));
-            // Quicktags initialisieren
-            echo "<script>if(window.QTags){QTags.addQuickTags('cft_text_logged_in_editor_admin');}</script>";
-        } else {
-            echo '<textarea name="cft_text_logged_in" rows="5" style="width:100%">'.esc_textarea($text_logged_in).'</textarea>';
-        }
-        echo '<h2>Text für Gäste</h2>';
-        if (function_exists('wp_editor')) {
-            wp_editor($text_guest, 'cft_text_guest_editor_admin', array('textarea_name'=>'cft_text_guest', 'textarea_rows'=>8, 'media_buttons'=>false));
-            // Quicktags initialisieren
-            echo "<script>if(window.QTags){QTags.addQuickTags('cft_text_guest_editor_admin');}</script>";
-        } else {
-            echo '<textarea name="cft_text_guest" rows="5" style="width:100%">'.esc_textarea($text_guest).'</textarea>';
-        }
-        echo '<h2>Eigene CSS-Styles (optional)</h2>';
-        echo '<textarea name="cft_css" rows="3" style="width:100%">'.esc_textarea($css).'</textarea>';
-        echo '<br><button type="submit" class="button button-primary">Einstellungen speichern</button>';
-        echo '</form>';
-        echo '<script>
-' .
-'jQuery(function($){
-' .
-'  function forceCFTEditorInit(id) {
-' .
-'    if(window.switchEditors && $("#"+id).length) {
-' .
-'      // Erst auf Text, dann auf Visuell schalten
-' .
-'      switchEditors.go(id, "html");
-' .
-'      setTimeout(function(){ switchEditors.go(id, "tmce"); }, 200);
-' .
-'    }
-' .
-'    // Quicktags-Toolbar erzwingen
-' .
-'    if(window.QTags && !$("#qt_"+id+"_toolbar").length) {
-' .
-'      QTags({id: id});
-' .
-'    }
-' .
-'  }
-' .
-'  ["cft_text_logged_in_editor_admin","cft_text_guest_editor_admin"].forEach(forceCFTEditorInit);
-' .
-'  // Nach Tab-Switch erneut versuchen
-' .
-'  $(document).on("click", ".wp-switch-editor", function(){
-' .
-'    setTimeout(function(){
-' .
-'      ["cft_text_logged_in_editor_admin","cft_text_guest_editor_admin"].forEach(forceCFTEditorInit);
-' .
-'    }, 200);
-' .
-'  });
-' .
-'});
-' .
-'</script>';
+        echo '<h3>Text für eingeloggte Nutzer</h3>';
+        echo '<textarea name="cft_text_logged_in" rows="4" style="width:100%">'.esc_textarea($text_logged_in).'</textarea>';
+        echo '<h3>Text für Gäste</h3>';
+        echo '<textarea name="cft_text_guest" rows="4" style="width:100%">'.esc_textarea($text_guest).'</textarea>';
+        echo '<h3>Custom CSS</h3>';
+        echo '<textarea name="cft_css" rows="4" style="width:100%">'.esc_textarea($css).'</textarea>';
+        return ob_get_clean();
     }
 }
 }

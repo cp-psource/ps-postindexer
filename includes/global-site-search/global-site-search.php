@@ -286,10 +286,8 @@ if (class_exists('global_site_search')) {
 			$post_type = get_site_option( 'global_site_search_post_type', 'post' );
 			$post_types = $this->db->get_col( "SELECT post_type FROM {$this->db->base_prefix}network_posts GROUP BY post_type" );
 			ob_start();
-			// --- AJAX-Formular für Netzwerk-Admin ---
-			$ajax_url = admin_url('admin-ajax.php');
-			echo '<form id="gss-settings-form" method="post" action="#" style="max-width:700px;">';
-			wp_nonce_field('ps_gss_settings_save','ps_gss_settings_nonce');
+			// KEIN <form> mehr, nur noch die Felder!
+			wp_nonce_field('ps_extension_settings_save_global_site_search', 'ps_extension_settings_nonce_global_site_search');
 			echo '<div style="background:#fff;border:1px solid #e5e5e5;padding:2em 2em 1em 2em;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);margin-bottom:2em;">';
 			echo '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2em;">';
 			// Auflistung pro Seite
@@ -317,10 +315,8 @@ if (class_exists('global_site_search')) {
 			}
 			echo '</select></div>';
 			echo '</div>';
-			echo '<p style="margin-top:1.5em;">'.get_submit_button('Änderungen speichern', 'primary', '', false).'</p>';
 			echo '</div>';
-			echo '</form>';
-			echo '<div id="gss-settings-success" style="display:none;margin-top:1em;" class="updated notice"><p>Einstellungen gespeichert!</p></div>';
+			// KEIN Button, KEIN eigenes <form> mehr!
 			return ob_get_clean();
 		}
 	}

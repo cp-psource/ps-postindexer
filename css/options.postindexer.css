@@ -201,3 +201,25 @@ div.postbox div.inside div.line {
     width: 1%;
 }
 
+.ps-extension-save-btn {
+  background: linear-gradient(90deg, #00c3ff 0%, #005bea 100%);
+  color: #fff !important;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7em 2.2em;
+  font-size: 1.08em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  cursor: pointer;
+  margin-top: 1.2em;
+  display: none;
+}
+.ps-extension-save-btn:hover, .ps-extension-save-btn:focus {
+  background: linear-gradient(90deg, #005bea 0%, #00c3ff 100%);
+  box-shadow: 0 4px 16px rgba(0,80,200,0.13);
+  transform: translateY(-2px) scale(1.04);
+  outline: none;
+}
+

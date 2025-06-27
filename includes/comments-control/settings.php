@@ -3,7 +3,7 @@
 if (!class_exists('Comments_Control_Settings_Renderer')) {
 class Comments_Control_Settings_Renderer {
     public function render_settings_form() {
-        echo '<form method="post">';
+        // KEIN <form> mehr, nur noch die Felder und Nonce!
         wp_nonce_field('comments_control_settings_save', 'comments_control_settings_nonce');
         echo '<h3>Kommentare</h3>';
         echo '<table class="form-table">';
@@ -27,8 +27,6 @@ class Comments_Control_Settings_Renderer {
         echo "<br/>IPs, für die Kommentare immer abgelehnt werden. Eine IP pro Zeile oder Komma-getrennt.<br/>";
         echo '</td></tr>';
         echo '</table>';
-        echo '<button type="submit" class="button button-primary">Einstellungen speichern</button>';
-        echo '</form>';
     }
 }
 }

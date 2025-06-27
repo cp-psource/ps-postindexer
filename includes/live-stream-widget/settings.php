@@ -3,11 +3,9 @@
 if ( !class_exists('Live_Stream_Widget_Settings_Renderer') ) {
 class Live_Stream_Widget_Settings_Renderer {
     public function render_settings_form() {
-        $nonce = wp_nonce_field('ps_lsw_settings_save','ps_lsw_settings_nonce',true,false);
-        echo '<form method="post">';
-        echo $nonce;
-        echo '<button type="submit" class="button button-primary">Einstellungen speichern</button>';
-        echo '</form>';
+        // KEIN <form> mehr, nur noch die Nonce!
+        echo wp_nonce_field('ps_lsw_settings_save','ps_lsw_settings_nonce',true,false);
+        // Hier können weitere Felder ergänzt werden
     }
 }
 }
