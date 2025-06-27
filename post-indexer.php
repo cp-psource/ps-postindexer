@@ -52,11 +52,32 @@ require_once POST_INDEXER_PLUGIN_DIR . 'includes/config.php';
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/functions.php';
 
 add_action('init', function() {
-    require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-posts-widget/widget-recent-global-posts.php';
     require_once POST_INDEXER_PLUGIN_DIR . 'includes/global-site-tags/global-site-tags.php';
     require_once POST_INDEXER_PLUGIN_DIR . 'includes/global-site-tags/widget-global-site-tags.php';
     require_once POST_INDEXER_PLUGIN_DIR . 'includes/live-stream-widget/live-stream.php';
 });
+
+// Widget-Loader für Recent Global Posts Widget (immer laden, aber Registrierung nach Scope)
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-posts-widget/widget-recent-global-posts.php';
+add_action('widgets_init', function() {
+    global $postindexer_extensions_admin;
+    if (isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('recent_global_posts_widget')) {
+        if (function_exists('rgpwidget_register_widget')) {
+            rgpwidget_register_widget();
+        }
+    }
+}, 20);
+
+// Widget-Loader für Global Comments Widget (immer laden, aber Registrierung nach Scope)
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-comments-widget/recent-global-comments-widget.php';
+add_action('widgets_init', function() {
+    global $postindexer_extensions_admin;
+    if (isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('recent_global_comments_widget')) {
+        if (function_exists('widget_recent_global_comments_init')) {
+            widget_recent_global_comments_init();
+        }
+    }
+}, 21);
 
 // Include the database model we will be using across classes
 require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.model.php';

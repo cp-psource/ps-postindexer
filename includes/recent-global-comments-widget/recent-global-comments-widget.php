@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Recent Global Comments Widget
+Plugin Name: Global Comments Widget
 Plugin URI: http://premium.wpmudev.org/project/recent-global-comments-widget
 Description: Display all the latest comments from across your entire WordPress Multisite network - using a simple but powerful widget!
 Author: WPMU DEV
@@ -28,9 +28,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
-// Support for WPMU DEV Dashboard plugin
-include_once( dirname(__FILE__) . '/lib/dash-notices/wpmudev-dash-notification.php');
 
 function recent_global_comment_widget_init_proc() {
 	
@@ -63,10 +60,12 @@ if ($recent_global_comments_widget_main_blog_only != 'yes')
 //---Functions------------------------------------------------------------//
 //------------------------------------------------------------------------//
 
+if ( !function_exists( 'widget_recent_global_comments_init' ) ) {
 function widget_recent_global_comments_init() {
 	global $wpdb, $recent_global_comments_widget_main_blog_only;
 
 	// This saves options and prints the widget's config form.
+	if ( !function_exists( 'widget_recent_global_comments_control' ) ) {
 	function widget_recent_global_comments_control() {
 		global $wpdb;
 		$options = $newoptions = get_option('widget_recent_global_comments');
@@ -82,9 +81,7 @@ function widget_recent_global_comments_init() {
 			update_option('widget_recent_global_comments', $options);
 		}
         ?>
-
         <div style="text-align:left">
-
             <label for="recent-global-comments-title" style="line-height:35px;display:block;"><?php _e('Title', 'recent-global-comments-widget'); ?>:<br />
             <input class="widefat" id="recent-global-comments-title" name="recent-global-comments-title" value="<?php echo sanitize_text_field($options['recent-global-comments-title']); ?>" type="text" style="width:95%;">
             </select>
@@ -138,8 +135,9 @@ function widget_recent_global_comments_init() {
         </div>
         <?php
 	}
-    
+	}
     // This prints the widget
+	if ( !function_exists( 'widget_recent_global_comments' ) ) {
 	function widget_recent_global_comments($args) {
 		global $wpdb, $current_site;
 		extract($args);
@@ -183,18 +181,19 @@ function widget_recent_global_comments_init() {
 		<?php echo $after_widget; ?>
         <?php
 	}
-
+	}
 	// Tell Dynamic Sidebar about our new widget and its control
 	if ( $recent_global_comments_widget_main_blog_only == 'yes' ) {
 		//if ( $wpdb->blogid == 1 ) {
 		if ( is_main_site() ) {
-			wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Recent Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments' );
-			wp_register_widget_control( 'recent_global_comments_widget', __( 'Recent Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments_control' );
+			wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments' );
+			wp_register_widget_control( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments_control' );
 		}
 	} else {
-        wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Recent Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments' );
-		wp_register_widget_control( 'recent_global_comments_widget', __( 'Recent Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments_control' );
+        wp_register_sidebar_widget( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments' );
+		wp_register_widget_control( 'recent_global_comments_widget', __( 'Global Comments', 'recent-global-comments-widget' ), 'widget_recent_global_comments_control' );
 	}
+}
 }
 
 add_action('widgets_init', 'widget_recent_global_comments_init');

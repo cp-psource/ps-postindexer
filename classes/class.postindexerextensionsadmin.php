@@ -30,6 +30,12 @@ class Postindexer_Extensions_Admin {
             'desc' => 'Zeigt die neuesten Beiträge und Kommentare in einem Live-Stream-Widget an.',
             'settings_page' => '',
         ],
+        'recent_global_comments_widget' => [
+            'name' => 'Global Comments Widget',
+            'desc' => 'Stellt ein Widget bereit, das die neuesten Kommentare aus dem gesamten Netzwerk anzeigt.',
+            'settings_page' => '',
+            'requires_comment_indexer' => true
+        ],
         // Weitere Erweiterungen können hier ergänzt werden
     ];
 
@@ -49,10 +55,19 @@ class Postindexer_Extensions_Admin {
     }
 
     public function render_extensions_page() {
+        // Prüfen, ob Comment Indexer aktiv ist
+        $comment_indexer_active = function_exists('get_site_option') && get_site_option('comment_indexer_active', 0);
         // Speicherlogik für Bereich/Status wie gehabt
         if ( isset($_POST['ps_extensions_scope']) && is_array($_POST['ps_extensions_scope']) && check_admin_referer('ps_extensions_scope_save','ps_extensions_scope_nonce') ) {
             $settings = $this->get_settings();
             foreach ($this->extensions as $key => $ext) {
+                // Wenn Erweiterung Comment Indexer benötigt und dieser deaktiviert ist: Status merken, aber nicht aktivieren
+                if (!empty($ext['requires_comment_indexer']) && !$comment_indexer_active) {
+                    // Status merken
+                    $settings[$key]['active_backup'] = isset($settings[$key]['active']) ? $settings[$key]['active'] : 0;
+                    $settings[$key]['active'] = 0;
+                    continue;
+                }
                 $settings[$key]['scope'] = sanitize_text_field($_POST['ps_extensions_scope'][$key] ?? 'main');
                 if ($settings[$key]['scope'] === 'sites') {
                     $settings[$key]['sites'] = array_map('intval', $_POST['ps_extensions_sites'][$key] ?? []);
@@ -61,6 +76,10 @@ class Postindexer_Extensions_Admin {
                 }
                 // Aktivierungsstatus speichern
                 $settings[$key]['active'] = isset($_POST['ps_extensions_active'][$key]) && $_POST['ps_extensions_active'][$key] === '1' ? 1 : 0;
+                // Wenn vorher ein Backup existierte und jetzt wieder aktiviert wird, Backup zurücksetzen
+                if (!empty($settings[$key]['active_backup']) && $settings[$key]['active']) {
+                    unset($settings[$key]['active_backup']);
+                }
             }
             update_site_option($this->option_name, $settings);
             echo '<div class="updated notice is-dismissible"><p>Einstellungen gespeichert.</p></div>';
@@ -96,31 +115,26 @@ class Postindexer_Extensions_Admin {
                 if (class_exists('Global_Site_Tags_Settings_Renderer')) {
                     $gst = new \Global_Site_Tags_Settings_Renderer();
                     echo $gst->render_settings_form();
-                } else {
-                    echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
                 }
-            } elseif ($key === 'recent_global_posts_widget') {
-                require_once dirname(__DIR__) . '/includes/recent-global-posts-widget/settings.php';
-                if (class_exists('Recent_Global_Posts_Widget_Settings_Renderer')) {
-                    $rgpw = new \Recent_Global_Posts_Widget_Settings_Renderer();
-                    echo $rgpw->render_settings_form();
-                } else {
-                    echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
-                }
+                // Kein Hinweis mehr, wenn keine Einstellungen vorhanden
+            } elseif ($key === 'recent_global_posts_widget' && class_exists('Recent_Global_Posts_Widget_Settings_Renderer')) {
+                $rgpw = new \Recent_Global_Posts_Widget_Settings_Renderer();
+                echo $rgpw->render_settings_form();
             } elseif ($key === 'live_stream_widget') {
                 require_once dirname(__DIR__) . '/includes/live-stream-widget/settings.php';
                 if (class_exists('Live_Stream_Widget_Settings_Renderer')) {
                     $lsw = new \Live_Stream_Widget_Settings_Renderer();
                     echo $lsw->render_settings_form();
-                } else {
-                    echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
                 }
-            } else {
-                echo '<div style="color:#888;">(Keine Einstellungen verfügbar)</div>';
+                // Kein Hinweis mehr, wenn keine Einstellungen vorhanden
             }
+            // Für alle anderen Erweiterungen kein Hinweis mehr!
             $settings_html[$key] = ob_get_clean();
         }
         echo '<div class="wrap"><h1>' . esc_html__( 'Erweiterungen', 'postindexer' ) . '</h1>';
+        if (!$comment_indexer_active) {
+            echo '<div class="notice notice-warning" style="font-size:1.1em;"><b>Hinweis:</b> Der <b>Comment Indexer</b> ist aktuell deaktiviert. Erweiterungen, die darauf basieren, können nicht genutzt werden. <a href="network.php?page=comment-index" class="button button-primary" style="margin-left:1em;">Comment Indexer aktivieren</a></div>';
+        }
         // <form> wieder einfügen, damit die Aktivierungs-Checkboxen korrekt gespeichert werden
         echo '<form method="post">';
         wp_nonce_field('ps_extensions_scope_save','ps_extensions_scope_nonce');
@@ -151,22 +165,23 @@ class Postindexer_Extensions_Admin {
             $scope = $settings[$key]['scope'] ?? 'main';
             $selected_sites = $settings[$key]['sites'] ?? [];
             $active = isset($settings[$key]['active']) ? (int)$settings[$key]['active'] : 1;
+            $disabled = (!empty($ext['requires_comment_indexer']) && !$comment_indexer_active) ? 'disabled' : '';
             echo '<div class="ps-extension-card" tabindex="0" data-extkey="' . esc_attr($key) . '">';
             // Status/Toggle prominent oben rechts
-            echo '<div class="ps-extension-status>
-                <span class="ps-status-label" style="color:'.($active ? '#2ecc40' : '#aaa').';">'.($active ? 'Aktiv' : 'Inaktiv').'</span>';
-            echo '<label class="ps-switch"><input type="checkbox" name="ps_extensions_active['.$key.']" value="1" '.($active ? 'checked' : '').'><span class="ps-slider"></span></label>';
-            echo '</div>';
+            echo '<div class="ps-extension-status">
+    <span class="ps-status-label" style="color:'.($active ? '#2ecc40' : '#aaa').';">'.($active ? 'Aktiv' : 'Inaktiv').'</span>';
+echo '<label class="ps-switch"><input type="checkbox" name="ps_extensions_active['.$key.']" value="1" '.($active ? 'checked' : '').' '.$disabled.'><span class="ps-slider"></span></label>';
+echo '</div>';
             echo '<h2>' . esc_html($ext['name']) . '</h2>';
             echo '<p>' . esc_html($ext['desc']) . '</p>';
             // Bereich-Auswahl optisch abgesetzt
             echo '<div class="ps-scope-row">Aktivierungsbereich:<br>';
-            echo '<label><input type="radio" name="ps_extensions_scope['.$key.']" value="network" '.checked($scope,'network',false).'> Netzwerkweit</label>';
-            echo '<label><input type="radio" name="ps_extensions_scope['.$key.']" value="main" '.checked($scope,'main',false).'> Nur Hauptseite</label>';
-            echo '<label><input type="radio" name="ps_extensions_scope['.$key.']" value="sites" '.checked($scope,'sites',false).'> Bestimmte Seiten</label>';
+            echo '<label><input type="radio" name="ps_extensions_scope['.$key.']" value="network" '.checked($scope,'network',false).' '.$disabled.'> Netzwerkweit</label>';
+            echo '<label><input type="radio" name="ps_extensions_scope['.$key.']" value="main" '.checked($scope,'main',false).' '.$disabled.'> Nur Hauptseite</label>';
+            echo '<label><input type="radio" name="ps_extensions_scope['.$key.']" value="sites" '.checked($scope,'sites',false).' '.$disabled.'> Bestimmte Seiten</label>';
             $display_sites = ($scope==='sites') ? 'block' : 'none';
             echo '<div class="ps-scope-sites" style="display:'.$display_sites.';">';
-            echo '<select name="ps_extensions_sites['.$key.'][]" multiple size="4">';
+            echo '<select name="ps_extensions_sites['.$key.'][]" multiple size="4" '.$disabled.'>';
             foreach ($sites as $site_id) {
                 $blog_details = get_blog_details($site_id);
                 $sel = in_array($site_id, $selected_sites) ? 'selected' : '';
@@ -174,9 +189,14 @@ class Postindexer_Extensions_Admin {
             }
             echo '</select></div>';
             echo '</div>';
+            if (!empty($ext['requires_comment_indexer']) && !$comment_indexer_active) {
+                echo '<div style="color:#c00;font-weight:bold;margin-top:1em;">Diese Erweiterung benötigt den Comment Indexer.</div>';
+            }
             echo '</div>';
         }
         echo '</div>'; // .ps-extensions-grid
+        // Speichern-Button ergänzen
+        echo '<p><button type="submit" class="button button-primary">Einstellungen speichern</button></p>';
         echo '<div id="ps-extension-settings-panel" style="margin-top:2em;"></div>';
         echo '</form>';
         // JS: Card-Click füllt das Panel
