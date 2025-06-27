@@ -3,7 +3,7 @@
 Plugin Name: Recent Global Comments Widget
 Plugin URI: http://premium.wpmudev.org/project/recent-global-comments-widget
 Description: Widget zeigt die neuesten Kommentare aus dem Netzwerk an.
-Author: WPMU DEV
+Author: PSOURCE
 Author URI: http://ivan.sh
 Version: 1.0.6.2
 Network: true

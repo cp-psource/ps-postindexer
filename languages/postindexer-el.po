@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Beitragsindex\n"
+"Project-Id-Version: Multisite Index\n"
 "POT-Creation-Date: 2023-09-10 12:57+0200\n"
 "PO-Revision-Date: 2023-09-10 12:59+0200\n"
 "Last-Translator: \n"
@@ -83,7 +83,7 @@ msgid ""
 "ausführst, kannst Du diese Meldung ignorieren."
 msgstr ""
 "Η σελίδα σας είχε οριστεί <strong>DISABLE_WP_CRON</strong> ως <strong>true</"
-"strong>. Στις περισσότερες περιπτώσεις, αυτό σημαίνει ότι ο Multisite Beitragsindex "
+"strong>. Στις περισσότερες περιπτώσεις, αυτό σημαίνει ότι ο Multisite Index "
 "μπορεί να μην ευρετηριάζει σωστά τη σελίδα(-ες) σας, επειδή βασίζεται στον "
 "χρονοπρογραμματιστή ClassicPress (WP_Cron). Εάν εκτελείτε έναν εναλλακτικό "
 "cron, μπορείτε να αγνοήσετε αυτό το μήνυμα."
@@ -836,7 +836,7 @@ msgstr "Δεν υπάρχει διαθέσιμο changelog."
 
 #. Plugin Name of the plugin/theme
 #, fuzzy
-msgid "Multisite Beitragsindex"
+msgid "Multisite Index"
 msgstr "Δείκτης συνεισφοράς πολλαπλών τοποθεσιών"
 
 #. Plugin URI of the plugin/theme

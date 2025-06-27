@@ -12,16 +12,16 @@ Ein großartiges Plugin, das eine globale Suche in allen Blogs auf Deiner WordPr
 
 == Description ==
 
-Netzwerksuche nutzt die Leistungsfähigkeit von PS-Multisite Beitragsindex , um eine leistungsstarke netzwerkweite Beitrags-Suche zu ermöglichen.
+Netzwerksuche nutzt die Leistungsfähigkeit von PS-Multisite Index , um eine leistungsstarke netzwerkweite Beitrags-Suche zu ermöglichen.
 Multisite und BuddyPress bieten keine Möglichkeit, Blogs in einem gesamten Netzwerk zu durchsuchen.
 
 Blitzschnelle Ergebnisse
-Netzwerksuche verwendet unser leistungsstarkes PS-Multisite Beitragsindex Plugin, das alle Beiträge auf jeder Seite in Deinem Netzwerk indiziert, 
+Netzwerksuche verwendet unser leistungsstarkes PS-Multisite Index Plugin, das alle Beiträge auf jeder Seite in Deinem Netzwerk indiziert, 
 um eine blitzschnelle Suche in Deinem gesamten Netzwerk zu erstellen.
 
 = Dringend benötigt =
 
-Die Netzwerksuche funktioniert nur mit dem [Multisite Beitragsindex Plugin](https://cp-psource.github.io/ps-postindexer/)!
+Die Netzwerksuche funktioniert nur mit dem [Multisite Index Plugin](https://cp-psource.github.io/ps-postindexer/)!
 Bitte zuerst installieren und Netzwerkweit aktivieren. 
 Anschließend musst Du noch bestimmen welche Beitrags-Typen vom Beitragsindexer erfasst werden sollen.
 

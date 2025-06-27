@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Beitragsindex\n"
+"Project-Id-Version: Multisite Index\n"
 "POT-Creation-Date: 2023-09-10 12:52+0200\n"
 "PO-Revision-Date: 2023-09-10 12:53+0200\n"
 "Last-Translator: \n"
@@ -80,7 +80,7 @@ msgid ""
 "ausführst, kannst Du diese Meldung ignorieren."
 msgstr ""
 "Ta page a été définie <strong>DISABLE_WP_CRON</strong> comme <strong>true</"
-"strong>. Dans la plupart des cas, cela signifie que Multisite Beitragsindex n'indexe "
+"strong>. Dans la plupart des cas, cela signifie que Multisite Index n'indexe "
 "peut-être pas correctement ta/vos page(s), car il est basé sur le "
 "planificateur ClassicPress (WP_Cron). Si tu exécutes un cron alternatif, tu "
 "peux ignorer ce message."
@@ -821,7 +821,7 @@ msgstr "Il n'y a pas de journal des changements disponible."
 
 #. Plugin Name of the plugin/theme
 #, fuzzy
-msgid "Multisite Beitragsindex"
+msgid "Multisite Index"
 msgstr "Index de contribution multisite"
 
 #. Plugin URI of the plugin/theme

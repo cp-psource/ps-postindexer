@@ -4,7 +4,7 @@ Plugin Name: Recent Global Author Posts Feed
 Plugin URI: http://premium.wpmudev.org/project/recent-global-author-posts-feed/
 Description: RSS2 feeds for global posts by authors - to access feed go to http://yoursite.com/feed/globalauthorpostsfeed
 Version: 3.0.2
-Author: WPMU DEV
+Author: PSOURCE
 Author URI: http://premium.wpmudev.org/
 WDP ID: 87
 Network: true

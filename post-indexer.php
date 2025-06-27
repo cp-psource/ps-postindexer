@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Multisite Beitragsindex
+Plugin Name: Multisite Index
 Plugin URI: https://cp-psource.github.io/ps-postindexer/
-Description: Indiziert alle Beiträge in Deinem Netzwerk und bringt sie an einen Ort - ein sehr leistungsfähiges Tool, mit dem Du Beiträge auf unterschiedliche Weise anzeigen oder Dein Netzwerk verwalten kannst.
+Description: Ein mächtiges Multisite-Index Plugin - Bringe deinen Content dahin wo du ihn brauchst!
 Author: PSOURCE
-Version: 3.1.6
+Version: 3.1.7
 Author URI: https://github.com/cp-psource
 Requires at least: 4.9
 Network: true

@@ -28,7 +28,7 @@ add_filter('postindexer_extensions', function($exts) {
         'title' => 'Global Author Posts Feed',
         'description' => __('Stellt einen globalen RSS-Feed für Beiträge eines Autors im Netzwerk bereit.'),
         'file' => __FILE__,
-        'author' => 'WPMU DEV',
+        'author' => 'PSOURCE',
         'version' => '1.0.0',
         'network' => true,
         'has_settings' => false

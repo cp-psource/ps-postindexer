@@ -4,7 +4,7 @@ Plugin Name: Recent Global Posts Feed
 Plugin URI: http://premium.wpmudev.org/project/recent-global-posts-feed/
 Description: RSS2 feed showing global posts - to access feed go to http://yoursite.com/feed/globalpostsfeed
 Version: 3.1.1
-Author: WPMU DEV
+Author: PSOURCE
 Author URI: http://premium.wpmudev.org/
 WDP ID: 70
 Network: true

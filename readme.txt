@@ -1,66 +1,44 @@
-=== PS Multisite Beitragsindexer ===
+=== PS Multisite Indexer ===
 Contributors: DerN3rd (PSOURCE)
 Tags: multisite, suche, netzwerksuche
 Requires at least: 4.9
 Tested up to: 6.8.1
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Schalte neue Möglichkeiten zum Suchen und Anzeigen von Inhalten frei, indem Du Beiträge von einer beliebigen Webseite in Deinem Netzwerk in einem Index zusammenfasst.
+Erlebe die neue Generation des PS Multisite Indexers – die zentrale Plattform für Content-Indexierung, Netzwerk-Statistiken und Monitoring in WordPress Multisites. 
 
-Unlock new ways to search and view content by indexing posts from any website in your network.
+Experience the next generation of PS Multisite Indexer – your central platform for content indexing, network statistics, and monitoring in WordPress Multisites.
 
 == Description ==
 
-Wir haben den PS Multisite Beitragsindex so entwickelt, dass er mit anderen Plugins zusammenarbeitet, die seine Leistung nutzen können. 
-Während Multisite ein leistungsstarkes Tool ist, ist eine der größten Einschränkungen die Unfähigkeit, Inhalte von Webseite zu Webseite in Deinem Netzwerk zu suchen und anzuzeigen.
+Der PS Multisite Indexer vereint jetzt alle wichtigen Funktionen in einem einzigen, leistungsstarken Plugin. Früher waren viele zusätzliche Plugins nötig – heute sind alle Erweiterungen (Extensions) direkt integriert. Behalte jederzeit den Überblick über alle Inhalte, Post-Typen und Aktivitäten in Deinem Netzwerk. 
 
-Wir haben eine riesige Sammlung von Plugins erstellt, die dies können, aber diese Plugins benötigen einen einzigen Index von Beiträgen, aus denen sie abgerufen werden können. 
-Hier kommt PS Multisite Beitragsindex ins Spiel. PS Multisite Beitragsindex erstellt mehr als nur einen Index. Du kannst bestimmte Unterwebseiten von der Indizierung ausschließen, 
-eine bestimmte Webseite sofort indizieren, Seiten sowie Beiträge indizieren, Beiträge manuell indizieren, einen Zeitrahmen für die Indizierung von Beiträgen auswählen und Beitragstypen auswählen, 
-die pro Webseite indiziert werden sollen.
+PS Multisite Indexer now brings all essential features into one powerful plugin. Where you once needed many extra plugins, all extensions are now built-in. Always keep track of all content, post types, and activities across your network.
 
-We designed the PS Multisite Post Index to work with other plugins that can leverage its power.
-While Multisite is a powerful tool, one of its biggest limitations is the inability to search and display content from site to site across your network.
+=== Hauptfunktionen / Main Features ===
 
-We've created a huge collection of plugins that can do this, but these plugins require a single index of posts to pull from.
-This is where PS Multisite Post Index comes into play. PS Multisite Post Index creates more than just an index. You can exclude certain sub-websites from indexing,
-instantly index a specific web page, index pages as well as posts, manually index posts, select a time frame for indexing posts and select post types,
-that should be indexed per website.
+* Integrierte Extensions für Suche, globale Widgets, Feeds, Tags, Kommentare, Aktivitäten und mehr – alles direkt im Plugin
+* Umfassende Statistiken und Monitoring-Tools für Beiträge, Seiten, Kommentare und Aktivitäten
+* Übersichtliche Dashboards und Diagramme für Admins und Netzwerkbetreiber
+* Flexible Steuerung: Wähle, was und wie indiziert wird (inkl. Ausschlüsse, Sofort-Indexierung, Zeitrahmen, Beitragstypen)
+* Unterstützung für verschiedene Content-Typen (Posts, Seiten, Kommentare, Custom Post Types)
+* Volle Kompatibilität mit modernen WordPress-Versionen und Multisite-Setups
+* Mehrsprachigkeit: de_DE, en_US, fr_FR, it_IT, el
 
-=== Alle Statistiken, die Du jemals brauchen wirst / All the stats you'll ever need ===
+=== Vorteile / Benefits ===
 
-Stelle sicher, dass auf einen Blick alles nach Deinen Wünschen eingestellt ist.
+* Zentrale Verwaltung und Analyse aller Inhalte im Netzwerk
+* Keine Abhängigkeit mehr von externen Plugins
+* Sofortiger Zugriff auf aktuelle Statistiken und Trends
+* Einfache Bedienung und moderne Oberfläche
+* Erweiterbar durch eigene Extensions
 
-Make sure everything is set up the way you want at a glance.
+=== Screenshots ===
 
-=== PS Multisite Beitragsindex Zusammenfassung / PS Multisite Post Index Summary ===
-
-Show a quick list view of indexed post types and most indexed web pages.
-
-=== Indizierte Beitragstypen / Indexed post types ===
-
-![Easy & Light](https://n3rds.work/wp-content/uploads/2021/09/Beitragsindex-Administration-Statistiken.png)
-
-In einem sauberen einfachen Kreisdiagramm wird der Prozentsatz aller indizierten Beitragstypen aufgeschlüsselt.
-
-A clean simple pie chart breaks down the percentage of all post types indexed.
-
-=== Kürzlich indizierte Beiträge / Recently indexed posts ===
-
-![Full Control](https://n3rds.work/wp-content/uploads/2021/09/Beitragsindex-Administration-Statistiken.png)
-
-Greife mit einem Klick auf kürzlich indizierte Beiträge zu. Siehe Seiten- und Beitragsname.
-
-Access recently indexed posts with one click. See page and post name.
-
-=== Die meist indizierten Webseiten / The most indexed websites ===
-
-Schaue Dir an, welche Webseiten am aktivsten sind und wie Beitrags-Typen in Deinem Netzwerk verwendet werden.
-
-Look at which websites are the most active and how post types are used in your network.
+![Dashboard & Statistiken](https://n3rds.work/wp-content/uploads/2021/09/Beitragsindex-Administration-Statistiken.png)
 
 === Sprachen / Languages ===
 
@@ -68,7 +46,7 @@ Look at which websites are the most active and how post types are used in your n
 * en_US
 * fr_FR
 * de_DE (informell)
-* el 
+* el
 
 [POWERED BY PSOURCE](https://github.com/cp-psource/)
 
@@ -79,6 +57,13 @@ Look at which websites are the most active and how post types are used in your n
 
 
 == ChangeLog ==
+
+* 3.1.7 =
+
+* Comment Indexer Inkludiert
+* Alle ehemaligen Post Indexer Plugins integriert
+* Alle ehemaligen Comment Indexer Plugins integriert
+* Monitoring Tools integriert
 
 = 3.1.6 =
 

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PS Multisite Beitragsindex\n"
+"Project-Id-Version: PS Multisite Index\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-08 18:48+0000\n"
 "PO-Revision-Date: 2023-03-08 18:49+0000\n"
@@ -293,7 +293,7 @@ msgstr ""
 #: classes/class.postindexeradmin.php:142
 msgid ""
 "Deine Seite wurde <strong>DISABLE_WP_CRON</strong> definiert als <strong>"
-"true</strong>. In den meisten Fällen bedeutet dies, dass Multisite Beitragsindex Deine "
+"true</strong>. In den meisten Fällen bedeutet dies, dass Multisite Index Deine "
 "Seite(n) möglicherweise nicht richtig indiziert, da er auf dem ClassicPress-"
 "Scheduler (WP_Cron) basiert. Wenn Du einen alternativen Cron ausführst, "
 "kannst Du diese Meldung ignorieren."
@@ -511,7 +511,7 @@ msgid "Nächster Lauf"
 msgstr ""
 
 #. Name of the plugin
-msgid "PS Multisite Beitragsindex"
+msgid "PS Multisite Index"
 msgstr ""
 
 #: classes/class.postindexeradmin.php:522

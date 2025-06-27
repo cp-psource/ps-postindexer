@@ -3,7 +3,7 @@
 Plugin Name: Recent Global Comments Feed
 Plugin URI: http://premium.wpmudev.org/project/recent-global-comments-feed
 Description: An RSS feed of all the latest comments from across your entire site.
-Author: WPMU DEV
+Author: PSOURCE
 Author URI: http://ivan.sh
 Version: 1.0.6.2
 Network: true

@@ -1,5 +1,5 @@
-# Translation of the WordPress plugin Post Indexer 3.0.5.5 by WPMU DEV.
-# Copyright (C) 2014 WPMU DEV
+# Translation of the WordPress plugin Post Indexer 3.0.5.5 by PSOURCE.
+# Copyright (C) 2014 PSOURCE
 # This file is distributed under the same license as the Post Indexer package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
@@ -473,7 +473,7 @@ msgid "Indexes all posts across your network and brings them into one spot – a
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "WPMU DEV"
+msgid "PSOURCE"
 msgstr ""
 
 #. Author URI of the plugin/theme

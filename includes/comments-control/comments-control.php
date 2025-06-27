@@ -3,7 +3,7 @@
 Plugin Name: Comments Control
 Plugin URI: http://premium.wpmudev.org/project/comments-control
 Description: Fine tune comment throttling
-Author: WPMU DEV
+Author: PSOURCE
 Version: 1.0.1.1
 Network: true
 Author URI: http://premium.wpmudev.org

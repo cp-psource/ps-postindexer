@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Multisite Beitragsindex\n"
+"Project-Id-Version: Multisite Index\n"
 "POT-Creation-Date: 2023-09-10 12:55+0200\n"
 "PO-Revision-Date: 2023-09-10 12:56+0200\n"
 "Last-Translator: \n"
@@ -83,7 +83,7 @@ msgid ""
 msgstr ""
 "La pagina è stata definita <strong>DISABLE_WP_CRON</strong> come "
 "<strong>vera</strong>. Nella maggior parte dei casi, questo significa che "
-"Multisite Beitragsindex potrebbe non indicizzare correttamente le pagine perché si basa "
+"Multisite Index potrebbe non indicizzare correttamente le pagine perché si basa "
 "sullo scheduler di ClassicPress (WP_Cron). Se si esegue un cron alternativo, "
 "si può ignorare questo messaggio."
 
@@ -823,7 +823,7 @@ msgstr "Non è disponibile un changelog."
 
 #. Plugin Name of the plugin/theme
 #, fuzzy
-msgid "Multisite Beitragsindex"
+msgid "Multisite Index"
 msgstr "Indice di contribuzione multisito"
 
 #. Plugin URI of the plugin/theme

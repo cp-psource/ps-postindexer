@@ -27,7 +27,7 @@ class Recent_Network_Posts {
 
 	public function check_indexer_plugin() {
 		if ( ! function_exists( 'network_query_posts' ) ) {
-			echo '<div class="notice notice-error"><p><strong>Indexer-Plugin nicht aktiv!</strong> Das Plugin "Multisite Beitragsindex" wird benötigt, damit [recent_network_posts] funktioniert.<br>Weitere Informationen und Download: <a href="https://cp-psource.github.io/ps-postindexer/" target="_blank" rel="noopener noreferrer">https://cp-psource.github.io/ps-postindexer/</a></p></div>';
+			echo '<div class="notice notice-error"><p><strong>Indexer-Plugin nicht aktiv!</strong> Das Plugin "Multisite Index" wird benötigt, damit [recent_network_posts] funktioniert.<br>Weitere Informationen und Download: <a href="https://cp-psource.github.io/ps-postindexer/" target="_blank" rel="noopener noreferrer">https://cp-psource.github.io/ps-postindexer/</a></p></div>';
 		}
 	}
 

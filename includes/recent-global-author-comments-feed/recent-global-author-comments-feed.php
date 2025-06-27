@@ -6,7 +6,7 @@ add_filter('postindexer_extensions', function($exts) {
         'title' => 'Global Author Comments Feed',
         'description' => __('Stellt einen globalen RSS-Feed für Kommentare eines Autors im Netzwerk bereit.'),
         'file' => __FILE__,
-        'author' => 'WPMU DEV',
+        'author' => 'PSOURCE',
         'version' => '1.0.3.3',
         'network' => true,
         'has_settings' => false
