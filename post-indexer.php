@@ -79,6 +79,15 @@ if (is_admin()){
 	require_once POST_INDEXER_PLUGIN_DIR . 'classes/class.postindexeradmin.php';
 }
 
+// Modul: Comment Indexer IMMER laden, damit Hooks überall aktiv sind
+require_once POST_INDEXER_PLUGIN_DIR . 'comment-indexer.php';
+
+// Admin-Menü und Klasse NUR im Netzwerk-Admin laden
+if (is_multisite() && is_network_admin()) {
+    require_once POST_INDEXER_PLUGIN_DIR . 'admin/class.commentindexeradmin.php';
+    new Comment_Indexer_Admin();
+}
+
 add_action('plugins_loaded', function() {
     load_plugin_textdomain('postindexer', false, dirname(plugin_basename(__FILE__)) . '/languages');
 });

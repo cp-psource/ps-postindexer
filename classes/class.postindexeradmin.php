@@ -555,8 +555,8 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 			// Dashboard/Übersicht als erste Subpage (bisherige Seite)
 			add_submenu_page(
 				$main_slug,
-				__( 'Dashboard', 'postindexer' ),
-				__( 'Dashboard', 'postindexer' ),
+				__( 'Post Index', 'postindexer' ),
+				__( 'Post Index', 'postindexer' ),
 				$cap,
 				$main_slug,
 				array( $this, 'handle_postindexer_page' )
