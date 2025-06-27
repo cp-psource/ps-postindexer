@@ -3,7 +3,6 @@
 if ( !class_exists('Recent_Global_Posts_Widget_Settings_Renderer') ) {
 class Recent_Global_Posts_Widget_Settings_Renderer {
     public function render_settings_form() {
-        // Minimal: Hinweistext und Speichern-Button
         $nonce = wp_nonce_field('ps_rgpw_settings_save','ps_rgpw_settings_nonce',true,false);
         echo '<form method="post">';
         echo $nonce;

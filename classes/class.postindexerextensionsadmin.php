@@ -117,9 +117,12 @@ class Postindexer_Extensions_Admin {
                     echo $gst->render_settings_form();
                 }
                 // Kein Hinweis mehr, wenn keine Einstellungen vorhanden
-            } elseif ($key === 'recent_global_posts_widget' && class_exists('Recent_Global_Posts_Widget_Settings_Renderer')) {
-                $rgpw = new \Recent_Global_Posts_Widget_Settings_Renderer();
-                echo $rgpw->render_settings_form();
+            } elseif ($key === 'recent_global_posts_widget') {
+                require_once dirname(__DIR__) . '/includes/recent-global-posts-widget/settings.php';
+                if (class_exists('Recent_Global_Posts_Widget_Settings_Renderer')) {
+                    $rgpw = new \Recent_Global_Posts_Widget_Settings_Renderer();
+                    echo $rgpw->render_settings_form();
+                }
             } elseif ($key === 'live_stream_widget') {
                 require_once dirname(__DIR__) . '/includes/live-stream-widget/settings.php';
                 if (class_exists('Live_Stream_Widget_Settings_Renderer')) {
@@ -127,6 +130,12 @@ class Postindexer_Extensions_Admin {
                     echo $lsw->render_settings_form();
                 }
                 // Kein Hinweis mehr, wenn keine Einstellungen vorhanden
+            } elseif ($key === 'recent_global_comments_widget') {
+                require_once dirname(__DIR__) . '/includes/recent-global-comments-widget/settings.php';
+                if (class_exists('Recent_Global_Comments_Widget_Settings_Renderer')) {
+                    $rgcw = new \Recent_Global_Comments_Widget_Settings_Renderer();
+                    echo $rgcw->render_settings_form();
+                }
             }
             // Für alle anderen Erweiterungen kein Hinweis mehr!
             $settings_html[$key] = ob_get_clean();
@@ -195,8 +204,7 @@ echo '</div>';
             echo '</div>';
         }
         echo '</div>'; // .ps-extensions-grid
-        // Speichern-Button ergänzen
-        echo '<p><button type="submit" class="button button-primary">Einstellungen speichern</button></p>';
+        // Kein globaler Speicherbutton mehr!
         echo '<div id="ps-extension-settings-panel" style="margin-top:2em;"></div>';
         echo '</form>';
         // JS: Card-Click füllt das Panel
