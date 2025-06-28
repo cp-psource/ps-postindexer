@@ -1,34 +1,4 @@
 <?php
-/*
-Plugin Name: Reports
-Plugin URI: http://premium.wpmudev.org/project/reports
-Description: Displays post and comment activity per blog and per user
-Author: PSOURCE
-Version: 1.0.8
-Network: true
-Author URI: http://premium.wpmudev.org/
-WDP ID: 47
-*/
-
-/*
-Copyright 2007-2014 Incsub (http://incsub.com)
-Author - YOUR NAME(s)
-Contributors - ADD AS THEY CONTRIBUTE
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-*/
-
 if( ! defined( 'REPORTS_PLUGIN_DIR' ) )
 	define( 'REPORTS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) . 'reports-files/' );
 
@@ -39,6 +9,7 @@ if( ! defined( 'REPORTS_PLUGIN_URL' ) )
  * Plugin main class
  **/
 class Activity_Reports {
+    private static $instance = null;
 
 	/**
 	 * Current version of the plugin
@@ -50,34 +21,41 @@ class Activity_Reports {
 	 **/
 	var $available_reports = array();
 	
-	/**
-	 * PHP5 constructor
-	 **/
-	function __construct() {
+	public static function instance() {
+		if (self::$instance === null) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	private function __construct() {
 		global $wp_version;
 
-		add_action( 'admin_init', array( &$this, 'make_current' ) );
-		add_action( 'admin_head', array( &$this, 'css' ) );
+		add_action( 'admin_init', array( $this, 'make_current' ) );
+		add_action( 'admin_head', array( $this, 'css' ) );
 
 		// Add the admin page
 		if ( ! is_multisite() )
-			add_action( 'admin_menu', array( &$this, 'admin_page' ) );
+			add_action( 'admin_menu', array( $this, 'admin_page' ) );
 		elseif ( version_compare( $wp_version , '3.0.9', '>' ) )
-			add_action( 'network_admin_menu', array( &$this, 'network_admin_page' ) );
+			add_action( 'network_admin_menu', array( $this, 'network_admin_page' ) );
 		else
-			add_action( 'admin_menu', array( &$this, 'pre_3_1_network_admin_page' ) );
+			add_action( 'admin_menu', array( $this, 'pre_3_1_network_admin_page' ) );
 
 		// log user data
 		//add_action( 'admin_footer', array( &$this, 'user_activity' ) );
 		//add_action( 'wp_footer', array( &$this, 'user_activity' ) );
 		// log comment data
-		add_action( 'comment_post', array( &$this, 'comment_activity' ) );
-		add_action( 'delete_comment', array( &$this, 'comment_activity_remove' ) );
-		add_action( 'delete_blog', array( &$this, 'comment_activity_remove_blog' ) , 10, 1 );
+		add_action( 'comment_post', array( $this, 'comment_activity' ) );
+		add_action( 'delete_comment', array( $this, 'comment_activity_remove' ) );
+		add_action( 'delete_blog', array( $this, 'comment_activity_remove_blog' ) , 10, 1 );
 		// log post data
-		add_action( 'save_post', array( &$this, 'post_activity' ) );
-		add_action( 'delete_post', array( &$this, 'post_activity_remove' ) );
-		add_action( 'delete_blog', array( &$this, 'post_activity_remove_blog' ) , 10, 1 );
+		add_action( 'save_post', array( $this, 'post_activity' ) );
+		add_action( 'delete_post', array( $this, 'post_activity_remove' ) );
+		add_action( 'delete_blog', array( $this, 'post_activity_remove_blog' ) , 10, 1 );
+
+		// Reports direkt beim Erzeugen laden
+		$this->load_reports();
 	}
 
 	function make_current() {
@@ -160,15 +138,15 @@ class Activity_Reports {
 	}
 
 	function admin_page() {
-		add_submenu_page( 'options-general.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_options', 'reports', array( &$this, 'page_output' ) );
+		add_submenu_page( 'options-general.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_options', 'reports', array( $this, 'page_output' ) );
 	}
 
 	function network_admin_page() {
-		add_submenu_page( 'settings.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_network_options', 'reports', array( &$this, 'page_output' ) );
+		add_submenu_page( 'settings.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_network_options', 'reports', array( $this, 'page_output' ) );
 	}
 
 	function pre_3_1_network_admin_page() {
-		add_submenu_page( 'ms-admin.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_network_options', 'reports', array( &$this, 'page_output' ) );
+		add_submenu_page( 'ms-admin.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_network_options', 'reports', array( $this, 'page_output' ) );
 	}
 
 	function add_report( $name, $nicename, $description ) {
@@ -405,8 +383,30 @@ class Activity_Reports {
 		}
 	}
 
+	function load_reports() {
+		if( ! defined( 'REPORTS_PLUGIN_DIR' ) ) return;
+		$reports_dir = REPORTS_PLUGIN_DIR . 'reports';
+		error_log('Reports-Verzeichnis: ' . $reports_dir);
+		if( is_dir( $reports_dir ) ) {
+			if( $udh = opendir( $reports_dir ) ) {
+				while( ( $report = readdir( $udh ) ) !== false ) {
+					if( substr( $report, -4 ) == '.php' ) {
+						error_log('Lade Report-Datei: ' . $report);
+						global $activity_reports;
+						$activity_reports = $this;
+						include_once( $reports_dir . '/' . $report );
+					}
+				}
+				closedir($udh);
+			}
+		}
+	}
+
 	function page_output() {
 		global $wpdb;
+
+		// Reports immer vor Anzeige laden/registrieren
+		$this->load_reports();
 
 		$available_reports = $this->available_reports;
 
@@ -477,7 +477,7 @@ class Activity_Reports {
 	}
 
 }
-$activity_reports = new Activity_Reports();
+$activity_reports = Activity_Reports::instance();
 
 /**
  * Format date
@@ -487,33 +487,4 @@ function reports_days_ago( $n, $date_format ) {
 		$date_format = 'Y-m-d H:i:s';
 
 	return date( $date_format, time() - 86400 * $n );
-}
-
-/**
- * Load reports.
- **/
-include_once( REPORTS_PLUGIN_DIR . 'report-graphs/open-flash-chart/open-flash-chart.php' );
-
-if( is_dir( REPORTS_PLUGIN_DIR . 'reports' ) ) {
-	if( $udh = opendir( REPORTS_PLUGIN_DIR . 'reports' ) ) {
-		while( ( $report = readdir( $udh ) ) !== false ) {
-			if( substr( $report, -4 ) == '.php' ) {
-				include_once( REPORTS_PLUGIN_DIR . 'reports/' . $report );
-			}
-		}
-	}
-}
-
-
-/**
- * Show notification if WPMUDEV Update Notifications plugin is not installed
- **/
-if ( !function_exists( 'wdp_un_check' ) ) {
-	add_action( 'admin_notices', 'wdp_un_check', 5 );
-	add_action( 'network_admin_notices', 'wdp_un_check', 5 );
-
-	function wdp_un_check() {
-		if ( !class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'edit_users' ) )
-			echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of PSOURCE themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
-	}
 }

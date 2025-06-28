@@ -1,4 +1,6 @@
 <?php
+global $activity_reports;
+if (!isset($activity_reports) || !is_object($activity_reports)) return;
 
 $activity_reports->add_report( __( 'User Posts', 'reports' ), 'user-posts', __( 'Displays post activity for a user', 'reports' ) );
 

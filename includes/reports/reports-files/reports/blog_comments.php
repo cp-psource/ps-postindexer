@@ -1,6 +1,10 @@
 <?php
+global $activity_reports;
+error_log('blog_comments.php: $activity_reports ist Objekt? ' . (is_object($activity_reports) ? 'JA' : 'NEIN'));
+if (!isset($activity_reports) || !is_object($activity_reports)) return;
 
 $activity_reports->add_report( __( 'Blog Comments', 'reports' ), 'blog-comments', __( 'Displays comment activity for a blog', 'reports' ) );
+error_log('blog_comments.php: add_report ausgeführt');
 
 if ( isset( $_GET['report'] ) && 'blog-comments' == $_GET['report'] )
 	add_action( 'view_report','report_blog_comments_ouput' );

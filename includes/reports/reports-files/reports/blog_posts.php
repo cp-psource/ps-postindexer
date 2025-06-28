@@ -1,4 +1,6 @@
 <?php
+global $activity_reports;
+if (!isset($activity_reports) || !is_object($activity_reports)) return;
 
 $activity_reports->add_report( __( 'Blog Posts', 'reports' ), 'blog-posts', __( 'Displays posts activity for a blog', 'reports' ) );
 

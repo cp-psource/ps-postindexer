@@ -117,6 +117,11 @@ require_once POST_INDEXER_PLUGIN_DIR . 'includes/comment-form-text/comment-form-
 // Erweiterung: Recent Global Author Posts Feed IMMER laden
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-author-posts-feed/recent-global-author-posts-feed.php';
 
+// Monitoring- und Reporting-Module IMMER laden, damit Hooks aktiv sind
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/blog-activity/blog-activity.php';
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/user-activity/user-activity.php';
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/reports/reports.php';
+
 add_action('plugins_loaded', function() {
     load_plugin_textdomain('postindexer', false, dirname(plugin_basename(__FILE__)) . '/languages');
 });

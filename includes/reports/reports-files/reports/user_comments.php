@@ -1,4 +1,6 @@
 <?php
+global $activity_reports;
+if (!isset($activity_reports) || !is_object($activity_reports)) return;
 
 $activity_reports->add_report( __( 'User Comments', 'reports' ), 'user-comments', __( 'Displays comment activity for a user', 'reports' ) );
 

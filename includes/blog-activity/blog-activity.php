@@ -13,6 +13,7 @@ class Blog_Activity {
 	 **/
 	var $current_version = '1.1.6';
 
+	private $tables_checked = false;
 
 	/**
 	 * PHP 5 constructor
@@ -131,6 +132,7 @@ class Blog_Activity {
 	 * Create post activity entry
 	 **/
 	function post_global_db_sync() {
+		$this->ensure_tables_exist();
 		global $wpdb, $current_user;
 
 		if( !( '' == $wpdb->blogid || '' == $current_user->ID ) )
@@ -141,6 +143,7 @@ class Blog_Activity {
 	 * Create comment activity entry
 	 **/
 	function comment_global_db_sync() {
+		$this->ensure_tables_exist();
 		global $wpdb, $current_user;
 
 		if( '' == $wpdb->blogid || '' == $current_user->ID ) {
@@ -157,6 +160,7 @@ class Blog_Activity {
 	 * Create or update blog activity entry
 	 **/
 	function blog_global_db_sync() {
+		$this->ensure_tables_exist();
 		global $wpdb, $current_user;
 
 		if( '' !== $wpdb->blogid ) {
@@ -187,6 +191,7 @@ class Blog_Activity {
 	 * Cleanup activity older than 1 month from activity tables
 	 **/
 	function cleanup() {
+		$this->ensure_tables_exist();
 		global $wpdb;
 		$current_stamp = time();
 		$month_ago = $current_stamp - 2678400;
@@ -220,6 +225,7 @@ class Blog_Activity {
 	 * Get activity from db for a set period of type
 	 **/
 	function get_activity( $tmp_period, $type ) {
+		$this->ensure_tables_exist();
 		global $wpdb;
 
 		$tmp_period = ( $tmp_period == '' || $tmp_period == 0 ) ? 1 : $tmp_period;
@@ -235,6 +241,7 @@ class Blog_Activity {
 	 * Admin page output.
 	 **/
 	function page_main_output() {
+		$this->ensure_tables_exist();
 		global $wpdb;
 
 		// Allow access for users with correct permissions only
@@ -256,30 +263,66 @@ class Blog_Activity {
 		$current_week = $current_stamp - 604800;
 		$current_month = $current_stamp - 2592000;
 
-		$activity = '';
-		foreach( array( 'blog', 'post', 'comment' ) as $object ) {
-			$time_field = ( 'blog' == $object ) ? 'last_active' : 'stamp';
-
-			$five_minutes = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $time_field > '$current_five_minutes'" );
-			$hour = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $time_field > '$current_hour'" );
-			$day = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $time_field > '$current_day'" );
-			$week = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $time_field > '$current_week'" );
-			$month = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $time_field > '$current_month'" );
-
-			$activity .= '<h3>' . sprintf( __( 'Updated %ss in the last:', 'blog_activity' ), $object ) . '</h3>';
-			$activity .= '<p>';
-			$activity .= sprintf( __( 'Five Minutes: %d', 'blog_activity' ), $five_minutes ) . '<br />';
-			$activity .= sprintf( __( 'Hour: %d', 'blog_activity' ), $hour ) . '<br />';
-			$activity .= sprintf( __( 'Day: %d', 'blog_activity' ), $day ) . '<br />';
-			$activity .= sprintf( __( 'Week: %d', 'blog_activity' ), $week ) . '<br />';
-			$activity .= sprintf( __( 'Month: %d', 'blog_activity' ), $month ) . '<br />';
-			$activity .= '</p><br />';
+		$objects = array('blog', 'post', 'comment');
+		$labels = array(
+			'blog' => __('Updated blogs in the last:', 'blog_activity'),
+			'post' => __('Updated posts in the last:', 'blog_activity'),
+			'comment' => __('Updated comments in the last:', 'blog_activity'),
+		);
+		$time_field = array('blog' => 'last_active', 'post' => 'stamp', 'comment' => 'stamp');
+		$stats = [];
+		foreach ($objects as $object) {
+			$field = $time_field[$object];
+			$stats[$object] = array(
+				'five_minutes' => $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $field > '$current_five_minutes'"),
+				'hour' => $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $field > '$current_hour'"),
+				'day' => $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $field > '$current_day'"),
+				'week' => $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $field > '$current_week'"),
+				'month' => $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->base_prefix}{$object}_activity WHERE $field > '$current_month'"),
+			);
 		}
 
 		echo '<h2>' . __( 'Blog Activity', 'blog_activity' ) . '</h2>';
-		echo $activity;
-		echo '<p>' . __( '* Month = 30 days<br />Note: It will take a full thirty days for all of this data to be accurate. For example, if the plugin has been installed for only a day then only "day", "hour", and "five minutes" will contain accurate data.', 'blog_activity' ) . '</p>';
+		echo '<div style="display:flex;gap:2em;justify-content:space-between;margin-bottom:2em;flex-wrap:wrap;">';
+		foreach ($objects as $object) {
+			echo '<div style="flex:1 1 0;min-width:260px;max-width:33%;background:#f8fafc;border:1.5px solid #e5e5e5;border-radius:10px;padding:1.5em 1.2em 1em 1.2em;box-shadow:0 2px 8px rgba(0,0,0,0.03);">';
+			echo '<h3 style="margin-top:0;font-size:1.15em;color:#0073aa;">' . esc_html($labels[$object]) . '</h3>';
+			echo '<ul style="list-style:none;padding:0;margin:0 0 0.5em 0;font-size:1.05em;">';
+			echo '<li>' . __('Five Minutes', 'blog_activity') . ': <strong>' . intval($stats[$object]['five_minutes']) . '</strong></li>';
+			echo '<li>' . __('Hour', 'blog_activity') . ': <strong>' . intval($stats[$object]['hour']) . '</strong></li>';
+			echo '<li>' . __('Day', 'blog_activity') . ': <strong>' . intval($stats[$object]['day']) . '</strong></li>';
+			echo '<li>' . __('Week', 'blog_activity') . ': <strong>' . intval($stats[$object]['week']) . '</strong></li>';
+			echo '<li>' . __('Month', 'blog_activity') . ': <strong>' . intval($stats[$object]['month']) . '</strong></li>';
+			echo '</ul>';
+			echo '</div>';
+		}
 		echo '</div>';
+		echo '<p style="color:#888;font-size:0.98em;">' . __( '* Month = 30 days<br />Note: It will take a full thirty days for all of this data to be accurate. For example, if the plugin has been installed for only a day then only "day", "hour", and "five minutes" will contain accurate data.', 'blog_activity' ) . '</p>';
+		echo '</div>';
+	}
+
+	/**
+	 * Prüft, ob die Monitoring-Tabellen existieren, und legt sie ggf. an
+	 */
+	private function ensure_tables_exist() {
+		global $wpdb;
+		if ($this->tables_checked) return;
+		$this->tables_checked = true;
+		$tables = [
+			$wpdb->base_prefix . 'blog_activity',
+			$wpdb->base_prefix . 'post_activity',
+			$wpdb->base_prefix . 'comment_activity',
+		];
+		$missing = false;
+		foreach ($tables as $table) {
+			if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) != $table) {
+				$missing = true;
+				break;
+			}
+		}
+		if ($missing) {
+			$this->install();
+		}
 	}
 
 }
@@ -311,17 +354,4 @@ function display_blog_activity_updated( $tmp_period ) {
 	global $blog_activity;
 
 	echo $blog_activity->get_activity( $tmp_period, 'blog' );
-}
-
-/**
- * Show notification if WPMUDEV Update Notifications plugin is not installed
- **/
-if ( !function_exists( 'wdp_un_check' ) ) {
-	add_action( 'admin_notices', 'wdp_un_check', 5 );
-	add_action( 'network_admin_notices', 'wdp_un_check', 5 );
-
-	function wdp_un_check() {
-		if ( !class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'edit_users' ) )
-			echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of PSOURCE themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
-	}
 }

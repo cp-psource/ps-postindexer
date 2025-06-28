@@ -40,6 +40,8 @@ class User_Activity {
 
 	private $page_id;
 
+	private $tables_checked = false;
+
 	/**
 	 * Constructor
 	 */
@@ -143,6 +145,7 @@ class User_Activity {
 	 * Create or update current user activity entry
 	 */
 	function global_db_sync() {
+		$this->ensure_tables_exist();
 		global $wpdb, $current_user;
 
 		if ( ! $current_user->ID ) {
@@ -178,6 +181,7 @@ class User_Activity {
 	 * @param string|int $tmp_period
 	 */
 	function get_activity( $tmp_period ) {
+		$this->ensure_tables_exist();
 		global $wpdb, $current_user;
 
 		$tmp_period = ( $tmp_period == '' || $tmp_period == 0 ) ? 1 : $tmp_period;
@@ -230,6 +234,7 @@ class User_Activity {
 	 * Admin page output.
 	 */
 	function page_main_output() {
+		$this->ensure_tables_exist();
 		global $wpdb, $wp_roles, $current_user, $wp_meta_boxes;
 
 		// Allow access for users with correct permissions only
@@ -423,7 +428,7 @@ class User_Activity {
 		}
 
 		.postbox {
-			width: 20%;
+			width: 45%;
 			margin-right: 4%;
 			float: left;
 			min-width: 225px;
@@ -444,6 +449,29 @@ class User_Activity {
 
 		</style>
 		<?php
+	}
+
+	/**
+	 * Prüft, ob die User-Activity-Tabellen existieren, und legt sie ggf. an
+	 */
+	private function ensure_tables_exist() {
+		global $wpdb;
+		if ($this->tables_checked) return;
+		$this->tables_checked = true;
+		$tables = [
+			$wpdb->base_prefix . 'user_activity',
+			$wpdb->base_prefix . 'user_activity_log',
+		];
+		$missing = false;
+		foreach ($tables as $table) {
+			if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) != $table) {
+				$missing = true;
+				break;
+			}
+		}
+		if ($missing) {
+			$this->install();
+		}
 	}
 
 }

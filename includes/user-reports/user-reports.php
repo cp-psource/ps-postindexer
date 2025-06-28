@@ -15,6 +15,8 @@ class UserReports {
 
 	private $_filters = array();    // Set during processfilters().
 
+	private $user_reports_table;
+
 	/**
 	 * The PHP5 Class constructor. Used when an instance of this class is needed.
 	 * Sets up the initial object environment and hooks into the various WordPress
@@ -304,48 +306,6 @@ class UserReports {
 		}
 	}
 
-	/**
-	 * Setup the context help instances for the user
-	 *
-	 * @since 1.0.0
-	 * @uses $screen global screen instance
-	 * @uses $screen->add_help_tab function to add the help sections
-	 * @see  $this->on_load_main_page where this function is referenced
-	 *
-	 * @param none
-	 *
-	 * @return void
-	 */
-	function user_reports_admin_plugin_help() {
-		global $wp_version;
-
-		$screen = get_current_screen();
-		$screen_help_text = array();
-		$screen_help_text['user-reports-help-overview'] = '<p>' . __( 'The User Reports plugins lets you build reports of the activity of your users.', 'postindexer' ) . '</p>';
-		$screen_help_text['user-reports-help-overview'] .= '<ul>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Report Type', 'postindexer' ) . '</strong> - ' . __( 'From the Report main screen you can select the type or report: Posts or Comments', 'postindexer' ) . '</li>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Blogs', 'postindexer' ) . '</strong> - ' . __( 'Select which blog to report on. Or you can generate a report for all Blogs. (Multisite SuperAdmin only)', 'postindexer' ) . '</li>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Users', 'postindexer' ) . '</strong> - ' . __( 'Select the User from the dropdown. If you are viewing reports from the network admin you can enter the username directly or select the user from the Users listing page first.', 'postindexer' ) . '</li>';
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Date', 'postindexer' ) . '</strong> - ' . __( 'Select a date range for your report. Note you will be limited to 90 days maximum between the start and finish dates.', 'postindexer' ) . '</li>';
-
-		$screen_help_text['user-reports-help-overview'] .= '<li><strong>' . __( 'Export', 'postindexer' ) . '</strong> - ' . __( 'Below the report table you can optionally select to export the report to PDF or CSV data.', 'postindexer' ) . '</li>';
-
-		if ( version_compare( $wp_version, '3.3.0', '>' ) ) {
-
-			$screen->add_help_tab( array(
-					'id'      => 'users_page_user-reports',
-					'title'   => __( 'Overview', 'postindexer' ),
-					'content' => $screen_help_text['user-reports-help-overview'],
-				)
-			);
-
-		} else {
-
-			if ( isset( $_REQUEST['page'] ) && 'user-reports' === $_REQUEST['page'] ) {
-				add_contextual_help( $screen, $screen_help_text['user-reports-help-overview'] );
-			}
-		}
-	}
 
 	/**
 	 * Setup the page options. Processes the $_GET passed arguments for the filters.
@@ -432,7 +392,6 @@ class UserReports {
 		}
 		?>
 		<div id="user-reports-panel" class="wrap user-reports-wrap">
-			<?php screen_icon(); ?>
 			<h2><?php _ex( "User Reports", "User Reports New Page Title", 'postindexer' ); ?></h2>
 
 			<?php
@@ -668,20 +627,76 @@ class UserReports {
 	 * @return void
 	 */
 	function user_reports_show_filter_form_bar() {
-
-		?>
-		<form id="user-report-filters" method="get" action="">
-			<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
-			<?php
-			$this->user_reports_show_filter_form_types();
-			$this->user_reports_show_filter_form_blogs();
-			$this->user_reports_show_filter_form_users();
-			$this->user_reports_show_filter_form_dates();
-			?>
-			<input class="button-secondary" id="user-reports-filters-submit" type="submit" value="<?php _e( 'Create', 'postindexer' ); ?>" />
-		</form>
-		<?php
-	}
+    ?>
+    <style>
+    .user-report-filters-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em 1.5em;
+        align-items: flex-end;
+        margin-bottom: 2em;
+        background: #f9f9f9;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 1.5em 1em 1em 1em;
+    }
+    .user-report-filters-bar .filter-group {
+        display: flex;
+        flex-direction: column;
+        min-width: 180px;
+        flex: 1 1 180px;
+    }
+    .user-report-filters-bar label {
+        font-weight: 600;
+        margin-bottom: 0.3em;
+        color: #222;
+    }
+    .user-report-filters-bar select,
+    .user-report-filters-bar input[type="text"] {
+        padding: 0.4em 0.6em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+        background: #fff;
+    }
+    .user-report-filters-bar .button-secondary {
+        margin-top: 1.2em;
+        padding: 0.6em 1.5em;
+        font-size: 1em;
+        border-radius: 4px;
+        background: #0073aa;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .user-report-filters-bar .button-secondary:hover {
+        background: #005177;
+    }
+    @media (max-width: 700px) {
+        .user-report-filters-bar { flex-direction: column; gap: 1em; }
+    }
+    </style>
+    <form id="user-report-filters" class="user-report-filters-bar" method="get" action="">
+        <input type="hidden" name="page" value="<?php echo esc_attr($_REQUEST['page']); ?>" />
+        <div class="filter-group">
+            <?php $this->user_reports_show_filter_form_types(); ?>
+        </div>
+        <div class="filter-group">
+            <?php $this->user_reports_show_filter_form_blogs(); ?>
+        </div>
+        <div class="filter-group">
+            <?php $this->user_reports_show_filter_form_users(); ?>
+        </div>
+        <div class="filter-group">
+            <?php $this->user_reports_show_filter_form_dates(); ?>
+        </div>
+        <div class="filter-group" style="min-width:120px;flex:0 0 120px;align-items:flex-end;display:flex;">
+            <input class="button-secondary" id="user-reports-filters-submit" type="submit" value="<?php esc_attr_e( 'Create', 'postindexer' ); ?>" />
+        </div>
+    </form>
+    <?php
+}
 
 	/**
 	 * Show the filter bar field set for the Report Type dropdown.
@@ -772,7 +787,7 @@ class UserReports {
 				<?php
 				foreach ( $blogs as $blog_id => $blog_name ) {
 					$selected = '';
-					if ( intval( $blog_id ) == intval( $this->_filters['blog_id'] ) ) {
+					if (isset($this->_filters['blog_id']) && intval( $blog_id ) == intval( $this->_filters['blog_id'] ) ) {
 						$selected = ' selected="selected" ';
 					}
 
@@ -850,11 +865,11 @@ class UserReports {
 		?>
 		<label for="user-reports-filter-date-start">From Date</label>
 		<input type="text" size="10" name="date_start" id="user-reports-filter-date-start"
-		       value="<?php echo date( 'Y-m-d', $this->_filters['date_start'] ); ?>" />
+		       value="<?php echo isset($this->_filters['date_start']) ? date( 'Y-m-d', $this->_filters['date_start'] ) : ''; ?>" />
 
 		<label for="user-reports-filter-date-end">To Date</label>
 		<input type="text" size="10" name="date_end" id="user-reports-filter-date-end"
-		       value="<?php echo date( 'Y-m-d', $this->_filters['date_end'] ); ?>" />
+		       value="<?php echo isset($this->_filters['date_end']) ? date( 'Y-m-d', $this->_filters['date_end'] ) : ''; ?>" />
 		<?php
 	}
 

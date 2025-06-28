@@ -1392,7 +1392,6 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 					</div>
 				</div>
 
-				<div class="clear"></div>
 			</div>
 			<?php
 		}
@@ -1543,7 +1542,7 @@ if ( ! class_exists( 'postindexeradmin' ) ) {
 
 						case 'log':
 							if ( defined( 'PI_CRON_DEBUG' ) && PI_CRON_DEBUG == true ) {
-								$this->handle_log_page();
+																$this->handle_log_page();
 							}
 							break;
 
