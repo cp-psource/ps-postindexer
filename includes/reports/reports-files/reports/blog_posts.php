@@ -4,8 +4,12 @@ if (!isset($activity_reports) || !is_object($activity_reports)) return;
 
 $activity_reports->add_report( __( 'Blog Posts', 'reports' ), 'blog-posts', __( 'Displays posts activity for a blog', 'reports' ) );
 
-if ( isset( $_GET['report'] ) && 'blog-posts' == $_GET['report'] )
-	add_action( 'view_report','report_blog_posts_ouput' );
+if (
+    (isset($_GET['report']) && $_GET['report'] === 'blog-posts') ||
+    (isset($_POST['report']) && $_POST['report'] === 'blog-posts')
+) {
+    add_action('view_report', 'report_blog_posts_ouput');
+}
 
 function report_blog_posts_ouput(){
 	global $wpdb, $current_site;
@@ -68,37 +72,34 @@ function report_blog_posts_ouput(){
 				$total_days_safe = $period + 3;
 				$date_format = get_option('date_format');
 
+				// Performance-Optimierung: SQL liefert direkt die Tageszählung
 				$table = $wpdb->base_prefix . "reports_post_activity";
 				$date_time = reports_days_ago( $total_days_safe, 'Y-m-d' );
 				$query_date_format = '%Y-%m-%d';
-
 				$query = $wpdb->prepare(
-					"SELECT DATE_FORMAT( date_time, '%s' ) as formatted_date 
-					FROM $table 
-					WHERE blog_ID = %d
-					AND post_type = 'post' 
-					AND date_time > '%s'",
+					"SELECT DATE_FORMAT(date_time, '%s') as formatted_date, COUNT(*) as count
+					FROM $table
+					WHERE blog_ID = %d AND date_time > '%s'
+					GROUP BY formatted_date",
 					$query_date_format,
 					$blog_id,
 					$date_time . ' 00:00:00'
 				);
 
 				$report_results = $wpdb->get_results( $query, ARRAY_A );
+				$counts_by_date = array();
+				foreach ($report_results as $row) {
+					$counts_by_date[$row['formatted_date']] = (int)$row['count'];
+				}
+
+				$report_data = array();
+				$days = 0;
 				while ( $days <= $total_days ) {
-					$count = 0;
-					$value = 0;
 					$day = reports_days_ago($days,'Y-m-d');
-					if ( count( $report_results ) > 0 ) {
-						foreach ( $report_results as $report_result ) {
-							if ($report_result['formatted_date'] == $day) {
-								$count = $count + 1;
-							}
-						}
-					}
 					$label = reports_days_ago($days,$date_format);
-					$value = $count;
-					$report_data[] = array($label,$value);
-					$days = $days + 1;
+					$value = isset($counts_by_date[$day]) ? $counts_by_date[$day] : 0;
+					$report_data[] = array($label, $value);
+					$days++;
 				}
 
 				$report_data = array_reverse($report_data);

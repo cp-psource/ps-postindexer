@@ -386,12 +386,10 @@ class Activity_Reports {
 	function load_reports() {
 		if( ! defined( 'REPORTS_PLUGIN_DIR' ) ) return;
 		$reports_dir = REPORTS_PLUGIN_DIR . 'reports';
-		error_log('Reports-Verzeichnis: ' . $reports_dir);
 		if( is_dir( $reports_dir ) ) {
 			if( $udh = opendir( $reports_dir ) ) {
 				while( ( $report = readdir( $udh ) ) !== false ) {
 					if( substr( $report, -4 ) == '.php' ) {
-						error_log('Lade Report-Datei: ' . $report);
 						global $activity_reports;
 						$activity_reports = $this;
 						include_once( $reports_dir . '/' . $report );
@@ -488,3 +486,49 @@ function reports_days_ago( $n, $date_format ) {
 
 	return date( $date_format, time() - 86400 * $n );
 }
+
+// AJAX-Handler für Modal-Report-Ansicht
+add_action('wp_ajax_psource_load_report', function() {
+    if (!current_user_can('manage_network')) wp_die('Keine Berechtigung');
+    $report = isset($_POST['report']) ? sanitize_text_field($_POST['report']) : '';
+    if (!$report) wp_die('Kein Report angegeben');
+    Activity_Reports::instance()->load_reports();
+    $found = false;
+    // Setze $_GET['report'] und ggf. $_GET['report-action'] für die Report-Logik
+    $_GET['report'] = $report;
+    if (!isset($_GET['page'])) {
+        $_GET['page'] = 'reports';
+    }
+    if (isset($_POST['report-action'])) {
+        $_GET['report-action'] = sanitize_text_field($_POST['report-action']);
+        $_GET['action'] = 'view-report';
+    } elseif (isset($_POST['Submit'])) {
+        $_GET['report-action'] = 'view';
+        $_GET['action'] = 'view-report';
+    } else {
+        unset($_GET['report-action']);
+        unset($_GET['action']); // wichtig: kein action für initiales Formular
+    }
+    foreach (Activity_Reports::instance()->available_reports as $available_report) {
+        if ($available_report[1] === $report) {
+            $found = true;
+            echo '<div class="psource-modal-report-content">';
+            echo '<h3>' . esc_html($available_report[0]) . '</h3>';
+            // DEBUG: Vor do_action
+            ob_start();
+            do_action('view_report');
+            $report_output = ob_get_clean();
+            if (trim($report_output) === '') {
+                echo '<div style="color:red;">[DEBUG] Kein Output von do_action(\'view_report\'). Prüfe, ob das Report-File korrekt eingebunden und add_action ausgeführt wird.</div>';
+            } else {
+                echo $report_output;
+            }
+            echo '</div>';
+            break;
+        }
+    }
+    if (!$found) {
+        echo '<div>Report nicht gefunden.</div>';
+    }
+    wp_die();
+});

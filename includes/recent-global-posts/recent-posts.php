@@ -198,7 +198,6 @@ class Recent_Network_Posts {
 			$thumb_html = '';
 			if ( $args['show_thumb'] === 'yes' ) {
 				$thumb_id = get_post_thumbnail_id( $post_id );
-				error_log( "[{$blog_id} - {$post_id}] Thumbnail-ID: " . $thumb_id );
 				if ( $thumb_id ) {
 					$thumb_html = wp_get_attachment_image( $thumb_id, $args['thumb_size'] ?? 'medium' );
 				}

@@ -378,11 +378,18 @@ if ( ! class_exists( 'postindexercron' ) ) {
 		}
 
 		function debug_message( $title, $message ) {
-			if ( defined( 'PI_CRON_DEBUG' ) && PI_CRON_DEBUG === true && function_exists( 'error_log' ) ) {
-				$this->model->log_message( $title, $message );
-				$this->model->clear_messages( PI_CRON_DEBUG_KEEP_LAST );
-			}
-		}
+            if ( defined( 'PI_CRON_DEBUG' ) && PI_CRON_DEBUG === true ) {
+                if ( function_exists( 'error_log' ) ) {
+                    error_log( '[' . $title . '] ' . $message );
+                }
+                if ( method_exists( $this->model, 'log_message' ) ) {
+                    $this->model->log_message( $title, $message );
+                }
+                if ( method_exists( $this->model, 'clear_messages' ) && defined( 'PI_CRON_DEBUG_KEEP_LAST' ) ) {
+                    $this->model->clear_messages( PI_CRON_DEBUG_KEEP_LAST );
+                }
+            }
+        }
 
 	}
 

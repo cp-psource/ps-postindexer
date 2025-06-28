@@ -61,7 +61,6 @@ function comment_indexer_global_install() {
     // Debug: Tabellenname und Existenz prüfen
     $table = $wpdb->base_prefix . 'site_comments';
     $exists = $wpdb->get_var("SHOW TABLES LIKE '$table'");
-    error_log('[WP_DEBUG] Nach CREATE TABLE: base_prefix=' . $wpdb->base_prefix . ', table=' . $table . ', exists=' . ($exists ? 'ja' : 'nein'));
 }
 
 /**

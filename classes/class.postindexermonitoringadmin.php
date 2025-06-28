@@ -134,11 +134,124 @@ class Postindexer_Monitoring_Admin {
                 echo '<div>';
                 echo '<h2 style="margin-top:0;">' . esc_html($tool['name']) . '</h2>';
                 echo '<p style="color:#444;">' . esc_html($tool['desc']) . '</p>';
+                // Reports-Grid: Links als Modal-Trigger ausgeben
+                if ($tool['key'] === 'reports' && !empty($tool_content)) {
+                    // Reports-Table parsen und Links ersetzen
+                    $tool_content = preg_replace_callback(
+                        '/<a href=\'([^\']+)\' rel=\'permalink\' class=\'edit\'>([^<]+)<\/a>/',
+                        function($matches) {
+                            // $matches[1] = href, $matches[2] = Linktext
+                            if (preg_match('/report=([a-zA-Z0-9\-_]+)/', $matches[1], $rm)) {
+                                $report = esc_attr($rm[1]);
+                                return '<a href="#" data-psource-modal-open="report-modal" data-report="' . $report . '">' . esc_html($matches[2]) . '</a>';
+                            }
+                            return $matches[0];
+                        },
+                        $tool_content
+                    );
+                }
                 echo $tool_content;
                 echo '</div>';
             }
         }
         echo '</div>';
+
+        // Modal-HTML, CSS und JS direkt ausgeben
+        if (!defined('PSOURCE_REPORT_MODAL')) {
+            define('PSOURCE_REPORT_MODAL', true);
+            $plugin_url = plugins_url('assets/psource-ui/modal/', WP_PLUGIN_DIR . '/ps-postindexer/ps-postindexer.php');
+            echo '<link rel="stylesheet" href="' . $plugin_url . 'psource-modal.css?ver=1.0.0" />';
+            echo '<dialog id="report-modal" class="psource-modal">';
+            echo '<div class="psource-modal-header">';
+            echo '<span id="psource-modal-title"></span>';
+            echo '<button class="psource-modal-close" aria-label="Schließen">&times;</button>';
+            echo '</div>';
+            echo '<div class="psource-modal-content" id="psource-modal-content"></div>';
+            echo '</dialog>';
+            echo '<script src="' . $plugin_url . 'psource-modal.js?ver=1.0.0"></script>';
+            // AJAX-Loader für Reports mit Debug-Ausgaben und Formular-AJAX
+            echo '<script>
+            jQuery(document).on("click", "[data-psource-modal-open][data-report]", function(e) {
+                e.preventDefault();
+                var report = jQuery(this).data("report");
+                var title = jQuery(this).text();
+                var modal = document.getElementById("report-modal");
+                jQuery("#psource-modal-title").text(title);
+                jQuery("#psource-modal-content").html("<div>Lade Report...</div>");
+                try { modal.showModal(); } catch(err) {}
+                jQuery.ajax({
+                    url: ajaxurl,
+                    method: "POST",
+                    data: {
+                        action: "psource_load_report",
+                        report: report
+                    },
+                    success: function(html) {
+                        jQuery("#psource-modal-content").html(html);
+                        // Formular im Modal abfangen
+                        jQuery("#psource-modal-content form[name=report]").on("submit", function(ev) {
+                            ev.preventDefault();
+                            var formData = jQuery(this).serializeArray();
+                            formData.push({name: "action", value: "psource_load_report"});
+                            formData.push({name: "report", value: report});
+                            // Button-Name für Report-POST ergänzen (wichtig für Report-Logik)
+                            var submitBtn = jQuery(this).find("input[type=\'submit\'][name=\'Submit\']");
+                            if(submitBtn.length) {
+                                formData.push({name: "Submit", value: submitBtn.val()});
+                            }
+                            jQuery("#psource-modal-content").html("<div>Lade Report...</div>");
+                            jQuery.ajax({
+                                url: ajaxurl,
+                                method: "POST",
+                                data: formData,
+                                success: function(html2) {
+                                    jQuery("#psource-modal-content").html(html2);
+                                },
+                                error: function() {
+                                    jQuery("#psource-modal-content").html("<div>Fehler beim Laden des Reports.</div>");
+                                }
+                            });
+                        });
+                    },
+                    error: function() {
+                        jQuery("#psource-modal-content").html("<div>Fehler beim Laden des Reports.</div>");
+                    }
+                });
+            });
+            </script>';
+            // Polyfill für <dialog> (nur wenn nicht sichtbar)
+            echo '<script>
+            (function(){
+                var modal = document.getElementById("report-modal");
+                if (modal && !modal.showModal) {
+                    // Polyfill: showModal als Fallback
+                    modal.showModal = function() {
+                        this.setAttribute("open", "open");
+                        this.style.display = "block";
+                        this.style.position = "fixed";
+                        this.style.zIndex = 99999;
+                        this.style.left = "50%";
+                        this.style.top = "50%";
+                        this.style.transform = "translate(-50%, -50%)";
+                        document.body.style.overflow = "hidden";
+                    };
+                    modal.close = function() {
+                        this.removeAttribute("open");
+                        this.style.display = "none";
+                        document.body.style.overflow = "";
+                    };
+                }
+                // Schließen-Button auch für Polyfill
+                var closeBtn = modal ? modal.querySelector(".psource-modal-close") : null;
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", function(e) {
+                        e.preventDefault();
+                        modal.close();
+                    });
+                }
+            })();
+            </script>';
+        }
     }
 }
 

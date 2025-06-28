@@ -122,6 +122,5 @@ if (
     && $postindexer_extensions_admin->is_extension_active_for_site('global_site_tags')
     && !is_network_admin()
 ) {
-    if (function_exists('error_log')) error_log('Widget wird registriert auf Blog: ' . get_current_blog_id());
     register_widget('widget_global_site_tags');
 }
