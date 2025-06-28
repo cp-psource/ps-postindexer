@@ -432,7 +432,15 @@ add_action('plugins_loaded', function() {
 	}
 	if ( isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('global_site_tags') ) {
 		if (class_exists('globalsitetags')) {
-			new globalsitetags();
+			global $globalsitetags;
+			$globalsitetags = new globalsitetags();
+			// Widget-Registrierung in widgets_init verschieben!
+			add_action('widgets_init', function() {
+				require_once __DIR__ . '/widget-global-site-tags.php';
+				if (!is_network_admin()) {
+					register_widget('widget_global_site_tags');
+				}
+			});
 		}
 	}
 });

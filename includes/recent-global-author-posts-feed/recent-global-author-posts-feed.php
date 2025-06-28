@@ -20,8 +20,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-// DEBUG: Wird die Datei geladen?
-echo '<!-- DEBUG: recent-global-author-posts-feed.php geladen -->';
 // Postindexer-Erweiterung registrieren (immer ganz oben, außerhalb von Bedingungen)
 add_filter('postindexer_extensions', function($exts) {
     $exts['recent-global-author-posts-feed'] = array(

@@ -47,16 +47,16 @@ A built-in widget makes global feeds easy to share. Best of all you can add a si
 *   You can access feeds for custom post types by using http://yoursite.com/feed/globalpostsfeed?posttype=customposttype, substituting customposttype with your custom post type
 *   You can check if it is working correctly by posting some new posts and confirming they appear in your global feed.
 
-4\.  Install Recent Global Posts Widget
+4\.  Install Neueste Netzwerk Beiträge
 
-*   Visit **Network Admin -> Plugins** to Network Activate the Recent Global Posts Widget
-*   Your Recent Global Posts Widget is added to **Appearance > Widgets** of your main site.
+*   Visit **Network Admin -> Plugins** to Network Activate the Neueste Netzwerk Beiträge
+*   Your Neueste Netzwerk Beiträge is added to **Appearance > Widgets** of your main site.
 *   By default, the widget is available only on the main site of your network. This behavior can be changed by following the instructions below.
 *   The Recent Global Posts Feed is for public posts only. Posts from privates sites don't appear in the feed.
 
 ### Enabling Widget for all sites
 
-By default the Recent Global Posts Widget is only enabled for use by the main site. You can enable it for all sites on your network as follows:
+By default the Neueste Netzwerk Beiträge is only enabled for use by the main site. You can enable it for all sites on your network as follows:
 
 1.  Open your **wp-config.php** file using a text editing program like [EditPlus](http://www.editplus.com/) 
 
@@ -68,7 +68,7 @@ By default the Recent Global Posts Widget is only enabled for use by the main si
 
 1.  Go to **Appearance > Widgets**
 
-2.  Add the Recent Global Posts Widget to your sidebar. 
+2.  Add the Neueste Netzwerk Beiträge to your sidebar. 
 
 3.  Check out the configuration options 
 

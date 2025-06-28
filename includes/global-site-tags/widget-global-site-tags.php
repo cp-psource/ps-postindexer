@@ -1,10 +1,12 @@
 <?php
 // Dieses Widget ist jetzt Teil der zentralen Erweiterungen des PS-Postindexer-Plugins (kein eigenständiges Plugin mehr).
 
+if (function_exists('error_log')) error_log('widget-global-site-tags.php wurde geladen: ' . get_current_blog_id());
+
 class widget_global_site_tags extends WP_Widget {
 
 	public function __construct() {
-		parent::__construct( 'global_site_tags', __( 'Global Site Tags', 'globalsitetags' ), array(
+		parent::__construct( 'global_site_tags', __( 'Netzwerk Seiten-Tags', 'globalsitetags' ), array(
 			'description' => __( 'Displays tags from all blogs', 'globalsitetags' ),
 		) );
 	}
@@ -114,20 +116,12 @@ class widget_global_site_tags extends WP_Widget {
 
 }
 
-// Integration als Erweiterung für den Beitragsindexer
-add_action('plugins_loaded', function() {
-	if ( !class_exists('Postindexer_Extensions_Admin') ) return;
-	global $postindexer_extensions_admin;
-	if ( !isset($postindexer_extensions_admin) ) {
-		if ( isset($GLOBALS['postindexeradmin']) && isset($GLOBALS['postindexeradmin']->extensions_admin) ) {
-			$postindexer_extensions_admin = $GLOBALS['postindexeradmin']->extensions_admin;
-		}
-	}
-	if ( isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('global_site_tags') ) {
-		add_action( 'widgets_init', 'widget_global_site_tags_init' );
-	}
-});
-
-function widget_global_site_tags_init() {
-	register_widget( 'widget_global_site_tags' );
+// Widget-Registrierung direkt nach der Klassendefinition
+if (
+    isset($postindexer_extensions_admin)
+    && $postindexer_extensions_admin->is_extension_active_for_site('global_site_tags')
+    && !is_network_admin()
+) {
+    if (function_exists('error_log')) error_log('Widget wird registriert auf Blog: ' . get_current_blog_id());
+    register_widget('widget_global_site_tags');
 }

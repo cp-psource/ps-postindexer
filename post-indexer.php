@@ -59,7 +59,7 @@ add_action('init', function() {
     require_once POST_INDEXER_PLUGIN_DIR . 'includes/live-stream-widget/live-stream.php';
 });
 
-// Widget-Loader für Recent Global Posts Widget (immer laden, aber Registrierung nach Scope)
+// Widget-Loader für Neueste Netzwerk Beiträge (immer laden, aber Registrierung nach Scope)
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-posts-widget/widget-recent-global-posts.php';
 add_action('widgets_init', function() {
     global $postindexer_extensions_admin;
@@ -96,6 +96,7 @@ global $postindexer_extensions_admin;
 if ( !isset($postindexer_extensions_admin) ) {
     $postindexer_extensions_admin = new Postindexer_Extensions_Admin();
 }
+if (function_exists('error_log')) error_log('DEBUG: post-indexer.php: $postindexer_extensions_admin TYPE=' . gettype($postindexer_extensions_admin) . ' CLASS=' . (is_object($postindexer_extensions_admin) ? get_class($postindexer_extensions_admin) : '---'));
 
 if (is_admin()){
 	// Include the main class

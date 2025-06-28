@@ -45,10 +45,10 @@ Pair Comment Indexer with our Post Indexer plugin and expand your global index t
 * **Anti-splog** – Stop splogs in their tracks
 * **Blogs Directory** – A fully searchable, avatar inclusive, automatic and rather good-looking directory of all the sites in your network
 * **Global Site Search** – Activate global search across all of the sites on your network with ease
-* **Global Site Tags** – Display global site tags for your entire network
+* **Netzwerk Seiten-Tags** – Display global site tags for your entire network
 * **Tag feed** – Display a list of posts that have been tagged with a specific tag or category
 * **Recent Global Posts** – Display a list of recent posts anywhere on your site using a simple shortcode or template function
-* **Recent Global Posts Widget** – Display the latest posts from across your entire network
+* **Neueste Netzwerk Beiträge** – Display the latest posts from across your entire network
 * **Recent Global Posts Feed** – Create an RSS feed of all the latest posts on your network
 * **Live Stream** – Display your own slick animated Live Stream Widget
 * **User Reports** – Track user posts and comments across your network

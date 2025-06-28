@@ -56,7 +56,7 @@ if ( !function_exists( 'rgpwidget_exclude_blogs' ) ) :
 endif;
 
 /**
- * Recent Global Posts Widget class.
+ * Neueste Netzwerk Beiträge class.
  */
 class Recent_Global_Posts_Widget extends WP_Widget {
 

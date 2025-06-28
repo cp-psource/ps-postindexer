@@ -34,10 +34,10 @@ Du kannst ganz einfach einzelnen Blogs in Deinem Netzwerk folgen um so über die
 
 [MULTISITE READER](https://cp-psource.github.io/msreader/){: .btn }
 
-### Recent Global Posts Widget
+### Neueste Netzwerk Beiträge
 
 Das Widget „Neueste globale Beiträge“ zeigt alle neuesten Beiträge aus Deinem gesamten Multisite- oder BuddyPress-Netzwerk auf Deiner Hauptseite an – einfach, effizient und schnell.
 
-[Recent Global Posts Widget](https://cp-psource.github.io/recent-global-posts-widget/){: .btn }
+[Neueste Netzwerk Beiträge](https://cp-psource.github.io/recent-global-posts-widget/){: .btn }
 
 

@@ -1,5 +1,5 @@
 <?php
-// Settings-Renderer für Recent Global Posts Widget (Netzwerk-Admin)
+// Settings-Renderer für Neueste Netzwerk Beiträge (Netzwerk-Admin)
 if ( !class_exists('Recent_Global_Posts_Widget_Settings_Renderer') ) {
 class Recent_Global_Posts_Widget_Settings_Renderer {
     public function render_settings_form() {
@@ -26,7 +26,7 @@ if (is_admin() && isset($_POST['ps_rgpw_settings_nonce']) && check_admin_referer
     // Hier können Einstellungen gespeichert werden
     // update_site_option('recent_global_posts_widget_settings', ...);
     add_action('admin_notices', function(){
-        echo '<div class="updated notice is-dismissible"><p>Recent Global Posts Widget: Einstellungen gespeichert.</p></div>';
+        echo '<div class="updated notice is-dismissible"><p>Neueste Netzwerk Beiträge: Einstellungen gespeichert.</p></div>';
     });
 }
 // Fehlende schließende Klammer für die Klasse ergänzt

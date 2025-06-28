@@ -12,17 +12,17 @@ class Postindexer_Extensions_Admin {
         ],
         'global_site_search' => [
             'name' => 'Globale Netzwerksuche',
-            'desc' => 'Ermöglicht eine zentrale Suche über alle Seiten und Beiträge im gesamten Multisite-Netzwerk.',
+            'desc' => 'Ermöglicht eine zentrale Suche über alle Seiten und Beiträge im gesamten Multisite-Netzwerk. Erstellt bei Aktivierung eine Suchseite (/site-search) und stellt Netzwerkweite Such Widgets bereit',
             'settings_page' => '', // ggf. später ergänzen
         ],
         'recent_global_posts_widget' => [
-            'name' => 'Recent Global Posts Widget',
-            'desc' => 'Stellt ein Widget bereit, das die neuesten Beiträge aus dem gesamten Netzwerk anzeigt.',
+            'name' => 'Neueste Netzwerk Beiträge',
+            'desc' => 'Stellt ein Widget bereit, das die neuesten Beiträge aus dem gesamten Netzwerk anzeigt. Alle Einstellungen legst du für jedes Widget separat an, wähle hier aus wo du das Widget erlauben willst',
             'settings_page' => '',
         ],
         'global_site_tags' => [
-            'name' => 'Global Site Tags',
-            'desc' => 'Ermöglicht die Anzeige und Verwaltung globaler Schlagwörter (Tags) im gesamten Netzwerk.',
+            'name' => 'Netzwerk Seiten-Tags',
+            'desc' => 'Ermöglicht die Anzeige und Verwaltung globaler Schlagwörter (Tags) im gesamten Netzwerk. Es wird automatisch eine Seite mit dem Namen „Tags“ auf deinem Hauptblog erstellt, auf der jeder alle Blogs durchsuchen kann.',
             'settings_page' => '',
         ],
         'live_stream_widget' => [
@@ -106,7 +106,7 @@ class Postindexer_Extensions_Admin {
         if (isset($_POST['ps_gst_settings_nonce']) && check_admin_referer('ps_gst_settings_save','ps_gst_settings_nonce')) {
             if (function_exists('global_site_tags_site_admin_options_process')) {
                 global_site_tags_site_admin_options_process();
-                echo '<div class="updated notice is-dismissible"><p>Global Site Tags: Einstellungen gespeichert.</p></div>';
+                echo '<div class="updated notice is-dismissible"><p>Netzwerk Seiten-Tags: Einstellungen gespeichert.</p></div>';
             }
         }
         // Speicherlogik für Comments Control
@@ -487,7 +487,7 @@ echo '</div>';
         // Card bleibt nach Submit offen
 
         echo "<script>document.addEventListener('DOMContentLoaded',function(){\n    document.querySelectorAll('.ps-extension-card').forEach(function(card){\n        var form = card.querySelector('.ps-extension-settings-form');\n        if(form) {\n            form.style.display='none';\n            var btn = form.querySelector('.ps-extension-save-btn');\n            if(btn) btn.style.display='none';\n        }\n        card.classList.remove('active');\n        card.addEventListener('click',function(e){\n            if(e.target.closest('input,select,button,label,form')) return;\n            document.querySelectorAll('.ps-extension-card').forEach(function(c){\n                if(c!==card){\n                    c.classList.remove('active');\n                    var f = c.querySelector('.ps-extension-settings-form');\n                    if(f) {\n                        f.style.display='none';\n                        var b = f.querySelector('.ps-extension-save-btn');\n                        if(b) b.style.display='none';\n                    }\n                }\n            });\n            card.classList.add('active');\n            var form = card.querySelector('.ps-extension-settings-form');\n            if(form) {\n                form.style.display='block';\n                var btn = form.querySelector('.ps-extension-save-btn');\n                if(btn) btn.style.display='inline-block';\n                // Editor-Initialisierung NUR für sichtbare Felder im aktiven Formular\n                form.querySelectorAll('textarea.wp-editor-area').forEach(function(textarea){\n                    var id = textarea.id;\n                    if(id && typeof window.switchEditor==='object' && typeof window.switchEditor.go==='function') {\n                        if(window.tinymce && !window.tinymce.get(id)) {\n                            try { window.switchEditor.go(id, 'tmce'); } catch(e){}\n                        }\n                    }\n                });\n            }\n        });\n    });\n});</script>";
-        // Nach dem Speichern: Setup für Global Site Tags erzwingen, wenn aktiviert
+        // Nach dem Speichern: Setup für Netzwerk Seiten-Tags erzwingen, wenn aktiviert
         if (isset($settings['global_site_tags']['active']) && $settings['global_site_tags']['active']) {
             if (!class_exists('globalsitetags')) {
                 require_once dirname(__DIR__) . '/includes/global-site-tags/global-site-tags.php';
