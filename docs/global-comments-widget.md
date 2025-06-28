@@ -1,4 +1,4 @@
-# Recent Comments Widget
+# Netzwerk Kommentare Widget
 
 **INACTIVE NOTICE: This plugin is unsupported by WPMUDEV, we've published it here for those technical types who might want to fork and maintain it for their needs.**
 
@@ -12,7 +12,7 @@ Display all the latest comments from across an entire Multisite network using a 
 * Display avatars 
 * Preset avatar size 
 
-## Recent Comments Widget brings all the latest comments from across your entire network to your main site.
+## Netzwerk Kommentare Widget brings all the latest comments from across your entire network to your main site.
 
 ### Advanced Comments for Multisite
 
@@ -45,7 +45,7 @@ For help with installing plugins please refer to our [Plugin installation guide.
 * The Comment Indexer is designed to index comment from the time it is installed on your network and needs to be installed for the Recent Global Comments Widget plugin to work.
 * The Comment Indexer can’t index commentss that were published prior to being installed. i.e. _comments published prior to it being installed won’t display in your Recent Global Comment Widget._
 
-2\. Install the Recent Comments Plugin.
+2\. Install the Netzwerk Kommentare Plugin.
 
 * Once uploaded visit **Network Admin -> Plugins** to Network Activate the Recent Global Comments Widget Plugin.
 * Your Recent Global Comment widget is added to **Appearance > Widgets **of your main site.

@@ -1,7 +1,7 @@
 <?php
 // Dieses Widget ist jetzt Teil der zentralen Erweiterungen des PS-Postindexer-Plugins (kein eigenständiges Plugin mehr).
 
-if (function_exists('error_log')) error_log('widget-global-site-tags.php wurde geladen: ' . get_current_blog_id());
+
 
 class widget_global_site_tags extends WP_Widget {
 

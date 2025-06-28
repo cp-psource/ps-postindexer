@@ -96,7 +96,6 @@ global $postindexer_extensions_admin;
 if ( !isset($postindexer_extensions_admin) ) {
     $postindexer_extensions_admin = new Postindexer_Extensions_Admin();
 }
-if (function_exists('error_log')) error_log('DEBUG: post-indexer.php: $postindexer_extensions_admin TYPE=' . gettype($postindexer_extensions_admin) . ' CLASS=' . (is_object($postindexer_extensions_admin) ? get_class($postindexer_extensions_admin) : '---'));
 
 if (is_admin()){
 	// Include the main class

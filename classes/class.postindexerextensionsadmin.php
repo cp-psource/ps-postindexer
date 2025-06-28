@@ -37,8 +37,8 @@ class Postindexer_Extensions_Admin {
             'requires_comment_indexer' => true
         ],
         'recent_comments' => [
-            'name' => 'Recent Comments',
-            'desc' => 'Zeigt die letzten Kommentare (Comment Indexer erforderlich).',
+            'name' => 'Netzwerk Kommentare',
+            'desc' => 'Zeigt die letzten Netzwerk-Kommentare per Shortcode [network_comments] an. Die zentrale Konfiguration erfolgt im Netzwerk-Admin unter den Erweiterungs-Einstellungen. (Comment Indexer erforderlich)',
             'settings_page' => '',
             'requires_comment_indexer' => true
         ],
@@ -503,6 +503,12 @@ echo '</div>';
 
     public function get_settings() {
         $settings = get_site_option($this->option_name, []);
+        // Migration: Wenn recent_comments noch keine Settings hat, aber recent_global_comments_widget schon, dann verschiebe sie dauerhaft
+        if (!isset($settings['recent_comments']) && isset($settings['recent_global_comments_widget'])) {
+            $settings['recent_comments'] = $settings['recent_global_comments_widget'];
+            unset($settings['recent_global_comments_widget']);
+            update_site_option($this->option_name, $settings); // dauerhaft speichern
+        }
         // Defaults für neue Erweiterungen
         foreach ($this->extensions as $key => $ext) {
             if (!isset($settings[$key]['scope'])) $settings[$key]['scope'] = 'main';
@@ -524,6 +530,17 @@ echo '</div>';
         if ($scope === 'main') return $site_id == $main_site;
         if ($scope === 'sites') return in_array($site_id, $settings[$extension_key]['sites'] ?? []);
         return false;
+    }
+
+    // Hilfsfunktion: Gibt den passenden Settings-Renderer-Key für Netzwerk-Kommentare zurück
+    private function get_recent_comments_settings_key() {
+        // Bevorzuge neuen Key, aber unterstütze Fallback auf alten
+        if (isset($this->extensions['recent_comments'])) {
+            return 'recent_comments';
+        } elseif (isset($this->extensions['recent_global_comments_widget'])) {
+            return 'recent_global_comments_widget';
+        }
+        return null;
     }
 }
 

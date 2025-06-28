@@ -67,6 +67,16 @@ function widget_recent_global_comments_init() {
 	function widget_recent_global_comments_control() {
 		global $wpdb;
 		$options = $newoptions = get_option('widget_recent_global_comments');
+		if ( !is_array($options) ) $options = $newoptions = array();
+		$defaults = array(
+			'recent-global-comments-title' => '',
+			'recent-global-comments-number' => 10,
+			'recent-global-comments-content-characters' => 50,
+			'recent-global-comments-avatars' => 'show',
+			'recent-global-comments-avatar-size' => 32
+		);
+		$options = array_merge($defaults, $options);
+		$newoptions = array_merge($defaults, $newoptions);
 		if ( isset( $_POST['recent-global-comments-submit'] ) ) {
 			$newoptions['recent-global-comments-title'] 				= sanitize_text_field($_POST['recent-global-comments-title']);
 			$newoptions['recent-global-comments-number'] 				= intval($_POST['recent-global-comments-number']);
@@ -195,3 +205,62 @@ function widget_recent_global_comments_init() {
 }
 
 add_action('widgets_init', 'widget_recent_global_comments_init');
+
+// Shortcode-Registrierung nur, wenn die Erweiterung aktiv ist
+add_action('plugins_loaded', function() {
+    if ( !class_exists('Postindexer_Extensions_Admin') ) return;
+    global $postindexer_extensions_admin;
+    if ( !isset($postindexer_extensions_admin) ) {
+        if ( isset($GLOBALS['postindexeradmin']) && isset($GLOBALS['postindexeradmin']->extensions_admin) ) {
+            $postindexer_extensions_admin = $GLOBALS['postindexeradmin']->extensions_admin;
+        }
+    }
+    // Korrekte Prüfung auf den Extension-Slug
+    if ( isset($postindexer_extensions_admin) && $postindexer_extensions_admin->is_extension_active_for_site('recent_global_comments_widget') ) {
+        add_shortcode('network_comments', function($atts = []) {
+            $defaults = array(
+                'title' => '',
+                'number' => 10,
+                'content_characters' => 50,
+                'avatars' => 'show',
+                'avatar_size' => 32,
+                'global_before' => '',
+                'global_after' => '',
+                'before' => '',
+                'after' => '',
+                'link' => ''
+            );
+            $settings = get_site_option('recent_global_comments_settings', []);
+            $settings = is_array($settings) ? array_merge($defaults, $settings) : $defaults;
+            $atts = shortcode_atts($settings, $atts);
+            global $wpdb;
+            $html = $atts['global_before'];
+            if (!empty($atts['title'])) {
+                $html .= '<h3>' . esc_html($atts['title']) . '</h3>';
+            }
+            $query = $wpdb->prepare("SELECT * FROM {$wpdb->base_prefix}site_comments WHERE blog_public = '1' AND comment_approved = '1' AND comment_type != 'pingback' ORDER BY comment_date_stamp DESC LIMIT %d", intval($atts['number']));
+            $comments = $wpdb->get_results($query, ARRAY_A);
+            if ($comments && count($comments) > 0) {
+                $html .= '<ul class="network-comments-list">';
+                foreach ($comments as $comment) {
+                    $html .= $atts['before'] . '<li>';
+                    if ($atts['avatars'] === 'show') {
+                        $id_or_email = !empty($comment['comment_author_user_id']) ? $comment['comment_author_user_id'] : $comment['comment_author_email'];
+                        $html .= '<a href="' . esc_url($comment['comment_post_permalink']) . '">' . get_avatar($id_or_email, $atts['avatar_size'], '') . '</a> ';
+                    }
+                    $content = strip_tags($comment['comment_content']);
+                    $excerpt = mb_strlen($content) > $atts['content_characters'] ? mb_substr($content, 0, $atts['content_characters']) . '...' : $content;
+                    $html .= esc_html($excerpt);
+                    $link_text = $atts['link'] !== '' ? $atts['link'] : __('Mehr', 'postindexer');
+                    $html .= ' (<a href="' . esc_url($comment['comment_post_permalink']) . '#comment-' . intval($comment['comment_id']) . '">' . esc_html($link_text) . '</a>)';
+                    $html .= '</li>' . $atts['after'];
+                }
+                $html .= '</ul>';
+            } else {
+                $html .= '<p>Keine Kommentare gefunden.</p>';
+            }
+            $html .= $atts['global_after'];
+            return $html;
+        });
+    }
+});
