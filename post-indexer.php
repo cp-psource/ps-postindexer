@@ -4,7 +4,7 @@ Plugin Name: Multisite Index
 Plugin URI: https://cp-psource.github.io/ps-postindexer/
 Description: Ein mächtiges Multisite-Index Plugin - Bringe deinen Content dahin wo du ihn brauchst!
 Author: PSOURCE
-Version: 3.1.7
+Version: 3.1.8
 Author URI: https://github.com/cp-psource
 Requires at least: 4.9
 Network: true
@@ -121,6 +121,9 @@ require_once POST_INDEXER_PLUGIN_DIR . 'includes/recent-global-author-posts-feed
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/blog-activity/blog-activity.php';
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/user-activity/user-activity.php';
 require_once POST_INDEXER_PLUGIN_DIR . 'includes/reports/reports.php';
+
+// Content Monitor IMMER laden, damit Hooks für Beiträge und Kommentare aktiv sind
+require_once POST_INDEXER_PLUGIN_DIR . 'includes/content-monitor/content-monitor.php';
 
 add_action('plugins_loaded', function() {
     load_plugin_textdomain('postindexer', false, dirname(plugin_basename(__FILE__)) . '/languages');
