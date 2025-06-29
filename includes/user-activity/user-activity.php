@@ -1,32 +1,4 @@
 <?php
-/*
-Plugin Name: User Activity
-Plugin URI: http://premium.wpmudev.org/project/user-activity
-Description: Collects user activity data and makes it available via a tab under the Site Admin
-Author: PSOURCE
-Version: 1.1
-Network: true
-Text Domain: user_activity
-Author URI: http://premium.wpmudev.org/
-WDP ID: 3
-*/
-
-/*
-Copyright 2007-2014 Incsub (http://incsub.com)
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 
 /**
  * Plugin main class
@@ -50,8 +22,8 @@ class User_Activity {
 		add_action( 'admin_init', array( $this, 'init' ) );
 
 		if ( is_multisite() ) {
-			add_action( 'admin_menu', array( $this, 'pre_3_1_network_admin_page' ) );
-			add_action( 'network_admin_menu', array( $this, 'network_admin_page' ) );
+			// add_action( 'admin_menu', array( $this, 'pre_3_1_network_admin_page' ) ); // entfernt, da Methode nicht mehr benötigt
+			// add_action( 'network_admin_menu', array( $this, 'network_admin_page' ) ); // entfernt, da Methode nicht mehr benötigt
 		} else {
 			add_action( 'admin_menu', array( $this, 'admin_page' ) );
 		}
@@ -191,32 +163,6 @@ class User_Activity {
 		$tmp_output = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->base_prefix}user_activity WHERE last_active > '%d'", $tmp_stamp ) );
 
 		echo $tmp_output;
-	}
-
-	private function add_admin_menu( $parent_slug, $capability ) {
-
-		$this->page_id = add_submenu_page(
-			$parent_slug,
-			__( 'User Activity', 'user_activity' ),
-			__( 'User Activity', 'user_activity' ),
-			$capability,
-			'user_activity_main',
-			array( $this, 'page_main_output' )
-		);
-	}
-
-	/**
-	 * Add network admin page
-	 */
-	function network_admin_page() {
-		$this->add_admin_menu( 'settings.php', 'manage_network_options' );
-	}
-
-	/**
-	 * Add network admin page the old way
-	 */
-	function pre_3_1_network_admin_page() {
-		$this->add_admin_menu( 'ms-admin.php', 'manage_network_options' );
 	}
 
 	/**

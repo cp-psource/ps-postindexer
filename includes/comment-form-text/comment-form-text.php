@@ -24,42 +24,7 @@ if (is_network_admin()) {
             wp_enqueue_script('quicktags');
         }
     });
-    add_action('network_admin_menu', function() {
-        add_submenu_page('settings.php', 'Comment Form Text', 'Comment Form Text', 'manage_network_options', 'comment-form-text', function() {
-            if (isset($_POST['cft_text_logged_in'], $_POST['cft_text_guest'], $_POST['cft_css']) && check_admin_referer('comment_form_text_settings_save', 'comment_form_text_settings_nonce')) {
-                update_site_option('cft_text_logged_in', wp_unslash($_POST['cft_text_logged_in']));
-                update_site_option('cft_text_guest', wp_unslash($_POST['cft_text_guest']));
-                update_site_option('cft_css', wp_unslash($_POST['cft_css']));
-                echo '<div class="updated"><p>Einstellungen gespeichert!</p></div>';
-            }
-            $text_logged_in = get_site_option('cft_text_logged_in', '');
-            $text_guest = get_site_option('cft_text_guest', '');
-            $css = get_site_option('cft_css', '');
-            echo '<div class="wrap"><h1>Comment Form Text Einstellungen</h1>';
-            echo '<form method="post">';
-            wp_nonce_field('comment_form_text_settings_save', 'comment_form_text_settings_nonce');
-            echo '<h2>Text für eingeloggte Nutzer</h2>';
-            if (function_exists('wp_editor')) {
-                wp_editor($text_logged_in, 'cft_text_logged_in_editor_admin', array('textarea_name'=>'cft_text_logged_in', 'textarea_rows'=>8, 'media_buttons'=>false));
-                // Quicktags initialisieren
-                echo "<script>if(window.QTags){QTags.addQuickTags('cft_text_logged_in_editor_admin');}</script>";
-            } else {
-                echo '<textarea name="cft_text_logged_in" rows="5" style="width:100%">'.esc_textarea($text_logged_in).'</textarea>';
-            }
-            echo '<h2>Text für Gäste</h2>';
-            if (function_exists('wp_editor')) {
-                wp_editor($text_guest, 'cft_text_guest_editor_admin', array('textarea_name'=>'cft_text_guest', 'textarea_rows'=>8, 'media_buttons'=>false));
-                // Quicktags initialisieren
-                echo "<script>if(window.QTags){QTags.addQuickTags('cft_text_guest_editor_admin');}</script>";
-            } else {
-                echo '<textarea name="cft_text_guest" rows="5" style="width:100%">'.esc_textarea($text_guest).'</textarea>';
-            }
-            echo '<h2>Eigene CSS-Styles (optional)</h2>';
-            echo '<textarea name="cft_css" rows="3" style="width:100%">'.esc_textarea($css).'</textarea>';
-            echo '<br><button class="button button-primary">Einstellungen speichern</button>';
-            echo '</form></div>';
-        });
-    });
+    // Das Submenü und die Einstellungsseite werden nicht mehr benötigt und entfernt.
 }
 
 function comment_form_text_output(){

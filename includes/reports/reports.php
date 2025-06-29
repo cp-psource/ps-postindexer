@@ -34,14 +34,6 @@ class Activity_Reports {
 		add_action( 'admin_init', array( $this, 'make_current' ) );
 		add_action( 'admin_head', array( $this, 'css' ) );
 
-		// Add the admin page
-		if ( ! is_multisite() )
-			add_action( 'admin_menu', array( $this, 'admin_page' ) );
-		elseif ( version_compare( $wp_version , '3.0.9', '>' ) )
-			add_action( 'network_admin_menu', array( $this, 'network_admin_page' ) );
-		else
-			add_action( 'admin_menu', array( $this, 'pre_3_1_network_admin_page' ) );
-
 		// log user data
 		//add_action( 'admin_footer', array( &$this, 'user_activity' ) );
 		//add_action( 'wp_footer', array( &$this, 'user_activity' ) );
@@ -135,18 +127,6 @@ class Activity_Reports {
 
 			update_site_option( 'reports_installed', 'yes' );
 		}
-	}
-
-	function admin_page() {
-		add_submenu_page( 'options-general.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_options', 'reports', array( $this, 'page_output' ) );
-	}
-
-	function network_admin_page() {
-		add_submenu_page( 'settings.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_network_options', 'reports', array( $this, 'page_output' ) );
-	}
-
-	function pre_3_1_network_admin_page() {
-		add_submenu_page( 'ms-admin.php', __( 'Reports', 'reports' ), __( 'Reports', 'reports' ), 'manage_network_options', 'reports', array( $this, 'page_output' ) );
 	}
 
 	function add_report( $name, $nicename, $description ) {

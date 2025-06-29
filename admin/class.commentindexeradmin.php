@@ -20,13 +20,6 @@ class Comment_Indexer_Admin {
     }
 
     public function register_menu() {
-        // Dashboard umbenennen (nur Label)
-        global $menu;
-        foreach ($menu as $k => $item) {
-            if (isset($item[2]) && $item[2] === 'index.php') {
-                $menu[$k][0] = __('Post Index', 'postindexer');
-            }
-        }
         // Comment Index als Submenü direkt nach Post Index einfügen
         // Dazu $position=1 setzen, damit es direkt nach dem Hauptmenü erscheint
         $parent_slug = 'ps-multisite-index';

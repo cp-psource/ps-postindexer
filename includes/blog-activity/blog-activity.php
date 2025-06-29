@@ -27,12 +27,6 @@ class Blog_Activity {
 		add_action( 'save_post', array( &$this, 'post_global_db_sync' ) );
 		add_action( 'blog_activity_cleanup_cron', array( &$this, 'cleanup' ) );
 
-		// Add the super admin page
-		if( version_compare( $wp_version , '3.0.9', '>' ) )
-			add_action( 'network_admin_menu', array( &$this, 'network_admin_page' ) );
-		else
-			add_action( 'admin_menu', array( &$this, 'pre_3_1_network_admin_page' ) );
-
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 	}
 
@@ -171,20 +165,6 @@ class Blog_Activity {
 			else
 				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->base_prefix}blog_activity SET last_active = '%d' WHERE blog_ID = '%d'", time(), $wpdb->blogid ) );
 		}
-	}
-
-	/**
-	 * Add network admin page
-	 **/
-	function network_admin_page() {
-		add_submenu_page( 'settings.php', __( 'Blog Activity', 'blog_activity' ), __( 'Blog Activity', 'blog_activity' ), 'manage_network', 'blog_activity_main', array( &$this, 'page_main_output' ) );
-	}
-
-	/**
-	 * Add network admin page the old way
-	 **/
-	function pre_3_1_network_admin_page() {
-		add_submenu_page( 'ms-admin.php', __( 'Blog Activity', 'blog_activity' ), __( 'Blog Activity', 'blog_activity' ), 'manage_network', 'blog_activity_main', array( &$this, 'page_main_output' ) );
 	}
 
 	/**
