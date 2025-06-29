@@ -1,35 +1,4 @@
 <?php
-/*
-Plugin Name: Recent Global Comments Feed
-Plugin URI: http://premium.wpmudev.org/project/recent-global-comments-feed
-Description: An RSS feed of all the latest comments from across your entire site.
-Author: PSOURCE
-Author URI: http://ivan.sh
-Version: 1.0.6.2
-Network: true
-WDP ID: 71
-*/ 
-
-/* 
-Copyright 2007-2011 Incsub (http://incsub.com)
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
-//------------------------------------------------------------------------//
-//---Config---------------------------------------------------------------//
-//------------------------------------------------------------------------//
 
 $recent_global_comments_feed_widget_main_blog_only = 'yes'; //Either 'yes' or 'no'
 
@@ -67,7 +36,7 @@ function recent_global_comments_feed() {
     >
 
     <channel>
-        <title><?php bloginfo_rss('name'); ?> <?php _e('Comments', 'postindexer'); ?></title>
+        <title><?php bloginfo_rss('name'); ?> <?php _e('Kommentare', 'postindexer'); ?></title>
         <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
         <link><?php bloginfo_rss('url') ?></link>
         <description><?php bloginfo_rss("description") ?></description>
@@ -88,7 +57,7 @@ function recent_global_comments_feed() {
                 }
                 ?>
                 <item>
-                    <title><?php _e('Comments on', 'postindexer'); ?>: <?php echo stripslashes( $post_title ); ?></title>
+                    <title><?php _e('Kommentar zu', 'postindexer'); ?>: <?php echo stripslashes( $post_title ); ?></title>
                     <link><?php echo $comment['comment_post_permalink']; ?>#comment-<?php echo $comment['comment_id']; ?></link>
 
                     <dc:creator><?php echo $comment['comment_author']; ?></dc:creator>
@@ -148,20 +117,20 @@ function widget_recent_global_comments_feed_init() {
 			update_option('widget_recent_global_comments_feed', $options);
 		}
 		if ( empty( $options['recent-global-comments-feed-title'] ) ) {
-			$options['recent-global-comments-feed-title'] = __('Site Comments Feed');
+			$options['recent-global-comments-feed-title'] = __('Kommentare-Feed der Website', 'postindexer');
 		}
 		if ( empty( $options['recent-global-comments-feed-rss-image'] ) ) {
 			$options['recent-global-comments-feed-rss-image'] = 'show';
 		}
         ?>
         <div style="text-align:left">
-            <label for="recent-global-comments-feed-title" style="line-height:35px;display:block;"><?php _e('Title', 'postindexer'); ?>:<br />
+            <label for="recent-global-comments-feed-title" style="line-height:35px;display:block;"><?php _e('Titel', 'postindexer'); ?>:<br />
                 <input class="widefat" id="recent-global-comments-feed-title" name="recent-global-comments-feed-title" value="<?php echo $options['recent-global-comments-feed-title']; ?>" type="text" style="width:95%;">
             </label>
-            <label for="recent-global-comments-feed-rss-image" style="line-height:35px;display:block;"><?php _e('RSS Image', 'postindexer'); ?>:<br />
+            <label for="recent-global-comments-feed-rss-image" style="line-height:35px;display:block;"><?php _e('RSS-Bild', 'postindexer'); ?>:<br />
                 <select name="recent-global-comments-feed-rss-image" id="recent-global-comments-feed-rss-image" style="width:95%;">
-                    <option value="show" <?php if ( isset( $options['recent-global-comments-feed-rss-image'] ) && $options['recent-global-comments-feed-rss-image'] == 'show'){ echo 'selected="selected"'; } ?> ><?php _e('Show', 'postindexer'); ?></option>
-                    <option value="hide" <?php if ( isset( $options['recent-global-comments-feed-rss-image'] ) && $options['recent-global-comments-feed-rss-image'] == 'hide'){ echo 'selected="selected"'; } ?> ><?php _e('Hide', 'postindexer'); ?></option>
+                    <option value="show" <?php if ( isset( $options['recent-global-comments-feed-rss-image'] ) && $options['recent-global-comments-feed-rss-image'] == 'show'){ echo 'selected="selected"'; } ?> ><?php _e('Anzeigen', 'postindexer'); ?></option>
+                    <option value="hide" <?php if ( isset( $options['recent-global-comments-feed-rss-image'] ) && $options['recent-global-comments-feed-rss-image'] == 'hide'){ echo 'selected="selected"'; } ?> ><?php _e('Ausblenden', 'postindexer'); ?></option>
                 </select>
             </label>
             <input type="hidden" name="recent-global-comments-feed-submit" id="recent-global-comments-feed-submit" value="1" />
@@ -194,12 +163,12 @@ function widget_recent_global_comments_feed_init() {
 	// Tell Dynamic Sidebar about our new widget and its control
 	if ( $recent_global_comments_feed_widget_main_blog_only == 'yes' ) {
 		if ( $wpdb->blogid == 1 ) {
-            wp_register_sidebar_widget( 'recent_global_comments_feed', __( 'Recent Global Comments Feed', 'postindexer' ), 'widget_recent_global_comments_feed' );
-            wp_register_widget_control( 'recent_global_comments_feed', __( 'Recent Global Comments Feed', 'postindexer' ), 'widget_recent_global_comments_feed_control' );
+            wp_register_sidebar_widget( 'recent_global_comments_feed', __( 'Letzte globale Kommentare', 'postindexer' ), 'widget_recent_global_comments_feed' );
+            wp_register_widget_control( 'recent_global_comments_feed', __( 'Letzte globale Kommentare', 'postindexer' ), 'widget_recent_global_comments_feed_control' );
 		}
 	} else {
-        wp_register_sidebar_widget( 'recent_global_comments_feed', __( 'Recent Global Comments Feed', 'postindexer' ), 'widget_recent_global_comments_feed' );
-        wp_register_widget_control( 'recent_global_comments_feed', __( 'Recent Global Comments Feed', 'postindexer' ), 'widget_recent_global_comments_feed_control' );
+        wp_register_sidebar_widget( 'recent_global_comments_feed', __( 'Letzte globale Kommentare', 'postindexer' ), 'widget_recent_global_comments_feed' );
+        wp_register_widget_control( 'recent_global_comments_feed', __( 'Letzte globale Kommentare', 'postindexer' ), 'widget_recent_global_comments_feed_control' );
 	}
 }
 add_action('widgets_init', 'widget_recent_global_comments_feed_init');

@@ -3,8 +3,8 @@
 // Postindexer-Erweiterung registrieren (immer ganz oben, außerhalb von Bedingungen)
 add_filter('postindexer_extensions', function($exts) {
     $exts['recent_global_author_comments_feed'] = array(
-        'title' => 'Global Author Comments Feed',
-        'description' => __('Stellt einen globalen RSS-Feed für Kommentare eines Autors im Netzwerk bereit.'),
+        'title' => 'Globaler Autoren-Kommentar-Feed',
+        'description' => __('Stellt einen globalen RSS-Feed für Kommentare eines Autors im Netzwerk bereit.', 'postindexer'),
         'file' => __FILE__,
         'author' => 'PSOURCE',
         'version' => '1.0.3.3',
@@ -72,7 +72,7 @@ function recent_global_author_comments_feed() {
     >
 
     <channel>
-        <title><?php bloginfo_rss('name'); ?> <?php echo $author_user_login . ' '; ?><?php _e('Comments'); ?></title>
+        <title><?php bloginfo_rss('name'); ?> <?php echo $author_user_login . ' '; ?><?php _e('Kommentare', 'postindexer'); ?></title>
         <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
         <link><?php bloginfo_rss('url') ?></link>
         <description><?php bloginfo_rss("description") ?></description>
@@ -100,7 +100,7 @@ function recent_global_author_comments_feed() {
                 }
                 ?>
                 <item>
-                    <title><?php _e('Comments on'); ?>: <?php echo stripslashes( $post_title ); ?></title>
+                    <title><?php _e('Kommentare zu', 'postindexer'); ?>: <?php echo stripslashes( $post_title ); ?></title>
                     <link><?php echo $comment['comment_post_permalink']; ?>#comment-<?php echo $comment['comment_id']; ?></link>
 
                     <dc:creator><?php echo $comment['comment_author']; ?></dc:creator>

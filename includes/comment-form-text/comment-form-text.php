@@ -57,12 +57,12 @@ add_action('comment_form_after_fields', 'comment_form_text_output');
 
 // Unterstützte Hooks für die Positionierung
 $cft_hooks = [
-    'comment_form_before' => 'Vor dem Formular',
-    'comment_form_top' => 'Am Anfang des Formulars',
-    'comment_form_before_fields' => 'Vor den Feldern',
-    'comment_form_after_fields' => 'Nach den Feldern',
-    'comment_form' => 'Am Ende des Formulars',
-    'comment_form_after' => 'Nach dem Formular',
+    'comment_form_before' => __('Vor dem Formular', 'postindexer'),
+    'comment_form_top' => __('Am Anfang des Formulars', 'postindexer'),
+    'comment_form_before_fields' => __('Vor den Feldern', 'postindexer'),
+    'comment_form_after_fields' => __('Nach den Feldern', 'postindexer'),
+    'comment_form' => __('Am Ende des Formulars', 'postindexer'),
+    'comment_form_after' => __('Nach dem Formular', 'postindexer'),
 ];
 
 function cft_get_selected_hook() {
@@ -98,11 +98,11 @@ class Comment_Form_Text_Settings_Renderer {
         $css = get_site_option('cft_css', '');
         ob_start();
         wp_nonce_field('comment_form_text_settings_save', 'comment_form_text_settings_nonce');
-        echo '<h3>Text für eingeloggte Nutzer</h3>';
+        echo '<h3>' . esc_html__('Text für eingeloggte Nutzer', 'postindexer') . '</h3>';
         echo '<textarea name="cft_text_logged_in" rows="4" style="width:100%">'.esc_textarea($text_logged_in).'</textarea>';
-        echo '<h3>Text für Gäste</h3>';
+        echo '<h3>' . esc_html__('Text für Gäste', 'postindexer') . '</h3>';
         echo '<textarea name="cft_text_guest" rows="4" style="width:100%">'.esc_textarea($text_guest).'</textarea>';
-        echo '<h3>Custom CSS</h3>';
+        echo '<h3>' . esc_html__('Eigenes CSS', 'postindexer') . '</h3>';
         echo '<textarea name="cft_css" rows="4" style="width:100%">'.esc_textarea($css).'</textarea>';
         return ob_get_clean();
     }

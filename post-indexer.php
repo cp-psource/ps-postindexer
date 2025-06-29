@@ -4,7 +4,7 @@ Plugin Name: Multisite Index
 Plugin URI: https://cp-psource.github.io/ps-postindexer/
 Description: Ein mächtiges Multisite-Index Plugin - Bringe deinen Content dahin wo du ihn brauchst!
 Author: PSOURCE
-Version: 3.1.8
+Version: 3.1.9
 Author URI: https://github.com/cp-psource
 Requires at least: 4.9
 Network: true

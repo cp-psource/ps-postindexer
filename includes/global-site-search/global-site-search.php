@@ -72,7 +72,7 @@ class global_site_search {
 				// Doesn't exist so create the page
 				$page_id = wp_insert_post( array(
 					"post_content"   => '',
-					"post_title"     => __( 'Netzwerksuche', 'globalsitesearch' ),
+					"post_title"     => __( 'Netzwerksuche', 'postindexer' ),
 					"post_excerpt"   => '',
 					"post_status"    => 'publish',
 					"comment_status" => 'closed',
@@ -94,10 +94,10 @@ class global_site_search {
 
 		$post_types = $this->db->get_col( "SELECT post_type FROM {$this->db->base_prefix}network_posts GROUP BY post_type" );
 
-		?><h3><?php _e( 'Netzwerksuche', 'globalsitesearch' ) ?></h3>
+		?><h3><?php _e( 'Netzwerksuche', 'postindexer' ) ?></h3>
 		<table class="form-table">
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Auflistung pro Seite', 'globalsitesearch' ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Auflistung pro Seite', 'postindexer' ) ?></th>
 				<td>
 					<select name="global_site_search_per_page" id="global_site_search_per_page">
 						<?php for ( $i = 5; $i <= 50; $i += 5 ) : ?>
@@ -107,34 +107,34 @@ class global_site_search {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Hintergrundfarbe', 'globalsitesearch' ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Hintergrundfarbe', 'postindexer' ) ?></th>
 				<td>
 					<input name="global_site_search_background_color" type="text" id="global_site_search_background_color" value="<?php echo esc_attr( get_site_option( 'global_site_search_background_color', '#F2F2EA' ) ) ?>" size="20">
-					<br><?php _e( 'Standard', 'globalsitesearch' ) ?>: #F2F2EA
+					<br><?php _e( 'Standard', 'postindexer' ) ?>: #F2F2EA
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Alternative Hintergrundfarbe', 'globalsitesearch' ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Alternative Hintergrundfarbe', 'postindexer' ) ?></th>
 				<td>
 					<input name="global_site_search_alternate_background_color" type="text" id="global_site_search_alternate_background_color" value="<?php echo esc_attr( get_site_option( 'global_site_search_alternate_background_color', '#FFFFFF' ) ) ?>" size="20">
-					<br><?php _e( 'Standard', 'globalsitesearch' ) ?>: #FFFFFF
+					<br><?php _e( 'Standard', 'postindexer' ) ?>: #FFFFFF
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Rahmenfarbe', 'globalsitesearch' ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Rahmenfarbe', 'postindexer' ) ?></th>
 				<td>
 					<input name="global_site_search_border_color" type="text" id="global_site_search_border_color" value="<?php echo esc_attr( get_site_option( 'global_site_search_border_color', '#CFD0CB' ) ) ?>" size="20">
-					<br><?php _e( 'Standard', 'globalsitesearch' ) ?>: #CFD0CB
+					<br><?php _e( 'Standard', 'postindexer' ) ?>: #CFD0CB
 				</td>
 			</tr>
 
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Beitragstyp auflisten', 'globalsitesearch' ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Beitragstyp auflisten', 'postindexer' ) ?></th>
 				<td>
 					<select name="global_site_search_post_type" id="global_site_search_post_type">
-						<option value="all"><?php _e( 'alle', 'globalsitesearch' ) ?></option>
+						<option value="all"><?php _e( 'alle', 'postindexer' ) ?></option>
 						<?php foreach ( $post_types as $r ) : ?>
-						<option value="<?php echo esc_attr( $r ) ?>"<?php selected( $global_site_search_post_type, $r ) ?> ><?php _e( $r, 'globalsitesearch' ) ?></option>
+						<option value="<?php echo esc_attr( $r ) ?>"<?php selected( $global_site_search_post_type, $r ) ?> ><?php _e( $r, 'postindexer' ) ?></option>
 						<?php endforeach; ?>
 					</select>
 				</td>
@@ -161,7 +161,7 @@ class global_site_search {
 		global $current_site, $wp_query;
 
 		if ( isset( $wp_query->query_vars['namespace'] ) && $wp_query->query_vars['namespace'] == 'gss' && $wp_query->query_vars['type'] == 'search' ) {
-			$title = '<a href="http://' . $current_site->domain . $current_site->path . $this->global_site_search_base . '/">' . __( 'Netzwerksuche', 'globalsitesearch' ) . '</a>';
+			$title = '<a href="http://' . $current_site->domain . $current_site->path . $this->global_site_search_base . '/">' . __( 'Netzwerksuche', 'postindexer' ) . '</a>';
 			if ( isset( $wp_query->query_vars['paged'] ) && $wp_query->query_vars['paged'] > 1 ) {
 				$search = isset( $wp_query->query_vars['search'] ) ? $wp_query->query_vars['search'] : '';
 				$title .= ' &raquo; <a href="http://' . $current_site->domain . $current_site->path . $this->global_site_search_base . '/' . urlencode( $search ) . '/page/' . $wp_query->query_vars['paged'] . '/">' . $wp_query->query_vars['paged'] . '</a>';
@@ -382,9 +382,9 @@ add_action('init', function() {
             }
             echo '</ul>';
             $main_site_url = network_home_url( global_site_search_get_search_base() . '/' . urlencode($phrase) . '/' );
-            echo '<div style="margin-top:0.7em;"><a href="' . esc_url($main_site_url) . '" style="font-weight:bold;">Weitere Treffer anzeigen</a></div>';
+            echo '<div style="margin-top:0.7em;"><a href="' . esc_url($main_site_url) . '" style="font-weight:bold;">' . esc_html__('Weitere Treffer anzeigen', 'postindexer') . '</a></div>';
         } else {
-            echo '<div style="margin-top:0.7em;color:#888;">Keine Treffer gefunden.</div>';
+            echo '<div style="margin-top:0.7em;color:#888;">' . esc_html__('Keine Treffer gefunden.', 'postindexer') . '</div>';
         }
         exit;
     }

@@ -6,8 +6,8 @@
 class widget_global_site_tags extends WP_Widget {
 
 	public function __construct() {
-		parent::__construct( 'global_site_tags', __( 'Netzwerk Seiten-Tags', 'globalsitetags' ), array(
-			'description' => __( 'Displays tags from all blogs', 'globalsitetags' ),
+		parent::__construct( 'global_site_tags', __( 'Netzwerk Seiten-Tags', 'postindexer' ), array(
+			'description' => __( 'Tags aus allen Seiten anzeigen', 'postindexer' ),
 		) );
 	}
 
@@ -23,7 +23,7 @@ class widget_global_site_tags extends WP_Widget {
 		echo $before_widget;
 
 		// The title
-		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Tags', 'globalsitetags' ) : $instance['title'] );
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Tags', 'postindexer' ) : $instance['title'] );
 		if ( $title ) {
 			echo $before_title . $title . $after_title;
 		}
@@ -63,12 +63,12 @@ class widget_global_site_tags extends WP_Widget {
 
 		//Output the options
 		?><p>
-			<label for="<?php echo $this->get_field_id( 'title' ) ?>"><?php _e( 'Widget Title', 'globalsitetags' ) ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ) ?>"><?php _e( 'Widget Title', 'postindexer' ) ?>:</label>
 			<input type="text" id="<?php echo $this->get_field_id( 'title' ) ?>" class="widefat" name="<?php echo $this->get_field_name( 'title' ) ?>" value="<?php echo esc_attr( $instance['title'] ) ?>">
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'number' ) ?>"><?php _e( 'Number of Tags', 'globalsitetags' ) ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'number' ) ?>"><?php _e( 'Anzahl Tags', 'postindexer' ) ?>:</label>
 			<select id="<?php echo $this->get_field_id( 'number' ) ?>" class="widefat" name="<?php echo $this->get_field_name( 'number' ) ?>">
 				<?php for ( $counter = 1; $counter <= 100; $counter++ ) : ?>
 				<option value="<?php echo $counter ?>"<?php selected( $counter, $instance['number'] ) ?>><?php echo $counter ?></option>
@@ -77,7 +77,7 @@ class widget_global_site_tags extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'high_font_size' ) ?>"><?php _e( 'Largest Font Size', 'globalsitetags' ) ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'high_font_size' ) ?>"><?php _e( 'Größte Schriftgröße', 'postindexer' ) ?>:</label>
 			<select id="<?php echo $this->get_field_id( 'high_font_size' ) ?>" class="widefat" name="<?php echo $this->get_field_name( 'high_font_size' ) ?>">
 				<?php for ( $counter = 1; $counter <= 100; $counter++ ) : ?>
 				<option value="<?php echo $counter ?>"<?php selected( $counter, $instance['high_font_size'] ) ?>><?php echo $counter ?>px</option>
@@ -86,7 +86,7 @@ class widget_global_site_tags extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'low_font_size' ) ?>"><?php _e( 'Smallest Font Size', 'globalsitetags' ) ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'low_font_size' ) ?>"><?php _e( 'Kleinste Schriftgröße', 'postindexer' ) ?>:</label>
 			<select id="<?php echo $this->get_field_id( 'low_font_size' ) ?>" class="widefat" name="<?php echo $this->get_field_name( 'low_font_size' ) ?>">
 				<?php for ( $counter = 1; $counter <= 100; $counter++ ) : ?>
 				<option value="<?php echo $counter ?>"<?php selected( $counter, $instance['low_font_size'] ) ?> ><?php echo $counter ?>px</option>
@@ -95,15 +95,15 @@ class widget_global_site_tags extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'poststype' ) ?>"><?php _e( 'Post Type', 'globalsitetags' ) ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'poststype' ) ?>"><?php _e( 'Beitragstyp', 'postindexer' ) ?>:</label>
 			<select name="<?php echo $this->get_field_name( 'poststype' ) ?>" id="<?php echo $this->get_field_id( 'poststype' ); ?>" class="widefat">
-				<option value="all"><?php _e( 'all', 'globalsitetags' ) ?></option>
+				<option value="all"><?php _e( 'alle', 'postindexer' ) ?></option>
 				<?php if ( !empty( $post_types ) ) : ?>
 					<?php foreach ( $post_types as $r ) : ?>
 					<option value="<?php echo esc_attr( $r ) ?>"<?php selected( $r, $instance['poststype'] ) ?>><?php echo esc_html( $r ) ?></option>
 					<?php endforeach; ?>
 				<?php else : ?>
-					<option value="post"<?php selected( $instance['poststype'], 'post' ) ?>><?php _e( 'post', 'globalsitetags' ) ?></option>
+					<option value="post"<?php selected( $instance['poststype'], 'post' ) ?>><?php _e( 'Beitrag', 'postindexer' ) ?></option>
 				<?php endif; ?>
 			</select>
 		</p><?php

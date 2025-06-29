@@ -3,7 +3,7 @@ Contributors: DerN3rd (PSOURCE)
 Tags: multisite, suche, netzwerksuche
 Requires at least: 4.9
 Tested up to: 6.8.1
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -57,6 +57,12 @@ PS Multisite Indexer now brings all essential features into one powerful plugin.
 
 
 == ChangeLog ==
+
+= 3.1.9 =
+
+* Fix: Das Dashboardmenü wird nicht mehr umbenannt (SOOORRY)
+* Unnötige Menüs entfernt
+* Verbesserte Übersetzungsmöglichkeiten
 
 = 3.1.8 =
 

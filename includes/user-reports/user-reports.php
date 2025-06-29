@@ -37,7 +37,7 @@ class UserReports {
         $plugin_url = plugins_url('', __FILE__);
         $this->_settings['PLUGIN_URL'] = $plugin_url;
         $this->_settings['PLUGIN_BASE_DIR'] = $plugin_dir;
-		$this->_settings['admin_menu_label'] = __( "User Reports", 'postindexer' );
+		$this->_settings['admin_menu_label'] = __( "Benutzerberichte", 'postindexer' );
 
 		$this->_settings['options_key'] = "user-report-" . $this->_settings['VERSION'];
 
@@ -102,7 +102,7 @@ class UserReports {
 
 				$actions['user-reports'] = sprintf(
 					'<a class="submitreports" href="%s">%s</a>',
-					esc_url( $url ), __( 'Reports', 'postindexer' )
+					esc_url( $url ), __( 'Berichte', 'postindexer' )
 				);
 			}
 		}
@@ -124,16 +124,16 @@ class UserReports {
 	function user_reports_admin_menu_proc() {
 
 		$this->_pagehooks['user-reports'] = add_users_page(
-			_x('Reports', 'page label', 'postindexer' ),
-			_x( 'Reports', 'menu label', 'postindexer' ),
+			_x('Berichte', 'page label', 'postindexer' ),
+			_x( 'Berichte', 'menu label', 'postindexer' ),
 			'list_users', 'user-reports',
 			array( $this, 'user_reports_admin_show_panel' ) );
 
 		//site-users-network
 		$this->_pagehooks['network-user-reports'] = add_submenu_page(
 			'users-network',
-			_x( 'Reports', 'page label', 'postindexer' ),
-			_x( 'Reports', 'menu label', 'postindexer' ),
+			_x( 'Berichte', 'page label', 'postindexer' ),
+			_x( 'Berichte', 'menu label', 'postindexer' ),
 			'list_users', 'user-reports',
 			array( $this, 'user_reports_admin_show_panel' ) );
 
@@ -357,7 +357,7 @@ class UserReports {
 			}
 
 		}
-		add_screen_option( 'per_page', array( 'label' => __( 'per Page', 'postindexer' ), 'default' => $option_value ) );
+		add_screen_option( 'per_page', array( 'label' => __( 'pro Seite', 'postindexer' ), 'default' => $option_value ) );
 	}
 
 	/**
@@ -392,12 +392,12 @@ class UserReports {
 		}
 		?>
 		<div id="user-reports-panel" class="wrap user-reports-wrap">
-			<h2><?php _ex( "User Reports", "User Reports New Page Title", 'postindexer' ); ?></h2>
+			<h2><?php _ex( "Benutzerberichte", "User Reports New Page Title", 'postindexer' ); ?></h2>
 
 			<?php
 			if ( ( is_multisite() ) && ( is_network_admin() ) ) {
 				?>
-				<p><?php _ex( "To create a report, select the report type, blogs, users, and date range below. Set 'Users' to blank if you want to see all users stats.",
+				<p><?php _ex( "Um einen Bericht zu erstellen, wählen Sie unten den Berichtstyp, Blogs, Benutzer und den Datumsbereich aus. Setzen Sie 'Benutzer' auf leer, wenn Sie die Statistiken aller Benutzer anzeigen möchten.",
 						'User Reports page description', 'postindexer' ); ?></p>
 				<?php $this->user_reports_show_filter_form_bar(); ?>
 				<?php
@@ -435,8 +435,8 @@ class UserReports {
 				}
 
 				?>
-				<a class="button-secondary" href="<?php echo $href_str; ?>&amp;user-report-download=pdf"><?php _e( "Download PDF", 'postindexer' ); ?></a>
-				<a class="button-secondary" href="<?php echo esc_url( $href_str ); ?>&amp;user-report-download=csv"><?php _e( "Download CSV", 'postindexer' ); ?></a>
+				<a class="button-secondary" href="<?php echo $href_str; ?>&amp;user-report-download=pdf"><?php _e( "PDF herunterladen", 'postindexer' ); ?></a>
+				<a class="button-secondary" href="<?php echo esc_url( $href_str ); ?>&amp;user-report-download=csv"><?php _e( "CSV herunterladen", 'postindexer' ); ?></a>
 				<?php
 			}
 			?>
@@ -692,7 +692,7 @@ class UserReports {
             <?php $this->user_reports_show_filter_form_dates(); ?>
         </div>
         <div class="filter-group" style="min-width:120px;flex:0 0 120px;align-items:flex-end;display:flex;">
-            <input class="button-secondary" id="user-reports-filters-submit" type="submit" value="<?php esc_attr_e( 'Create', 'postindexer' ); ?>" />
+            <input class="button-secondary" id="user-reports-filters-submit" type="submit" value="<?php esc_attr_e( 'Erstellen', 'postindexer' ); ?>" />
         </div>
     </form>
     <?php
@@ -713,7 +713,7 @@ class UserReports {
 		$content_types = array();
 
 		if ( $this->has_post_indexer_plugin() ) {
-			$content_types['post'] = __( 'Post', 'postindexer' );
+			$content_types['post'] = __( 'Beitrag', 'postindexer' );
 		} else {
 			if ( ! is_multisite() || ! is_network_admin() ) {
 				foreach ( (array) get_post_types( array( 'show_ui' => true ), 'name' ) as $post_type => $details ) {
@@ -723,16 +723,16 @@ class UserReports {
 		}
 
 		if ( $this->has_post_indexer_plugin() ) {
-			$content_types['comments'] = __( 'Comments', 'postindexer' );
+			$content_types['comments'] = __( 'Kommentare', 'postindexer' );
 		} else {
 			if ( ! is_multisite() || ! is_network_admin() ) {
-				$content_types['comments'] = __( 'Comments', 'postindexer' );
+				$content_types['comments'] = __( 'Kommentare', 'postindexer' );
 			}
 		}
 
 		if ( $content_types && count( $content_types ) ) {
 			?>
-			<label for="user-reports-filter-types"><?php _e( 'Report Type', 'postindexer' ); ?></label>:
+			<label for="user-reports-filter-types"><?php _e( 'Berichtstyp', 'postindexer' ); ?></label>:
 			<select id="user-reports-filter-types" name="type">
 				<?php
 
@@ -769,15 +769,15 @@ class UserReports {
 			if ( is_network_admin() ) {
 
 				$blogs = array(
-					'0' => __( 'All Blogs', 'postindexer' ),
+					'0' => __( 'Alle Blogs', 'postindexer' ),
 				);
 
 			} else {
 				$current_blog = get_blog_details( $wpdb->blogid );
 
 				$blogs = array(
-					'0' => __( 'All Blogs', 'postindexer' ),
-					$current_blog->blog_id => __( 'This Blog Only', 'postindexer' ),
+					'0' => __( 'Alle Blogs', 'postindexer' ),
+					$current_blog->blog_id => __( 'Nur dieser Blog', 'postindexer' ),
 				);
 			}
 
@@ -817,9 +817,9 @@ class UserReports {
 			$users = $this->user_reports_get_users( $wpdb->blogid );
 			if ( $users ) {
 				?>
-				<label for="user-reports-filter-users"><?php _e( 'Users', 'postindexer' ); ?>: </label>
+				<label for="user-reports-filter-users"><?php _e( 'Benutzer', 'postindexer' ); ?>: </label>
 				<select id="user-reports-filter-users" name="user_id">
-					<option value="0"><?php _e( 'All Users', 'postindexer' ); ?></option>
+					<option value="0"><?php _e( 'Alle Benutzer', 'postindexer' ); ?></option>
 					<?php
 					foreach ( $users as $user_group_name => $user_group ) {
 						if ( ( is_array( $user_group ) ) && ( count( $user_group ) ) ) {
@@ -845,7 +845,7 @@ class UserReports {
 		} else {
 			$user_login = ! empty( $this->_filters['user_login'] ) ? $this->_filters['user_login'] : '';
 			?>
-			<label for="user-reports-filter-users"><?php _e( 'Users', 'postindexer' ); ?>: </label>
+			<label for="user-reports-filter-users"><?php _e( 'Benutzer', 'postindexer' ); ?>: </label>
 			<input type="text" id="user-reports-filter-users" name="user_login" value="<?php echo esc_attr( $user_login ); ?>" />
 			<?php
 		}
@@ -863,11 +863,11 @@ class UserReports {
 	 */
 	function user_reports_show_filter_form_dates() {
 		?>
-		<label for="user-reports-filter-date-start">From Date</label>
+		<label for="user-reports-filter-date-start">Von Datum</label>
 		<input type="text" size="10" name="date_start" id="user-reports-filter-date-start"
 		       value="<?php echo isset($this->_filters['date_start']) ? date( 'Y-m-d', $this->_filters['date_start'] ) : ''; ?>" />
 
-		<label for="user-reports-filter-date-end">To Date</label>
+		<label for="user-reports-filter-date-end">Bis Datum</label>
 		<input type="text" size="10" name="date_end" id="user-reports-filter-date-end"
 		       value="<?php echo isset($this->_filters['date_end']) ? date( 'Y-m-d', $this->_filters['date_end'] ) : ''; ?>" />
 		<?php

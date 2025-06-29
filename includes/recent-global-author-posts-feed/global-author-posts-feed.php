@@ -1,32 +1,4 @@
 <?php
-/*
-Plugin Name: Recent Global Author Posts Feed
-Plugin URI: http://premium.wpmudev.org/project/recent-global-author-posts-feed/
-Description: RSS2 feeds for global posts by authors - to access feed go to http://yoursite.com/feed/globalauthorpostsfeed
-Version: 3.0.2
-Author: PSOURCE
-Author URI: http://premium.wpmudev.org/
-WDP ID: 87
-Network: true
-*/
-
-// +----------------------------------------------------------------------+
-// | Copyright Incsub (http://incsub.com/)                                |
-// +----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify |
-// | it under the terms of the GNU General Public License, version 2, as  |
-// | published by the Free Software Foundation.                           |
-// |                                                                      |
-// | This program is distributed in the hope that it will be useful,      |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        |
-// | GNU General Public License for more details.                         |
-// |                                                                      |
-// | You should have received a copy of the GNU General Public License    |
-// | along with this program; if not, write to the Free Software          |
-// | Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,               |
-// | MA 02110-1301 USA                                                    |
-// +----------------------------------------------------------------------+
 
 class globalauthorpostsfeed {
 
@@ -96,7 +68,7 @@ class globalauthorpostsfeed {
 		>
 
 		<channel>
-			<title><?php bloginfo_rss('name'); _e( ' - Recent Global Posts For Author : ', 'postindexer' ); echo $theauthor->display_name; ?></title>
+			<title><?php bloginfo_rss('name'); _e(' – Neueste globale Beiträge von: ', 'postindexer'); echo $theauthor->display_name; ?></title>
 			<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 			<link><?php bloginfo_rss('url') ?></link>
 			<description><?php bloginfo_rss("description") ?></description>

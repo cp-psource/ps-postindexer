@@ -1,11 +1,5 @@
 # User Reports
 
-**INACTIVE NOTICE: This plugin is unsupported by WPMUDEV, we've published it here for those technical types who might want to fork and maintain it for their needs.**
-
-## Translations
-
-Translation files can be found at https://github.com/wpmudev/translations
-
 ## User Reports adds a way to track user posts and comments across an entire Multisite network.
 
 Create complete, downloadable reports on any member in WordPress or Multisite.

@@ -210,14 +210,6 @@ class Postindexer_Extensions_Admin {
                             $cft->process_settings_form();
                         }
                     }
-                } elseif ($key === 'comments_control') {
-                    require_once dirname(__DIR__) . '/includes/comments-control/settings.php';
-                    if (class_exists('Comments_Control_Settings_Renderer')) {
-                        $ccr = new \Comments_Control_Settings_Renderer();
-                        if (method_exists($ccr, 'process_settings_form')) {
-                            $ccr->process_settings_form();
-                        }
-                    }
                 } elseif ($key === 'recent_global_author_posts_feed') {
                     require_once dirname(__DIR__) . '/includes/recent-global-author-posts-feed/settings.php';
                     if (class_exists('Recent_Global_Author_Posts_Feed_Settings_Renderer')) {
@@ -437,12 +429,6 @@ echo '</div>';
                 if (class_exists('Comment_Form_Text_Settings_Renderer')) {
                     $cft = new \Comment_Form_Text_Settings_Renderer();
                     $settings_html = $cft->render_settings_form(); $has_settings = true;
-                }
-            } elseif ($key === 'comments_control') {
-                require_once dirname(__DIR__) . '/includes/comments-control/settings.php';
-                if (class_exists('Comments_Control_Settings_Renderer')) {
-                    $ccr = new \Comments_Control_Settings_Renderer();
-                    $settings_html = $ccr->render_settings_form(); $has_settings = true;
                 }
             } elseif ($key === 'recent_global_author_posts_feed' ) {
                 require_once dirname(__DIR__) . '/includes/recent-global-author-posts-feed/settings.php';

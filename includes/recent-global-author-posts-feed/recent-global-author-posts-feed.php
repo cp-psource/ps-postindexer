@@ -1,30 +1,10 @@
 <?php
-/*
-* The original method of getting the tag feed but using the new code - this should be replaced with the new plugin now
-*/
-
-/*
-Copyright 2007-2013 Incsub (http://incsub.com)
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
 
 // Postindexer-Erweiterung registrieren (immer ganz oben, außerhalb von Bedingungen)
 add_filter('postindexer_extensions', function($exts) {
     $exts['recent-global-author-posts-feed'] = array(
-        'title' => 'Global Author Posts Feed',
-        'description' => __('Stellt einen globalen RSS-Feed für Beiträge eines Autors im Netzwerk bereit.'),
+        'title' => 'Globaler Autoren-Beitrags-Feed',
+        'description' => __('Stellt einen globalen RSS-Feed für Beiträge eines Autors im Netzwerk bereit.', 'postindexer'),
         'file' => __FILE__,
         'author' => 'PSOURCE',
         'version' => '1.0.0',
@@ -98,7 +78,7 @@ $network_query_posts = network_query_posts( array( 'post_type' => $posttype, 'po
 >
 
 <channel>
-	<title><?php bloginfo_rss('name'); _e(' - Recent Global Posts For Author : ','postindexer'); echo $theauthor->display_name; ?></title>
+	<title><?php bloginfo_rss('name'); _e(' – Neueste globale Beiträge von: ', 'postindexer'); echo $theauthor->display_name; ?></title>
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bloginfo_rss('url') ?></link>
 	<description><?php bloginfo_rss("description") ?></description>

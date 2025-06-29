@@ -1,15 +1,4 @@
 <?php
-/*
-Plugin Name: Live Stream Widget
-Plugin URI: http://premium.wpmudev.org/project/live-stream-widget
-Description: Show latest posts and comments in a continuously updating and slick looking widget.
-Author: PSOURCE
-Version: 1.0.5
-Author URI: http://premium.wpmudev.org/
-WDP ID: 679182
-*/
-
-///////////////////////////////////////////////////////////////////////////
 
 if (!defined('LIVE_STREAM_VERSION'))
 	define('LIVE_STREAM_VERSION', '1.0.4.3');
@@ -106,7 +95,7 @@ class LiveStreamWidget extends WP_Widget {
  		/* Widget settings. */
  		$widget_ops = array( 
 			'classname' => 'live-stream-widget', 
-			'description' => __('Show Posts and Comments in a Twitter-like updating widget', 'postindexer'),
+			'description' => __('Zeige Beiträge und Kommentare in einem Twitter-ähnlichen Aktualisierungs-Widget', 'postindexer'),
 			'classname' => 'live-stream-widget-admin' );
 
  		/* Widget control settings. */
@@ -360,7 +349,7 @@ class LiveStreamWidget extends WP_Widget {
 	
 	function show_widget_admin_title($instance) {
 		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Widget Title:', 'live-stream-widget'); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Widget Titel:', 'postindexer'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" 
 				value="<?php echo $instance['title']; ?>" class="widefat" type="text" />
 		</p>
@@ -371,7 +360,7 @@ class LiveStreamWidget extends WP_Widget {
 		?>
 		<p><input class="checkbox" type="checkbox" <?php checked( $instance['show_avatar'], 'on' ); ?> 
 				id="<?php echo $this->get_field_id( 'show_avatar' ); ?>" name="<?php echo $this->get_field_name( 'show_avatar' ); ?>" /> 
-			<label for="<?php echo $this->get_field_id( 'show_avatar' ); ?>"><?php _e('Show Author Avatar?', 'live-stream-widget'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show_avatar' ); ?>"><?php _e('Autor Avatar anzeigen?', 'postindexer'); ?></label>
 		</p>
 		<?php
 	}
@@ -380,7 +369,7 @@ class LiveStreamWidget extends WP_Widget {
 		?>
 		<p><input class="checkbox" type="checkbox" <?php checked( $instance['link_target'], 'on' ); ?> 
 				id="<?php echo $this->get_field_id( 'link_target' ); ?>" name="<?php echo $this->get_field_name( 'link_target' ); ?>" /> 
-			<label for="<?php echo $this->get_field_id( 'link_target' ); ?>"><?php _e('Open Links in new Window?', 'live-stream-widget'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'link_target' ); ?>"><?php _e('Links in neuem Fenster öffnen?', 'postindexer'); ?></label>
 		</p>
 		<?php
 	}
@@ -388,7 +377,7 @@ class LiveStreamWidget extends WP_Widget {
 	function show_widget_admin_content_item_count($instance) {
 		?>
 		<p><label for="<?php echo $this->get_field_id( 'items_number' ); ?>"><?php 
-				_e('Maximum items to show.', 'live-stream-widget'); ?></label>
+				_e('Maximale Anzahl anzuzeigender Elemente.', 'postindexer'); ?></label>
 			<input type="text" name="<?php echo $this->get_field_name( 'items_number' ); ?>" 
 				id="<?php echo $this->get_field_id( 'items_number' ); ?>" 
 				value="<?php echo $instance['items_number']; ?>" class="widefat" />
@@ -399,7 +388,7 @@ class LiveStreamWidget extends WP_Widget {
 	function show_widget_admin_content_char_count($instance) {
 		?>
 		<p><label for="<?php echo $this->get_field_id( 'content_chars' ); ?>"><?php 
-				_e('Show chars from item content. 0 for none. Will append ... after', 'live-stream-widget'); ?></label>
+				_e('Zeige Zeichen aus dem Inhalt des Elements. 0 für keine. Es wird ... angehängt', 'postindexer'); ?></label>
 			<input type="text" name="<?php echo $this->get_field_name( 'content_chars' ); ?>" 
 				id="<?php echo $this->get_field_id( 'content_chars' ); ?>" 
 				value="<?php echo $instance['content_chars']; ?>" class="widefat" />
@@ -414,14 +403,14 @@ class LiveStreamWidget extends WP_Widget {
 		} else {
 			?>
 			<p><label for="<?php echo $this->get_field_id( 'show_live' ); ?>"><?php 
-					_e('Content Loading', 'live-stream-widget'); ?></label>
+					_e('Inhalt Laden', 'postindexer'); ?></label>
 			
 				<select id="<?php echo $this->get_field_id( 'show_live' ); ?>" 
 					name="<?php echo $this->get_field_name( 'show_live'); ?>" class="widefat" style="width:100%;">
 					<option value="loop" <?php if ($instance['show_live'] == "loop") { echo ' selected="selected" '; }?>><?php 
-						_e('Looping - Continuous Scroll. No new content.', 'live-stream-widget'); ?></option>
+						_e('Durchlauf - Kontinuierliches Scrollen. Kein neuer Inhalt.', 'postindexer'); ?></option>
 					<option value="live" <?php if ($instance['show_live'] == "live") { echo ' selected="selected" '; }?>><?php 
-						_e('Live - Load new content via AJAX. No scrolling.', 'live-stream-widget'); ?></option>
+						_e('Live - Neuen Inhalt über AJAX laden. Kein Scrollen.', 'postindexer'); ?></option>
 				</select>
 			</p>
 			<?php
@@ -432,7 +421,7 @@ class LiveStreamWidget extends WP_Widget {
 		?>
 		<p><input class="checkbox" type="checkbox" <?php checked( $instance['show_y_scroll'], 'on' ); ?> 
 				id="<?php echo $this->get_field_id( 'show_y_scroll' ); ?>" name="<?php echo $this->get_field_name( 'show_y_scroll' ); ?>" /> 
-			<label for="<?php echo $this->get_field_id( 'show_y_scroll' ); ?>"><?php _e('Show Vertical Scrollbar?', 'live-stream-widget'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show_y_scroll' ); ?>"><?php _e('Vertikalen Scrollbalken anzeigen?', 'postindexer'); ?></label>
 		</p>
 		<?php
 	}
@@ -440,7 +429,7 @@ class LiveStreamWidget extends WP_Widget {
 	function show_widget_admin_interval_seconds($instance) {
 		?>
 		<p><label for="<?php echo $this->get_field_id( 'interval_seconds' ); ?>"><?php 
-				_e('Number of second delay for scrolling/polling', 'live-stream-widget'); ?></label>
+				_e('Anzahl der Sekunden Verzögerung für Scrollen/Abfragen', 'postindexer'); ?></label>
 			<input type="text" name="<?php echo $this->get_field_name( 'interval_seconds' ); ?>" 
 				id="<?php echo $this->get_field_id( 'interval_seconds' ); ?>" 
 				value="<?php echo $instance['interval_seconds']; ?>" class="widefat" />
@@ -451,23 +440,23 @@ class LiveStreamWidget extends WP_Widget {
 	function show_widget_admin_height_option($instance) {
 		?>
 		<p><label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php 
-				_e('Widget Height', 'live-stream-widget'); ?></label>
+				_e('Höhe des Widgets', 'postindexer'); ?></label>
 			
 			<select id="<?php echo $this->get_field_id( 'height' ); ?>" 
 				name="<?php echo $this->get_field_name( 'height'); ?>" class="widefat" style="width:100%;">
 				<option value="200px" <?php if ($instance['height'] == "200px") { echo ' selected="selected" '; }?>><?php 
-					_e('200px - approx. 2-3 items', 'live-stream-widget'); ?></option>
+					_e('200px - ca. 2-3 Elemente', 'postindexer'); ?></option>
 				<option value="350px" <?php if ($instance['height'] == "350px") { echo ' selected="selected" '; }?>><?php 
-					_e('350px - approx. 4-5 items', 'live-stream-widget'); ?></option>
+					_e('350px - ca. 4-5 Elemente', 'postindexer'); ?></option>
 				<option value="500px" <?php if ($instance['height'] == "500px") { echo ' selected="selected" '; }?>><?php 
-					_e('500px - approx. 6-8 items', 'live-stream-widget'); ?></option>
+					_e('500px - ca. 6-8 Elemente', 'postindexer'); ?></option>
 				<option value="other" <?php if ($instance['height'] == "other") { echo ' selected="selected" '; }?>><?php 
-						_e('other - provide your own height', 'live-stream-widget'); ?></option>
+						_e('sonstiges - eigene Höhe angeben', 'postindexer'); ?></option>
 			</select>
 			<div id="<?php echo $this->get_field_id( 'height_other' ); ?>-wrapper" 
 				<?php if ($instance['height'] != "other") { echo ' style="display:none;" '; } ?> >
 				<label for="<?php echo $this->get_field_id( 'height_other' ); ?>"><?php 
-					_e('Specify Widget Height: <em>include px, em, etc. qualifies i.e. 300px</em>', 'live-stream-widget'); ?></label>
+					_e('Widget-Höhe angeben: <em>px, em, etc. angeben z.B. 300px</em>', 'postindexer'); ?></label>
 				<input id="<?php echo $this->get_field_id( 'height_other' ); ?>" name="<?php echo $this->get_field_name( 'height_other' ); ?>" 
 					value="<?php echo $instance['height_other']; ?>" style="width:97%;" />
 			</div>
@@ -491,9 +480,9 @@ class LiveStreamWidget extends WP_Widget {
 		
 		if ( (has_comment_indexer_plugin()) ) { 
 			$source_content_array = array(
-				'local'	=>	__('Local - Content from only this site.', 'live-stream-widget'),
-				'site'	=>	__('Site - Content from all sites created by users from this site.', 'live-stream-widget'),
-				'all'	=>	__('All - Content by all users from all sites', 'live-stream-widget')
+				'local'	=>	__('Nur von dieser Website.', 'postindexer'),
+				'site'	=>	__('Von allen Websites, die von Benutzern dieser Website erstellt wurden.', 'postindexer'),
+				'all'	=>	__('Von allen Benutzern aller Websites', 'postindexer')
 			);
 			
 			if ( (function_exists('is_edublogs')) && (is_edublogs()) ) { 
@@ -501,7 +490,7 @@ class LiveStreamWidget extends WP_Widget {
 			}
 			
 			?>
-			<p><label><?php _e('What content to show', 'live-stream-widget');?>:<br />
+			<p><label><?php _e('Welchen Inhalt anzeigen', 'postindexer');?>:<br />
 			<select id="<?php echo $this->get_field_id( 'show_users_content' ); ?>" 
 				name="<?php echo $this->get_field_name( 'show_users_content'); ?>" class="widefat" style="width:100%;">
 				<?php
@@ -524,12 +513,12 @@ class LiveStreamWidget extends WP_Widget {
 			?>
 			<p>
 				<label for="<?php echo $this->get_field_id( 'content_types' ); ?>"><?php 
-					 _e('Content Types:', 'live-stream-widget');  ?></label> 
+					 _e('Inhaltstypen:', 'postindexer');  ?></label> 
 				<select id="<?php echo $this->get_field_id( 'content_types' ); ?>" 
 					class="widget-live-stream-content-types" size="1"
 					name="<?php echo $this->get_field_name( 'content_types' ); ?>[]" class="widefat">
 					<option value="" <?php if (!count($instance['content_types'])) { echo ' selected="selected" '; } ?>><?php 
-						_e('All Types', 'live-stream-widget'); ?></option>
+						_e('Alle Typen', 'postindexer'); ?></option>
 					<?php
 						foreach($content_types as $content_type) {
 							?><option value="<?php echo $content_type; ?>" <?php 
@@ -587,7 +576,7 @@ class LiveStreamWidget extends WP_Widget {
 					<p><input class="live-stream-terms-select-all"id="<?php echo $this->get_field_id( 'content_terms' ); ?>_select_all_<?php echo $tax_slug; ?>" 
 						<?php if (isset($instance['content_terms']['_select_all_'][$tax_slug])) { echo ' checked="checked" '; } ?>
 						name="<?php echo $this->get_field_name( 'content_terms' ); ?>[_select_all_][<?php echo $tax_slug; ?>]" type="checkbox"> <label
-							 for="<?php echo $this->get_field_id( 'content_terms' ); ?>_select_all_<?php echo $tax_slug; ?>"><?php _e('Select all', 'live-stream-widget'); ?></label > - <a class="live-stream-terms-show" href="#" class="" title="<?php _e('Click to show/hide taxonomy terms', 'live-stream-widget'); ?>"><?php 
+							 for="<?php echo $this->get_field_id( 'content_terms' ); ?>_select_all_<?php echo $tax_slug; ?>"><?php _e('Alle auswählen', 'postindexer'); ?></label > - <a class="live-stream-terms-show" href="#" class="" title="<?php _e('Klicken zum Anzeigen/Verstecken der Taxonomie-Begriffe', 'postindexer'); ?>"><?php 
 							echo $taxonomy->labels->name; ?></a>
 							
 						
@@ -598,7 +587,7 @@ class LiveStreamWidget extends WP_Widget {
 							if (count($selected_term_names)) {
 								echo implode(', ', $selected_term_names); 
 							} else {
-								_e('No terms selected', 'live-stream-widget');
+								_e('Keine Begriffe ausgewählt', 'postindexer');
 							}?></span></p>
 						<ul class="live-stream-admin-checklist" style="display:none">
 						<?php
@@ -1397,7 +1386,7 @@ function live_stream_build_display($instance, $items, $echo = true) {
 					$item_output .= " ";
 				$item_output .= $item_content;
 
-				$item_output .= ' <span class="live-stream-item-action">'. __("commented on", 'live-stream-widget') .'</span> ';
+				$item_output .= ' <span class="live-stream-item-action">'. __("kommentierte auf", 'postindexer') .'</span> ';
 				
 				/* Show the Post Title */
 				if (isset($blogs[$item->blog_id])) {
@@ -1417,7 +1406,7 @@ function live_stream_build_display($instance, $items, $echo = true) {
 					$item_output .= " "; 
 				$item_output .= $item_content;
 				
-				$item_output .= ' <span class="live-stream-item-action">'. __('published', 'live-stream-widget') .'</span> ';
+				$item_output .= ' <span class="live-stream-item-action">'. __('veröffentlicht', 'postindexer') .'</span> ';
 
 				/* Show the Post Title */
 				if (strlen($item_output)) $item_output .= " ";
@@ -1432,37 +1421,37 @@ function live_stream_build_display($instance, $items, $echo = true) {
 				if (isset($blog->siteurl)) {
 					$site_anchor_begin = '<a '. $link_target .' class="live-stream-item-blog" href="'. $blog->siteurl .'">';
 					$site_anchor_end	= '</a>';
-					$item_output .= __("via", 'live-stream-widget') ." ". $site_anchor_begin . $blog->blogname . $site_anchor_end ." ";
+					$item_output .= __("via", 'postindexer') ." ". $site_anchor_begin . $blog->blogname . $site_anchor_end ." ";
 				}
 			}
 		
 		
 			/* Show the Post/Comment human time */
 			$item_output .= '<div class="live-stream-text-footer">';
-			$item_output .= '<span class="live-stream-text-footer-date">'. sprintf( __( '%s ago ', 'live-stream-widget' ), 
+			$item_output .= '<span class="live-stream-text-footer-date">'. sprintf( __( '%s ago ', 'postindexer' ), 
 				human_time_diff( $item->post_published_stamp ) ) .'</span>';
 			$item_output .= ' &middot; ';
 			
 			if ($item->post_type == "comment") {
 				if ($instance['show_users_content'] == "local") {
 					$comment_count = get_comments_number( $item->post_id );
-					$comment_label = __('comment', 'live-stream-widget') ." (". $comment_count .")";
+					$comment_label = __('Kommentar', 'postindexer') ." (". $comment_count .")";
 
 					$item_output .= '<a '. $link_target .' class="live-stream-text-footer-date" href="'. 
 						$item->post_permalink .'#comments">'. $comment_label .'</a>';
 				} else {
-					$comment_label = __('comments', 'live-stream-widget');					
+					$comment_label = __('Kommentare', 'postindexer');					
 					$item_output .= '<a '. $link_target .' class="live-stream-text-footer-date" href="'. 
 						$item->post_permalink .'#comments">'. $comment_label .'</a>';
 				}
 			} else {
 				if (($instance['show_users_content'] == "local") && (array_search("post", $instance['content_types']) !== false)) {
 					$comment_count = get_comments_number( $item->post_id );
-					$comment_label = __('comment', 'live-stream-widget') ." (". $comment_count .")";
+					$comment_label = __('Kommentar', 'postindexer') ." (". $comment_count .")";
 					$item_output .= '<a '. $link_target .' class="live-stream-text-footer-date" href="'. $item->post_permalink .'#comments">'. $comment_label .'</a>';
 					
 				} else {
-					$item_output .= '<a '. $link_target.' class="live-stream-text-footer-date" href="'. $item->post_permalink .'">'. __('visit', 'live-stream-widget') .'</a>';					
+					$item_output .= '<a '. $link_target.' class="live-stream-text-footer-date" href="'. $item->post_permalink .'">'. __('besuchen', 'postindexer') .'</a>';					
 				}
 			}
 			$item_output .= '</div>';

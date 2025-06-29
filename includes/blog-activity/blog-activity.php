@@ -1,7 +1,7 @@
 <?php
 
 if( !is_multisite() )
-	exit( 'The Blog Activity plugin is only compatible with WordPress Multisite.' );
+	exit( __( 'Das Blog-Aktivitäts-Plugin funktioniert nur mit WordPress Multisite.', 'postindexer' ) );
 
 /**
  * Plugin main class
@@ -77,7 +77,7 @@ class Blog_Activity {
 			if( @is_file( ABSPATH . '/wp-admin/includes/upgrade.php' ) )
 				include_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
 			else
-				die( __( 'We have problem finding your \'/wp-admin/upgrade-functions.php\' and \'/wp-admin/includes/upgrade.php\'', 'blog_activity' ) );
+				die( __( 'Wir haben ein Problem beim Finden deiner \'/wp-admin/upgrade-functions.php\' und \'/wp-admin/includes/upgrade.php\'', 'postindexer' ) );
 
 			// choose correct table charset and collation
 			$charset_collate = '';
@@ -226,7 +226,7 @@ class Blog_Activity {
 
 		// Allow access for users with correct permissions only
 		if( !current_user_can( 'manage_network_options' ) ) {
-			_e( '<p>Nice Try...</p>', 'blog_activity' );
+			_e( '<p>Netter Versuch...</p>', 'postindexer' );
 			return;
 		}
 
@@ -245,9 +245,9 @@ class Blog_Activity {
 
 		$objects = array('blog', 'post', 'comment');
 		$labels = array(
-			'blog' => __('Updated blogs in the last:', 'blog_activity'),
-			'post' => __('Updated posts in the last:', 'blog_activity'),
-			'comment' => __('Updated comments in the last:', 'blog_activity'),
+			'blog' => __('Aktualisierte Blogs in den letzten:', 'postindexer'),
+			'post' => __('Aktualisierte Beiträge in den letzten:', 'postindexer'),
+			'comment' => __('Aktualisierte Kommentare in den letzten:', 'postindexer'),
 		);
 		$time_field = array('blog' => 'last_active', 'post' => 'stamp', 'comment' => 'stamp');
 		$stats = [];
@@ -262,22 +262,22 @@ class Blog_Activity {
 			);
 		}
 
-		echo '<h2>' . __( 'Blog Activity', 'blog_activity' ) . '</h2>';
+		echo '<h2>' . __( 'Blog-Aktivität', 'postindexer' ) . '</h2>';
 		echo '<div style="display:flex;gap:2em;justify-content:space-between;margin-bottom:2em;flex-wrap:wrap;">';
 		foreach ($objects as $object) {
 			echo '<div style="flex:1 1 0;min-width:260px;max-width:33%;background:#f8fafc;border:1.5px solid #e5e5e5;border-radius:10px;padding:1.5em 1.2em 1em 1.2em;box-shadow:0 2px 8px rgba(0,0,0,0.03);">';
 			echo '<h3 style="margin-top:0;font-size:1.15em;color:#0073aa;">' . esc_html($labels[$object]) . '</h3>';
 			echo '<ul style="list-style:none;padding:0;margin:0 0 0.5em 0;font-size:1.05em;">';
-			echo '<li>' . __('Five Minutes', 'blog_activity') . ': <strong>' . intval($stats[$object]['five_minutes']) . '</strong></li>';
-			echo '<li>' . __('Hour', 'blog_activity') . ': <strong>' . intval($stats[$object]['hour']) . '</strong></li>';
-			echo '<li>' . __('Day', 'blog_activity') . ': <strong>' . intval($stats[$object]['day']) . '</strong></li>';
-			echo '<li>' . __('Week', 'blog_activity') . ': <strong>' . intval($stats[$object]['week']) . '</strong></li>';
-			echo '<li>' . __('Month', 'blog_activity') . ': <strong>' . intval($stats[$object]['month']) . '</strong></li>';
+			echo '<li>' . __('Fünf Minuten', 'postindexer') . ': <strong>' . intval($stats[$object]['five_minutes']) . '</strong></li>';
+			echo '<li>' . __('Stunde', 'postindexer') . ': <strong>' . intval($stats[$object]['hour']) . '</strong></li>';
+			echo '<li>' . __('Tag', 'postindexer') . ': <strong>' . intval($stats[$object]['day']) . '</strong></li>';
+			echo '<li>' . __('Woche', 'postindexer') . ': <strong>' . intval($stats[$object]['week']) . '</strong></li>';
+			echo '<li>' . __('Monat', 'postindexer') . ': <strong>' . intval($stats[$object]['month']) . '</strong></li>';
 			echo '</ul>';
 			echo '</div>';
 		}
 		echo '</div>';
-		echo '<p style="color:#888;font-size:0.98em;">' . __( '* Month = 30 days<br />Note: It will take a full thirty days for all of this data to be accurate. For example, if the plugin has been installed for only a day then only "day", "hour", and "five minutes" will contain accurate data.', 'blog_activity' ) . '</p>';
+		echo '<p style="color:#888;font-size:0.98em;">' . __( '* Monat = 30 Tage<br />Hinweis: Es dauert volle dreißig Tage, bis alle diese Daten korrekt sind. Wenn das Plugin zum Beispiel erst seit einem Tag installiert ist, sind nur "Tag", "Stunde" und "fünf Minuten" wirklich aussagekräftig.', 'postindexer' ) . '</p>';
 		echo '</div>';
 	}
 

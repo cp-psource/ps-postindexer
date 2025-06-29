@@ -93,7 +93,7 @@ class globalsitetags {
 						"post_date" => current_time( 'mysql' ),
 						"post_date_gmt" => current_time( 'mysql', 1 ),
 						"post_content" => '',
-						"post_title" => __( 'Tags', 'globalsitetags' ),
+						"post_title" => __( 'Tags', 'postindexer' ),
 						"post_excerpt" => '',
 						"post_status" => 'publish',
 						"comment_status" => 'closed',
@@ -134,11 +134,11 @@ class globalsitetags {
 		$global_site_tags_post_type = get_site_option( 'global_site_tags_post_type', 'post' );
 		$post_types = $this->global_site_tags_get_post_types();
 
-		?><h3><?php _e( 'Site Tags', "globalsitetags" ) ?></h3>
+		?><h3><?php _e( 'Seiten-Tags', 'postindexer' ) ?></h3>
 
 		<table class="form-table">
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Tags Shown', "globalsitetags" ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Angezeigte Tags', 'postindexer' ) ?></th>
 				<td>
 					<select name="global_site_tags_shown" id="global_site_tags_shown">
 						<?php for ( $i = 5; $i <= 50; $i += 5 ) : ?>
@@ -148,7 +148,7 @@ class globalsitetags {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Listing Per Page', "globalsitetags" ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Auflistung pro Seite', 'postindexer' ) ?></th>
 				<td>
 					<select name="global_site_tags_per_page" id="global_site_tags_per_page">
 						<?php for ( $i = 5; $i <= 50; $i += 5 ) : ?>
@@ -158,40 +158,40 @@ class globalsitetags {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Background Color', "globalsitetags" ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Hintergrundfarbe', 'postindexer' ) ?></th>
 				<td>
 					<input name="global_site_tags_background_color" type="text" id="global_site_tags_background_color" value="<?php echo esc_attr( $global_site_tags_background_color ) ?>" size="20">
-					<br><?php _e( 'Default', "globalsitetags" ) ?>: #F2F2EA
+					<br><?php _e( 'Standard', 'postindexer' ) ?>: #F2F2EA
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Alternate Background Color', "globalsitetags" ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Alternative Hintergrundfarbe', 'postindexer' ) ?></th>
 				<td>
 					<input name="global_site_tags_alternate_background_color" type="text" id="global_site_tags_alternate_background_color" value="<?php echo esc_attr( $global_site_tags_alternate_background_color ) ?>" size="20">
-					<br><?php _e( 'Default', "globalsitetags" ) ?>: #FFFFFF
+					<br><?php _e( 'Standard', 'postindexer' ) ?>: #FFFFFF
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Border Color', "globalsitetags" ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Rahmenfarbe', 'postindexer' ) ?></th>
 				<td>
 					<input name="global_site_tags_border_color" type="text" id="global_site_tags_border_color" value="<?php echo ( $global_site_tags_border_color ) ?>" size="20">
-					<br><?php _e( 'Default', "globalsitetags" ) ?>: #CFD0CB
+					<br><?php _e( 'Standard', 'postindexer' ) ?>: #CFD0CB
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'Banned Tags', "globalsitetags" ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Ausgeschlossene Tags', 'postindexer' ) ?></th>
 				<td>
 					<input name="global_site_tags_banned_tags" type="text" id="global_site_tags_banned_tags" value="<?php echo esc_attr( $global_site_tags_banned_tags ) ?>" style="width:95%">
-					<br><?php _e( 'Banned tags will not appear in tag clouds. Please separate tags with commas. Ex: tag1, tag2, tag3', "globalsitetags" ) ?>
+					<br><?php _e( 'Ausgeschlossene Tags werden nicht in der Tag-Cloud angezeigt. Bitte mit Komma trennen. Z.B.: tag1, tag2, tag3', 'postindexer' ) ?>
 				</td>
 			</tr>
 			<tr valign="top">
-				<th width="33%" scope="row"><?php _e( 'List Post Type', 'globalsitetags' ) ?></th>
+				<th width="33%" scope="row"><?php _e( 'Beitragstyp auflisten', 'postindexer' ) ?></th>
 				<td>
 					<select name="global_site_tags_post_type" id="global_site_tags_post_type">
-						<option value="all"><?php _e( 'all', 'globalsitetags' ) ?></option>
+						<option value="all"><?php _e( 'alle', 'postindexer' ) ?></option>
 						<?php foreach ( $post_types as $r ) : ?>
-						<option value="<?php echo esc_attr( $r ) ?>"<?php selected( $r, $global_site_tags_post_type ) ?>><?php esc_html_e( $r, 'globalsitetags' ) ?></option>
+						<option value="<?php echo esc_attr( $r ) ?>"<?php selected( $r, $global_site_tags_post_type ) ?>><?php esc_html_e( $r, 'postindexer' ) ?></option>
 						<?php endforeach; ?>
 					</select>
 				</td>
@@ -265,7 +265,7 @@ class globalsitetags {
 		$thetags = $wpdb->get_results( $query );
 		$content .= !empty( $thetags )
 			? wp_generate_tag_cloud( $thetags, array( 'smallest' => $smallest, 'largest' => $largest, 'unit' => 'px', 'number' => $number, 'orderby' => 'count', 'order' => 'DESC' ) )
-			: '<p style="text-align:center">' . __( "There are no tags to display.", "globalsitetags" ) . '</p>';
+			: '<p style="text-align:center">' . __( "Es gibt keine Tags zum Anzeigen.", "postindexer" ) . '</p>';
 
 		return '<div class="tagcloud">' . $content . '</div>';
 	}
@@ -324,7 +324,7 @@ class globalsitetags {
 
 		if ( !network_have_posts() ) {
 			$content .= '<p style="text-align:center">';
-			$content .= __( 'Nothing found for search term(s).', 'globalsitetags' );
+			$content .= __( 'Nichts gefunden für Suchbegriff(e).', 'postindexer' );
 			$content .= '</p>';
 
 			return $content;
@@ -342,7 +342,7 @@ class globalsitetags {
 		$content .= '<table border="0" width="100%" bgcolor="">';
 		$content .= '<tr>';
 		$content .= '<td style="background-color:' . $global_site_tags_background_color . '; border-bottom-style:solid; border-bottom-color:' . $global_site_tags_border_color . '; border-bottom-width:1px; font-size:12px;" width="10%"> </td>';
-		$content .= '<td style="background-color:' . $global_site_tags_background_color . '; border-bottom-style:solid; border-bottom-color:' . $global_site_tags_border_color . '; border-bottom-width:1px; font-size:12px;" width="90%"><center><strong>' . __( 'Posts', 'globalsitesearch' ) . '</strong></center></td>';
+		$content .= '<td style="background-color:' . $global_site_tags_background_color . '; border-bottom-style:solid; border-bottom-color:' . $global_site_tags_border_color . '; border-bottom-width:1px; font-size:12px;" width="90%"><center><strong>' . __( 'Beiträge', 'postindexer' ) . '</strong></center></td>';
 		$content .= '</tr>';
 
 		// Search results
@@ -357,7 +357,7 @@ class globalsitetags {
 			//=============================//
 			$author_id = network_get_the_author_id();
 			$the_author = get_user_by( 'id', $author_id );
-			$post_author_display_name = $the_author ? $the_author->display_name : __( 'Unknown', 'globalsitetags' );
+			$post_author_display_name = $the_author ? $the_author->display_name : __( 'Unbekannt', 'postindexer' );
 
 			$tic_toc = ($tic_toc == 'toc') ? 'tic' : 'toc';
 			$bg_color = ($tic_toc == 'tic') ? $global_site_tags_alternate_background_color : $global_site_tags_background_color;
@@ -368,10 +368,10 @@ class globalsitetags {
 				$content .= '<td style="background-color:' . $bg_color . ';padding-top:10px;vertical-align:top;text-align:left;" width="90%" valign="top">';
 					$content .= '<div>';
 						$content .= $members_directory_site_admin_options_exists
-							? '<strong><a style="text-decoration:none;" href="http://' . $current_site->domain . $current_site->path . $members_directory_base . '/' . $the_author->user_nicename . '/">' . $post_author_display_name . '</a> ' . __( ' wrote', 'globalsitetags' ) . ': </strong> '
-							: '<strong>' . sprintf( _x( '%s wrote', '{author name} wrote', 'globalsitetags' ), $post_author_display_name ) . ': </strong> ';
+							? '<strong><a style="text-decoration:none;" href="http://' . $current_site->domain . $current_site->path . $members_directory_base . '/' . $the_author->user_nicename . '/">' . $post_author_display_name . '</a> ' . __( ' schrieb', 'postindexer' ) . ': </strong> '
+							: '<strong>' . sprintf( _x( '%s schrieb', '{author name} schrieb', 'postindexer' ), $post_author_display_name ) . ': </strong> ';
 					$content .= '<strong><a style="text-decoration:none;" href="' . network_get_permalink() . '">' . network_get_the_title() . '</a></strong></div>';
-					$content .= substr( strip_tags( network_get_the_content() ), 0, 250 ) . ' (<a href="' . network_get_permalink() . '">' . __( 'More', 'globalsitetags' ) . '</a>)';
+					$content .= substr( strip_tags( network_get_the_content() ), 0, 250 ) . ' (<a href="' . network_get_permalink() . '">' . __( 'Mehr', 'postindexer' ) . '</a>)';
 				$content .= '</td>';
 			$content .= '</tr>';
 		}

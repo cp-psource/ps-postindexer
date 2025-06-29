@@ -36,7 +36,7 @@ class User_Activity {
 		global $wpmudev_notices;
 		$wpmudev_notices[] = array(
 			'id' => 3,
-			'name' => __( 'User Activity', 'user_activity' ),
+			'name' => __( 'Nutzer-Aktivität', 'postindexer' ),
 			'screens' => array( 'settings_page_user_activity_main-network' ),
 		);
 	}
@@ -185,9 +185,9 @@ class User_Activity {
 
 		// Allow access for users with correct permissions only
 		if ( is_multisite() && ! current_user_can( 'manage_network_options' ) ) {
-			die( __( 'Nice Try...', 'user_activity' ) );
+			die( __( 'Netter Versuch...', 'postindexer' ) );
 		} elseif ( ! is_multisite() && ! current_user_can( 'manage_options' ) ) {
-			die( __( 'Nice Try...', 'user_activity' ) );
+			die( __( 'Netter Versuch...', 'postindexer' ) );
 		}
 
 		echo '<div class="wrap">';
@@ -236,7 +236,7 @@ class User_Activity {
 		);
 
 		?>
-		<h2><?php _e( 'User Activity', 'user_activity' ); ?></h2>
+		<h2><?php _e( 'Nutzer-Aktivität', 'postindexer' ); ?></h2>
 
 		<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-1">
@@ -244,32 +244,32 @@ class User_Activity {
 					<div id="advanced-sortables" class="meta-box-sortables ui-sortable">
 						<div id="ua-totals-box" class="postbox" style="display: block;">
 							<div class="handlediv" title="Haz clic para cambiar"><br></div>
-							<h3 class="hndle"><span><?php _e( 'Totals', 'user_activity' ); ?></span></h3>
+							<h3 class="hndle"><span><?php _e( 'Gesamt', 'postindexer' ); ?></span></h3>
 							<div class="inside">
 								<table class="form-table">
 									<thead>
-									<th><h4><?php _e( 'Active users in the last', 'user_activity' ); ?></h4></th>
-									<th><h4 class="ua-visits"><?php _e( 'Unique visits', 'user_activity' ); ?></h4></th>
+									<th><h4><?php _e( 'Aktive Nutzer in den letzten', 'postindexer' ); ?></h4></th>
+									<th><h4 class="ua-visits"><?php _e( 'Eindeutige Besuche', 'postindexer' ); ?></h4></th>
 									</thead>
 									<tbody>
 									<tr>
-										<td><?php _e( 'Five Minutes', 'user_activity' ); ?></td>
+										<td><?php _e( 'Fünf Minuten', 'postindexer' ); ?></td>
 										<td class="ua-visits"><?php echo $five_minutes; ?></td>
 									</tr>
 									<tr>
-										<td><?php _e( 'Hour', 'user_activity' ); ?></td>
+										<td><?php _e( 'Stunde', 'postindexer' ); ?></td>
 										<td class="ua-visits"><?php echo $hour; ?></td>
 									</tr>
 									<tr>
-										<td><?php _e( 'Day', 'user_activity' ); ?></td>
+										<td><?php _e( 'Tag', 'postindexer' ); ?></td>
 										<td class="ua-visits"><?php echo $day; ?></td>
 									</tr>
 									<tr>
-										<td><?php _e( 'Week', 'user_activity' ); ?></td>
+										<td><?php _e( 'Woche', 'postindexer' ); ?></td>
 										<td class="ua-visits"><?php echo $week; ?></td>
 									</tr>
 									<tr>
-										<td><?php _e( '30 days', 'user_activity' ); ?></td>
+										<td><?php _e( '30 Tage', 'postindexer' ); ?></td>
 										<td class="ua-visits"><?php echo $month; ?></td>
 									</tr>
 									</tbody>
@@ -279,18 +279,18 @@ class User_Activity {
 
 						<div id="ua-today-box" class="postbox" style="display: block;">
 							<div class="handlediv" title="Haz clic para cambiar"><br></div>
-							<h3 class="hndle"><span><?php _e( 'Today', 'user_activity' ); ?></span></h3>
+							<h3 class="hndle"><span><?php _e( 'Heute', 'postindexer' ); ?></span></h3>
 							<div class="inside">
 								<table class="form-table">
 									<thead>
-									<th><h4><?php _e( 'User', 'user_activity' ); ?></h4></th>
-									<th><h4 class="ua-visits"><?php _e( 'Visits', 'user_activity' ); ?></h4></th>
+									<th><h4><?php _e( 'Nutzer', 'postindexer' ); ?></h4></th>
+									<th><h4 class="ua-visits"><?php _e( 'Besuche', 'postindexer' ); ?></h4></th>
 									</thead>
 									<tbody>
 									<?php foreach ( $today_results as $row ): ?>
 										<?php
 										$user = get_userdata( $row->user_ID );
-										$nicename = isset( $user->data->user_nicename ) ? $user->data->user_nicename : __( 'Unknown', 'user_activity' );
+										$nicename = isset( $user->data->user_nicename ) ? $user->data->user_nicename : __( 'Unbekannt', 'postindexer' );
 										$user_link = $user ? '<a href="' . network_admin_url( 'user-edit.php?user_id=' . $row->user_ID ) . '">' . $nicename . '</a>' : $nicename;
 										?>
 										<tr>
@@ -306,18 +306,18 @@ class User_Activity {
 
 						<div id="ua-seven-days-box" class="postbox" style="display: block;">
 							<div class="handlediv" title="Haz clic para cambiar"><br></div>
-							<h3 class="hndle"><span><?php _e( 'Last 7 days', 'user_activity' ); ?></span></h3>
+							<h3 class="hndle"><span><?php _e( 'Letzte 7 Tage', 'postindexer' ); ?></span></h3>
 							<div class="inside">
 								<table class="form-table">
 									<thead>
-									<th><h4><?php _e( 'User', 'user_activity' ); ?></h4></th>
-									<th><h4 class="ua-visits"><?php _e( 'Visits', 'user_activity' ); ?></h4></th>
+									<th><h4><?php _e( 'Nutzer', 'postindexer' ); ?></h4></th>
+									<th><h4 class="ua-visits"><?php _e( 'Besuche', 'postindexer' ); ?></h4></th>
 									</thead>
 									<tbody>
 									<?php foreach ( $last_7_days_results as $row ): ?>
 										<?php
 										$user = get_userdata( $row->user_ID );
-										$nicename = isset( $user->data->user_nicename ) ? $user->data->user_nicename : __( 'Unknown', 'user_activity' );
+										$nicename = isset( $user->data->user_nicename ) ? $user->data->user_nicename : __( 'Unbekannt', 'postindexer' );
 										$user_link = $user ? '<a href="' . network_admin_url( 'user-edit.php?user_id=' . $row->user_ID ) . '">' . $nicename . '</a>' : $nicename;
 										?>
 										<tr>
@@ -333,18 +333,18 @@ class User_Activity {
 
 						<div id="ua-30-days-box" class="postbox" style="display: block;">
 							<div class="handlediv" title="Haz clic para cambiar"><br></div>
-							<h3 class="hndle"><span><?php _e( 'Last 30 days', 'user_activity' ); ?></span></h3>
+							<h3 class="hndle"><span><?php _e( 'Letzte 30 Tage', 'postindexer' ); ?></span></h3>
 							<div class="inside">
 								<table class="form-table">
 									<thead>
-									<th><h4><?php _e( 'User', 'user_activity' ); ?></h4></th>
-									<th><h4 class="ua-visits"><?php _e( 'Visits', 'user_activity' ); ?></h4></th>
+									<th><h4><?php _e( 'Nutzer', 'postindexer' ); ?></h4></th>
+									<th><h4 class="ua-visits"><?php _e( 'Besuche', 'postindexer' ); ?></h4></th>
 									</thead>
 									<tbody>
 									<?php foreach ( $last_month_results as $row ): ?>
 										<?php
 										$user = get_userdata( $row->user_ID );
-										$nicename = isset( $user->data->user_nicename ) ? $user->data->user_nicename : __( 'Unknown', 'user_activity' );
+										$nicename = isset( $user->data->user_nicename ) ? $user->data->user_nicename : __( 'Unbekannt', 'postindexer' );
 										$user_link = $user ? '<a href="' . network_admin_url( 'user-edit.php?user_id=' . $row->user_ID ) . '">' . $nicename . '</a>' : $nicename;
 										?>
 										<tr>

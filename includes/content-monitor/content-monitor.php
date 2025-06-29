@@ -242,11 +242,11 @@ PERMALINK", 'contentmon' );
 				remove_filter( 'preprocess_comment', array( &$this, 'comment_monitor' ), 10 );
 			}
 			?>
-			<div id="message" class="updated fade"><p><?php _e( 'Settings saved.', 'contentmon' ) ?></p></div><?php
+			<div id="message" class="updated fade"><p><?php _e( 'Einstellungen gespeichert.', 'postindexer' ) ?></p></div><?php
 		}
 
 		?>
-		<h2><?php _e( 'Content Monitor', 'contentmon' ) ?></h2>
+		<h2><?php _e( 'Content Monitor', 'postindexer' ) ?></h2>
 		<form method="post" action="">
 			<style>
 				.cm-status-enabled { background: #27ae60 !important; color: #fff !important; font-weight: bold; }
@@ -277,23 +277,23 @@ PERMALINK", 'contentmon' );
 								<fieldset style="min-width:220px; border:1px solid #ccc; padding:16px; border-radius:6px; flex:1;">
 									<legend style="font-weight:bold;">Post/Page Monitoring</legend>
 									<label for="content_monitor_post_monitoring" style="display:block; margin-bottom:8px;">
-										<?php _e( 'Überwache Beiträge und Seiten auf Badwords.', 'contentmon' ) ?>
+										<?php _e( 'Überwache Beiträge und Seiten auf Badwords.', 'postindexer' ) ?>
 									</label>
 									<select name="content_monitor_post_monitoring" id="content_monitor_post_monitoring" style="width:100%;">
 										<?php $enabled = (bool) get_site_option( 'content_monitor_post_monitoring' ); ?>
-										<option value="1"<?php selected( $enabled, true ); ?>><?php _e( 'Enabled', 'contentmon' ) ?></option>
-										<option value="0"<?php selected( $enabled, false ); ?>><?php _e( 'Disabled', 'contentmon' ) ?></option>
+										<option value="1"<?php selected( $enabled, true ); ?>><?php _e( 'Aktiviert', 'postindexer' ) ?></option>
+										<option value="0"<?php selected( $enabled, false ); ?>><?php _e( 'Deaktiviert', 'postindexer' ) ?></option>
 									</select>
 								</fieldset>
 								<fieldset style="min-width:220px; border:1px solid #ccc; padding:16px; border-radius:6px; flex:1;">
 									<legend style="font-weight:bold;">Comment Monitoring</legend>
 									<label for="content_monitor_comment_monitoring" style="display:block; margin-bottom:8px;">
-										<?php _e( 'Kommentare werden auf Badwords geprüft und ggf. ersetzt.', 'contentmon' ) ?>
+										<?php _e( 'Kommentare werden auf Badwords geprüft und ggf. ersetzt.', 'postindexer' ) ?>
 									</label>
 									<select name="content_monitor_comment_monitoring" id="content_monitor_comment_monitoring" style="width:100%;">
 										<?php $enabled = (bool) get_site_option( 'content_monitor_comment_monitoring' ); ?>
-										<option value="1"<?php selected( $enabled, true ); ?>><?php _e( 'Enabled', 'contentmon' ) ?></option>
-										<option value="0"<?php selected( $enabled, false ); ?>><?php _e( 'Disabled', 'contentmon' ) ?></option>
+										<option value="1"<?php selected( $enabled, true ); ?>><?php _e( 'Aktiviert', 'postindexer' ) ?></option>
+										<option value="0"<?php selected( $enabled, false ); ?>><?php _e( 'Deaktiviert', 'postindexer' ) ?></option>
 									</select>
 								</fieldset>
 							</div>
@@ -301,45 +301,45 @@ PERMALINK", 'contentmon' );
 								<fieldset style="min-width:220px; border:1px solid #ccc; padding:16px; border-radius:6px; flex:1;">
 									<legend style="font-weight:bold;">Badword Replacement</legend>
 									<label for="content_monitor_replace_word" style="display:block; margin-bottom:8px;">
-										<?php _e( 'Alle Badwords werden durch dieses Wort ersetzt.', 'contentmon' ) ?>
+										<?php _e( 'Alle Badwords werden durch dieses Wort ersetzt.', 'postindexer' ) ?>
 									</label>
 									<input name="content_monitor_replace_word" type="text" id="content_monitor_replace_word" style="width:100%;" value="<?php echo esc_attr( get_site_option( 'content_monitor_replace_word', 'PIEPS' ) ); ?>" size="20"/>
 								</fieldset>
 								<fieldset style="min-width:220px; border:1px solid #ccc; padding:16px; border-radius:6px; flex:1;">
 									<legend style="font-weight:bold;">Integrierte Badword-Liste</legend>
 									<label for="content_monitor_use_default_list" style="display:block; margin-bottom:8px;">
-										<?php _e( 'Sehr strenge, integrierte Liste verwenden', 'contentmon' ) ?>
+										<?php _e( 'Sehr strenge, integrierte Liste verwenden', 'postindexer' ) ?>
 									</label>
 									<input type="checkbox" name="content_monitor_use_default_list" id="content_monitor_use_default_list" value="1" <?php checked( get_site_option('content_monitor_use_default_list'), 1 ); ?> />
-									<span style="font-size:11px; color:#666; display:block; margin-top:8px;">(<?php _e('Ergänzt die eigene Liste, enthält viele beleidigende Begriffe.', 'contentmon'); ?>)</span>
+									<span style="font-size:11px; color:#666; display:block; margin-top:8px;">(<?php _e('Ergänzt die eigene Liste, enthält viele beleidigende Begriffe.', 'postindexer'); ?>)</span>
 								</fieldset>
 							</div>
 						</div>
 					</td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><?php _e( 'Email Address', 'contentmon' ) ?></th>
+					<th scope="row"><?php _e( 'E-Mail-Adresse', 'postindexer' ) ?></th>
 					<td>
 						<?php $email = get_site_option( 'content_monitor_email' );
 						$email       = is_email( $email ) ? $email : get_site_option( "admin_email" );
 						?>
 						<input name="content_monitor_email" type="text" id="content_monitor_email" style="width: 95%"
 						       value="<?php echo esc_attr( $email ); ?>" size="45"/>
-						<br/><?php _e( 'Content notifications will be sent to this address.', 'contentmon' ) ?></td>
+						<br/><?php _e( 'Benachrichtigungen werden an diese Adresse gesendet.', 'postindexer' ) ?></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><?php _e( 'Bad Words', 'contentmon' ) ?></th>
+					<th scope="row"><?php _e( 'Badwords', 'postindexer' ) ?></th>
 					<td>
 					<textarea name="content_monitor_bad_words" type="text" rows="5" wrap="soft"
 					          id="content_monitor_bad_words"
 					          style="width: 95%"/><?php echo esc_textarea( get_site_option( 'content_monitor_bad_words' ) ); ?></textarea>
-						<br/><?php _e( 'Place a comma between each word (ex bad, word).', 'contentmon' ) ?></td>
+						<br/><?php _e( 'Trenne jedes Wort mit einem Komma (z.B. böse, wort).', 'postindexer' ) ?></td>
 				</tr>
 			</table>
 
 			<p class="submit">
 				<input type="submit" name="Submit" class="button-primary"
-				       value="<?php _e( 'Save Changes', 'contentmon' ) ?>"/>
+				       value="<?php _e( 'Änderungen speichern', 'postindexer' ) ?>"/>
 			</p>
 		</form>
 
@@ -352,7 +352,7 @@ PERMALINK", 'contentmon' );
 				unset($badword_log[$idx]);
 				$badword_log = array_values($badword_log);
 				update_site_option( 'content_monitor_log', $badword_log );
-				?><div id="message" class="updated fade"><p><?php _e( 'Meldung gelöscht.', 'contentmon' ) ?></p></div><?php
+				?><div id="message" class="updated fade"><p><?php _e( 'Meldung gelöscht.', 'postindexer' ) ?></p></div><?php
 				// Nach dem Löschen neu laden!
 				$badword_log = get_site_option( 'content_monitor_log', array() );
 			}
@@ -383,17 +383,17 @@ PERMALINK", 'contentmon' );
 		</script>
 		<?php
 		echo '<h2 class="nav-tab-wrapper">';
-		echo '<a href="#content-monitor-tab-meldungen" class="nav-tab' . ($active_tab=='meldungen'?' nav-tab-active':'') . '">' . __('NEUE MELDUNGEN', 'contentmon') . ' <span class="count">' . $counter . '</span></a>';
-		echo '<a href="#content-monitor-tab-watchlist" class="nav-tab' . ($active_tab=='watchlist'?' nav-tab-active':'') . '">' . __('WATCHLIST', 'contentmon') . '</a>';
+		echo '<a href="#content-monitor-tab-meldungen" class="nav-tab' . ($active_tab=='meldungen'?' nav-tab-active':'') . '">' . __('Neue Meldungen', 'postindexer') . ' <span class="count">' . $counter . '</span></a>';
+		echo '<a href="#content-monitor-tab-watchlist" class="nav-tab' . ($active_tab=='watchlist'?' nav-tab-active':'') . '">' . __('Watchlist', 'postindexer') . '</a>';
 		echo '</h2>';
 		echo '<div id="content-monitor-tab-meldungen" class="content-monitor-tab-content">';
 		if (!empty($badword_log)) {
-			echo '<h3>' . esc_html__('Gefundene Badwords', 'contentmon') . '</h3>';
+			echo '<h3>' . esc_html__('Gefundene Badwords', 'postindexer') . '</h3>';
 			echo '<table class="widefat"><thead><tr>';
-			echo '<th>' . esc_html__('Datum', 'contentmon') . '</th>';
-			echo '<th>' . esc_html__('Beitrag', 'contentmon') . '</th>';
-			echo '<th>' . esc_html__('User', 'contentmon') . '</th>';
-			echo '<th>' . esc_html__('E-Mail', 'contentmon') . '</th>';
+			echo '<th>' . esc_html__('Datum', 'postindexer') . '</th>';
+			echo '<th>' . esc_html__('Beitrag', 'postindexer') . '</th>';
+			echo '<th>' . esc_html__('User', 'postindexer') . '</th>';
+			echo '<th>' . esc_html__('E-Mail', 'postindexer') . '</th>';
 			echo '<th></th>';
 			echo '</tr></thead><tbody>';
 			foreach ($log_slice as $idx => $entry) {
@@ -410,7 +410,7 @@ PERMALINK", 'contentmon' );
 			echo '</tbody></table>';
 			// --- Navigation ---
 			if ($log_max_page > 1) {
-				echo '<div style="margin:12px 0;">Seite: ';
+				echo '<div style="margin:12px 0;">' . __('Seite:', 'postindexer') . ' ';
 				for ($i = 1; $i <= $log_max_page; $i++) {
 					if ($i == $log_page) {
 						echo '<span style="font-weight:bold;">['.$i.']</span> ';
@@ -421,7 +421,7 @@ PERMALINK", 'contentmon' );
 				echo '</div>';
 			}
 		} else {
-			echo '<p>' . __('Keine neuen Meldungen.', 'contentmon') . '</p>';
+			echo '<p>' . __('Keine neuen Meldungen.', 'postindexer') . '</p>';
 		}
 		echo '</div>';
 		echo '<div id="content-monitor-tab-watchlist" class="content-monitor-tab-content">';
@@ -455,12 +455,12 @@ PERMALINK", 'contentmon' );
 		$user_stats_keys = array_keys($user_stats);
 		$watchlist_start = ($watchlist_page-1)*$watchlist_per_page;
 		$watchlist_slice = array_slice($user_stats_keys, $watchlist_start, $watchlist_per_page);
-		echo '<h3>' . esc_html__('User-Watchlist', 'contentmon') . '</h3>';
+		echo '<h3>' . esc_html__('User-Watchlist', 'postindexer') . '</h3>';
 		echo '<table class="widefat"><thead><tr>';
-		echo '<th>' . esc_html__('User', 'contentmon') . '</th>';
-		echo '<th>' . esc_html__('E-Mail', 'contentmon') . '</th>';
-		echo '<th>' . esc_html__('Badword-Counter', 'contentmon') . '</th>';
-		echo '<th>' . esc_html__('Wörter (Anzahl)', 'contentmon') . '</th>';
+		echo '<th>' . esc_html__('User', 'postindexer') . '</th>';
+		echo '<th>' . esc_html__('E-Mail', 'postindexer') . '</th>';
+		echo '<th>' . esc_html__('Badword-Counter', 'postindexer') . '</th>';
+		echo '<th>' . esc_html__('Wörter (Anzahl)', 'postindexer') . '</th>';
 		echo '</tr></thead><tbody>';
 		foreach ($watchlist_slice as $uid) {
 			$u = $user_stats[$uid];

@@ -14,6 +14,6 @@ if (is_admin() && isset($_POST['ps_lsw_settings_nonce']) && check_admin_referer(
     // Hier können Einstellungen gespeichert werden
     // update_site_option('live_stream_widget_settings', ...);
     add_action('admin_notices', function(){
-        echo '<div class="updated notice is-dismissible"><p>Live Stream Widget: Einstellungen gespeichert.</p></div>';
+        echo '<div class="updated notice is-dismissible"><p>' . __('Live Stream Widget: Einstellungen gespeichert.', 'postindexer') . '</p></div>';
     });
 }

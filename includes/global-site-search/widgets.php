@@ -5,14 +5,14 @@ class Global_Site_Search_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_options = array(
 			'classname'   => 'global-site-search',
-			'description' => __( 'Netzwerksuche Widget', 'globalsitesearch' ),
+			'description' => __( 'Netzwerksuche Widget', 'postindexer' ),
 		);
 
 		$control_options = array(
 			'id_base' => 'global-site-search-widget',
 		);
 
-		parent::__construct( 'global-site-search-widget', __( 'Netzwerksuche Widget', 'globalsitesearch' ), $widget_options, $control_options );
+		parent::__construct( 'global-site-search-widget', __( 'Netzwerksuche Widget', 'postindexer' ), $widget_options, $control_options );
 	}
 
 	function widget( $args, $instance ) {
@@ -31,8 +31,8 @@ class Global_Site_Search_Widget extends WP_Widget {
 		$phrase = isset($_GET['gss_widget_phrase']) ? trim(stripslashes($_GET['gss_widget_phrase'])) : '';
 		// Widget-Suchformular per AJAX, damit kein Redirect erfolgt
 		echo '<form id="gss-widget-form-' . esc_attr($this->id) . '" action="#" method="get">';
-		echo '<input type="text" name="gss_widget_phrase" value="' . esc_attr($phrase) . '" placeholder="Suchbegriff..." style="width:70%;margin-right:0.5em;">';
-		echo '<input type="submit" value="Suchen">';
+		echo '<input type="text" name="gss_widget_phrase" value="' . esc_attr($phrase) . '" placeholder="' . esc_attr__('Suchbegriff...', 'postindexer') . '" style="width:70%;margin-right:0.5em;">';
+		echo '<input type="submit" value="' . esc_attr__('Suchen', 'postindexer') . '">';
 		echo '</form>';
 		echo '<div id="gss-widget-results-' . esc_attr($this->id) . '">';
 		if ($phrase !== '') {
@@ -47,9 +47,9 @@ class Global_Site_Search_Widget extends WP_Widget {
 				}
 				echo '</ul>';
 				$main_site_url = network_home_url( global_site_search_get_search_base() . '/' . urlencode($phrase) . '/' );
-				echo '<div style="margin-top:0.7em;"><a href="' . esc_url($main_site_url) . '" style="font-weight:bold;">Weitere Treffer anzeigen</a></div>';
+				echo '<div style="margin-top:0.7em;"><a href="' . esc_url($main_site_url) . '" style="font-weight:bold;">' . esc_html__('Weitere Treffer anzeigen', 'postindexer') . '</a></div>';
 			} else {
-				echo '<div style="margin-top:0.7em;color:#888;">Keine Treffer gefunden.</div>';
+				echo '<div style="margin-top:0.7em;color:#888;">' . esc_html__('Keine Treffer gefunden.', 'postindexer') . '</div>';
 			}
 		}
 		echo '</div>';
@@ -84,11 +84,10 @@ class Global_Site_Search_Widget extends WP_Widget {
 
 	function form( $instance ) {
 		$instance = wp_parse_args( (array)$instance, array(
-			'title' => __( 'Netzwerksuche', 'globalsitesearch' ),
+			'title' => __( 'Netzwerksuche', 'postindexer' ),
 		) );
-
 		?><p>
-			<label for="<?php echo $this->get_field_id( 'title' ) ?>"><?php _e( 'Titel', 'globalsitesearch' ) ?>:</label>
+			<label for="<?php echo $this->get_field_id( 'title' ) ?>"><?php _e( 'Titel', 'postindexer' ) ?>:</label>
 			<input type="text" id="<?php echo $this->get_field_id( 'title' ) ?>" name="<?php echo $this->get_field_name( 'title' ) ?>" value="<?php echo esc_attr( $instance['title'] ) ?>" class="widefat">
 		</p><?php
 	}

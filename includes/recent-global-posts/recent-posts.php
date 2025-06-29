@@ -130,7 +130,7 @@ class Recent_Network_Posts {
 
 	private function get_recent_posts( array $args ): string {
 		if ( ! function_exists( 'network_query_posts' ) ) {
-			return '<p>Indexer-Plugin nicht aktiv. Keine Beiträge verfügbar.</p>';
+			return '<p>' . __('Indexer-Plugin nicht aktiv. Keine Beiträge verfügbar.', 'postindexer') . '</p>';
 		}
 
 		$html = '';
@@ -249,7 +249,7 @@ class Recent_Network_Posts {
                 $html .= '<div class="author">' . esc_html( $post['author'] ) . '</div>';
             }
             // Weiterlesen-Link
-            $read_more = $args['read_more_text'] !== '' ? $args['read_more_text'] : 'Weiterlesen';
+            $read_more = $args['read_more_text'] !== '' ? $args['read_more_text'] : __('Weiterlesen', 'postindexer');
             $html .= '<a class="read-more" href="' . esc_url( $post['url'] ) . '">' . esc_html( $read_more ) . '</a>';
 
             $html .= '</div>';
